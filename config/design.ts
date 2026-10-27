@@ -17,14 +17,14 @@ import type { DesignConfig } from '@/lib/phone/config-types'
  */
 export const DESIGN: DesignConfig = {
   lockScreen: {
-    wallpaper: '/sunjay-phone/images/wallpaper.png',
+    wallpaper: '/sunjay-phone/images/wallpaper.jpg',
     dimOpacity: 0.25,
     clockColor: '#ffffff',
     textColor: '#ffffff',
   },
 
   homeScreen: {
-    wallpaper: '/sunjay-phone/images/wallpaper.png',
+    wallpaper: '/sunjay-phone/images/homescreen.jpg',
     dimOpacity: 0.1,
     clockColor: '#ffffff',
     textColor: '#ffffff',
