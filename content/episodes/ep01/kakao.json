@@ -8,24 +8,14 @@
       ],
       "pinned": true,
       "messages": [
-        {
-          "id": "kakao-user-1",
-          "from": "user",
-          "text": "고디바모찌",
-          "sentAt": "2026-10-25T19:02"
-        },
-        {
-          "id": "kakao-user-2",
-          "from": "me",
-          "text": "그거 뭔데?",
-          "sentAt": "2026-10-25T19:10"
-        },
-        {
-          "id": "kakao-user-3",
-          "from": "me",
-          "text": "어디서 사?",
-          "sentAt": "2026-10-25T19:10"
-        }
+        { "id": "kakao-user-2","from": "me","text": "안녕하세요??","sentAt": "2026-04-18T19:02" },
+        { "id": "kakao-user-1","from": "user","text": "헉","sentAt": "2026-04-18T19:05" },
+        { "id": "kakao-user-1","from": "user","text": "헐","sentAt": "2026-04-18T19:05" },
+        { "id": "kakao-user-1","from": "user","text": "안녕하세요.....","sentAt": "2026-04-18T19:06" },
+        { "id": "kakao-user-2","from": "me","text": "연락이 없으셔서....","sentAt": "2026-04-18T19:07" },
+        { "id": "kakao-user-1","from": "user","text": "아아아","sentAt": "2026-04-18T19:07" },
+        { "id": "kakao-user-1","from": "user","text": "내용 고민하느라... 죄송해요 ㅎㅎㅠ","sentAt": "2026-04-18T19:07" },
+        { "id": "kakao-user-1","from": "user","text": "😭😭😭","sentAt": "2026-04-18T19:07" }
       ]
     },
     {
