@@ -1,0 +1,25 @@
+{
+  "kakaoRooms": [],
+  "kakaoProfiles": [
+    {
+      "contactId": "me",
+      "statusMessage": ""
+    },
+    {
+      "contactId": "sunghoon",
+      "statusMessage": ""
+    },
+    {
+      "contactId": "sunwoo",
+      "statusMessage": "😴"
+    },
+    {
+      "contactId": "jake",
+      "statusMessage": "여행 D-14"
+    },
+    {
+      "contactId": "jihu",
+      "statusMessage": ""
+    }
+  ]
+}
