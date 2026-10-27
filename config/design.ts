@@ -62,7 +62,7 @@ export const DESIGN: DesignConfig = {
       implemented: false,
     },
     kakao: {
-      name: '톡',
+      name: '카카오톡',
       icon: MessagesSquare,
       iconImage: '/sunjay-phone/app-icons/kakaotalk.png', // 기본 SVG. PNG 사용 시 '/sunjay-phone/app-icons/kakaotalk.png', 기본 Lucide 아이콘은 undefined
       tileColor: '#facc15',
@@ -94,7 +94,7 @@ export const DESIGN: DesignConfig = {
       implemented: true,
     },
     instagram: {
-      name: 'SNS',
+      name: 'Instagram',
       icon: AtSign,
       iconImage: '/sunjay-phone/app-icons/instagram.png', // 기본 SVG. PNG 사용 시 '/sunjay-phone/app-icons/instagram.png', 기본 Lucide 아이콘은 undefined
       tileColor: '#6366f1',
