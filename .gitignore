@@ -1,0 +1,43 @@
+# v0 sandbox internal files
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+.snowflake/
+.design-cache/
+.v0-trash/
+.vercel/
+
+# Environment variables
+.env*.local
+
+# Common ignores
+node_modules
+.next/
+.DS_Store
+
+# 설치된 패키지
+node_modules/
+
+# 빌드 결과물
+.next/
+out/
+
+# 환경변수 및 비밀정보
+.env
+.env.local
+.env.*.local
+
+# 로그
+*.log
+
+# 임시 파일
+*.tmp
+*.bak
+
+
+# 개인 작업 폴더
+private/
+drafts/
+
+# 개인 메모
+notes.txt
