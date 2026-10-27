@@ -30,7 +30,7 @@ export const KAKAO_ROOMS: KakaoRoom[] = [
     unreadCount: 3,
     messages: [
       { id: 'kakao-friends-1', from: 'jake', text: '다음 달 여행 숙소 정했어!!', sentAt: '2026-10-25T13:20' },
-      { id: 'kakao-friends-2', from: 'jake', images: ['/images/photos/han-river.png','/images/photos/han-river.png','/images/photos/han-river.png','/images/photos/han-river.png',], sentAt: '2026-10-25T13:21' },
+      { id: 'kakao-friends-2', from: 'jake', images: ['/sunjay-phone/images/photos/han-river.png','/sunjay-phone/images/photos/han-river.png','/sunjay-phone/images/photos/han-river.png','/sunjay-phone/images/photos/han-river.png',], sentAt: '2026-10-25T13:21' },
       { id: 'kakao-friends-3', from: 'sunghoon', text: '오 좋다. 갈 수 있어?', sentAt: '2026-10-25T13:45' },
     ],
   },

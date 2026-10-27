@@ -2,7 +2,7 @@
   "instagramProfile": {
     "username": "simply.jjong",
     "displayName": "jay park",
-    "avatar": "/images/profile/jayinsta.jpg",
+    "avatar": "/sunjay-phone/images/profile/jayinsta.jpg",
     "bio": "",
     "followers": 412,
     "following": 288
@@ -29,14 +29,14 @@
       "id": "torido0624",
       "username": "torido0624",
       "displayName": "도토리",
-      "avatar": "/images/profile/toridoinsta.jpg"
+      "avatar": "/sunjay-phone/images/profile/toridoinsta.jpg"
     }
   ],
   "instagramPosts": [
     {
       "id": "post-flowers",
       "images": [
-        "/images/photos/jayinsta01.jpg"
+        "/sunjay-phone/images/photos/jayinsta01.jpg"
       ],
       "caption": "따봉.",
       "postedAt": "2026-10-24T09:12",
@@ -59,8 +59,8 @@
     {
       "id": "post-river",
       "images": [
-        "/images/photos/jayinsta02.jpg",
-        "/images/photos/rainy-street.png"
+        "/sunjay-phone/images/photos/jayinsta02.jpg",
+        "/sunjay-phone/images/photos/rainy-street.png"
       ],
       "caption": "꽃ㅋㅋ 내꺼아님",
       "location": "서울 한강공원",
@@ -78,7 +78,7 @@
     {
       "id": "post-cafe",
       "images": [
-        "/images/photos/jayinsta03.jpg"
+        "/sunjay-phone/images/photos/jayinsta03.jpg"
       ],
       "caption": "오오오 쿨타임 끝났구나\n한동안 해외를 많이 나가서 어렵겠지만 시간 생기면 또 하러가야겠다~~🩸🅱️🫡",
       "postedAt": "2026-10-18T15:02",
@@ -122,7 +122,7 @@
     {
       "id": "sample-owner-01",
       "accountId": "me",
-      "image": "/images/photos/jayinsta01.jpg",
+      "image": "/sunjay-phone/images/photos/jayinsta01.jpg",
       "caption": "오늘.",
       "postedAt": "2026-10-25T09:00",
       "fit": "cover"
@@ -130,7 +130,7 @@
     {
       "id": "sample-owner-02",
       "accountId": "me",
-      "image": "/images/photos/jayinsta02.jpg",
+      "image": "/sunjay-phone/images/photos/jayinsta02.jpg",
       "caption": "잠깐 산책",
       "postedAt": "2026-10-25T18:00",
       "fit": "cover"
@@ -138,7 +138,7 @@
     {
       "id": "torido0624",
       "accountId": "torido0624",
-      "image": "/images/photos/toridostory_001.webp",
+      "image": "/sunjay-phone/images/photos/toridostory_001.webp",
       "caption": "",
       "postedAt": "2026-10-25T22:10",
       "fit": "cover"

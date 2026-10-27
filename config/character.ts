@@ -4,13 +4,13 @@ import type { CharacterConfig } from '@/lib/phone/config-types'
 export const CHARACTER: CharacterConfig = {
   owner: {
     name: '박종성',
-    profileImage: '/images/profile/jayprofile.jpg',
+    profileImage: '/sunjay-phone/images/profile/jayprofile.jpg',
     statusMessage: '흠',
   },
 
   user: {
     displayName: '떠누',
-    avatar: '/images/profile/sunwookakao.jpg',
+    avatar: '/sunjay-phone/images/profile/sunwookakao.jpg',
     phoneNumber: '010-2003-0624',
   },
 

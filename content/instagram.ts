@@ -9,7 +9,7 @@ import type {
 export const INSTAGRAM_PROFILE: InstagramOwnProfile = {
   username: 'simply.jjong',
   displayName: 'jay park',
-  avatar: '/images/profile/jayinsta.jpg',
+  avatar: '/sunjay-phone/images/profile/jayinsta.jpg',
   bio: '',
   followers: 412,
   following: 288,
@@ -27,7 +27,7 @@ export const INSTAGRAM_ACCOUNTS: InstagramAccount[] = [
 export const INSTAGRAM_POSTS: InstagramPost[] = [
   {
     id: 'post-flowers',
-    images: ['/images/photos/jayinsta01.jpg'],
+    images: ['/sunjay-phone/images/photos/jayinsta01.jpg'],
     caption: '따봉.',
     postedAt: '2026-10-24T09:12',
     likes: 87,
@@ -38,7 +38,7 @@ export const INSTAGRAM_POSTS: InstagramPost[] = [
   },
   {
     id: 'post-river',
-    images: ['/images/photos/jayinsta02.jpg', '/images/photos/rainy-street.png'],
+    images: ['/sunjay-phone/images/photos/jayinsta02.jpg', '/sunjay-phone/images/photos/rainy-street.png'],
     caption: '꽃ㅋㅋ 내꺼아님',
     location: '서울 한강공원',
     postedAt: '2026-10-20T19:48',
@@ -49,7 +49,7 @@ export const INSTAGRAM_POSTS: InstagramPost[] = [
   },
   {
     id: 'post-cafe',
-    images: ['/images/photos/jayinsta03.jpg'],
+    images: ['/sunjay-phone/images/photos/jayinsta03.jpg'],
     caption: '오오오 쿨타임 끝났구나\n한동안 해외를 많이 나가서 어렵겠지만 시간 생기면 또 하러가야겠다~~🩸🅱️🫡',
     postedAt: '2026-10-18T15:02',
     likes: 64,
@@ -78,9 +78,9 @@ export const INSTAGRAM_DMS: InstagramDmThread[] = [
 
 /** 스토리: 이미지 경로를 public 폴더 기준으로 작성합니다. 비어 있으면 스토리 영역을 숨깁니다. */
 export const INSTAGRAM_STORIES: import('@/lib/phone/content-types').InstagramStory[] = [
-  {id:'sample-owner-01',accountId:'me',image:'/images/photos/jayinsta01.jpg',caption:'오늘.',postedAt:'2026-10-25T09:00',fit:'cover'},
-  {id:'sample-owner-02',accountId:'me',image:'/images/photos/jayinsta02.jpg',caption:'잠깐 산책',postedAt:'2026-10-25T18:00',fit:'cover'},
-  {id:'torido0624',accountId:'torido0624',image:'/images/photos/toridostory_001.webp',caption:'',postedAt:'2026-10-25T22:10',fit:'cover'},
+  {id:'sample-owner-01',accountId:'me',image:'/sunjay-phone/images/photos/jayinsta01.jpg',caption:'오늘.',postedAt:'2026-10-25T09:00',fit:'cover'},
+  {id:'sample-owner-02',accountId:'me',image:'/sunjay-phone/images/photos/jayinsta02.jpg',caption:'잠깐 산책',postedAt:'2026-10-25T18:00',fit:'cover'},
+  {id:'torido0624',accountId:'torido0624',image:'/sunjay-phone/images/photos/toridostory_001.webp',caption:'',postedAt:'2026-10-25T22:10',fit:'cover'},
 ]
 
 /** 계정 관계와 하이라이트는 선택적입니다. 아래 배열에 실제 계정 ID를 넣어 사용하세요.

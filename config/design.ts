@@ -17,14 +17,14 @@ import type { DesignConfig } from '@/lib/phone/config-types'
  */
 export const DESIGN: DesignConfig = {
   lockScreen: {
-    wallpaper: '/images/wallpaper.png',
+    wallpaper: '/sunjay-phone/images/wallpaper.png',
     dimOpacity: 0.25,
     clockColor: '#ffffff',
     textColor: '#ffffff',
   },
 
   homeScreen: {
-    wallpaper: '/images/wallpaper.png',
+    wallpaper: '/sunjay-phone/images/wallpaper.png',
     dimOpacity: 0.1,
     clockColor: '#ffffff',
     textColor: '#ffffff',
@@ -64,7 +64,7 @@ export const DESIGN: DesignConfig = {
     kakao: {
       name: '톡',
       icon: MessagesSquare,
-      iconImage: '/app-icons/kakaotalk.png', // 기본 SVG. PNG 사용 시 '/app-icons/kakaotalk.png', 기본 Lucide 아이콘은 undefined
+      iconImage: '/sunjay-phone/app-icons/kakaotalk.png', // 기본 SVG. PNG 사용 시 '/sunjay-phone/app-icons/kakaotalk.png', 기본 Lucide 아이콘은 undefined
       tileColor: '#facc15',
       iconColor: '#3f2a14',
       implemented: true,
@@ -96,7 +96,7 @@ export const DESIGN: DesignConfig = {
     instagram: {
       name: 'SNS',
       icon: AtSign,
-      iconImage: '/app-icons/instagram.png', // 기본 SVG. PNG 사용 시 '/app-icons/instagram.png', 기본 Lucide 아이콘은 undefined
+      iconImage: '/sunjay-phone/app-icons/instagram.png', // 기본 SVG. PNG 사용 시 '/sunjay-phone/app-icons/instagram.png', 기본 Lucide 아이콘은 undefined
       tileColor: '#6366f1',
       implemented: true,
     },

@@ -2,7 +2,7 @@
   "instagramProfile": {
     "username": "simply.jjong",
     "displayName": "jay park",
-    "avatar": "/images/profile/jayinsta.jpg",
+    "avatar": "/sunjay-phone/images/profile/jayinsta.jpg",
     "bio": "",
     "followers": 412,
     "following": 288
@@ -29,7 +29,7 @@
       "id": "torido0624",
       "username": "torido0624",
       "displayName": "도토리",
-      "avatar": "/images/profile/toridoinsta.jpg"
+      "avatar": "/sunjay-phone/images/profile/toridoinsta.jpg"
     }
   ],
   "instagramPosts": [],
