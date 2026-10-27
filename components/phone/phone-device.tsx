@@ -77,7 +77,7 @@ function EpisodePickerScreen() {
         {EPISODES.map(ep => (
           <button key={ep.id} type="button" onClick={() => selectEpisode(ep.id)} className="flex w-full items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-4 text-left transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white">
             <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-indigo-600/80"><Layers3 size={22} /></span>
-            <span className="min-w-0 flex-1"><span className="block break-words text-sm font-semibold">{ep.title}</span><span className="mt-1 block text-xs text-white/55">{ep.dateTime.replace('T',' ')} · {ep.characterIds.length ? ep.characterIds.join(', ') : '스마트폰 기록'}</span></span>
+            <span className="min-w-0 flex-1"><span className="block break-words text-sm font-semibold">{ep.title}</span><span className="mt-1 block text-xs text-white/55">{ep.dateTime.replace('T',' ')} · {ep.characterIds.length ? ep.characterIds.join(', ') : '기록'}</span></span>
             {episode.id === ep.id && <Check size={20} className="shrink-0 text-indigo-300" aria-label="현재 에피소드" />}
           </button>
         ))}

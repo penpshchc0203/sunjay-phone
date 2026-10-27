@@ -123,23 +123,24 @@
           "sentAt": "2026-04-18T19:15"
         },
         {
-          "id": "kakao-user-1",
-          "from": "user",
-          "text": "다행이다😭😭😭",
-          "sentAt": "2026-04-18T19:15"
-        },
-        {
-          "id": "kakao-user-2",
-          "from": "me",
-          "text": "ㅎㅎ아 아까 표정 굳은거는",
-          "sentAt": "2026-04-18T19:15"
-        },
-        {
           "id": "kakao-user-2",
           "from": "me",
           "text": "아 뭐 저는 상관없는데..",
           "sentAt": "2026-04-18T19:16"
         },
+        {
+          "id": "kakao-user-1",
+          "from": "user",
+          "text": "다행이다😭😭😭",
+          "sentAt": "2026-04-18T19:16"
+        },
+        {
+          "id": "kakao-user-2",
+          "from": "me",
+          "text": "ㅎㅎ아 아까 표정 굳은거는",
+          "sentAt": "2026-04-18T19:16"
+        },
+        
         {
           "id": "kakao-user-2",
           "from": "me",
@@ -384,6 +385,15 @@
           "id": "kakao-user-added-20261027-0018",
           "from": "me",
           "text": "저 헌혈했어요",
+          "sentAt": "2026-04-20T16:07"
+        },
+        {
+          "id": "kakao-friends-2",
+          "from": "me",
+          "images": [
+            "/sunjay-phone/images/photos/weverse_4-334193130.jpg",
+            "/sunjay-phone/images/photos/weverse_4-334193131.jpg"
+          ],
           "sentAt": "2026-04-20T16:07"
         },
         {

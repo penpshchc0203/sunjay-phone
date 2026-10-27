@@ -10,7 +10,7 @@ import { notes } from './ep02/notes'
 import { instagram } from './ep02/instagram'
 /** 새 회차의 데이터. 배열을 직접 채워 넣으면 EP.01과 섞이지 않습니다. */
 export const ep02: Episode = {
-  id: 'ep02', title: 'EP.02 연애 전', dateTime: '2026-10-26T09:00',
+  id: 'ep02', title: 'EP.02 연애 6개월 차 (추후 구현 예정)', dateTime: '',
   characterIds: [],
   content: { ...kakao, ...photos, ...notes, ...instagram, contacts, calls, smsThreads, browserSearches, browserResults, kakaoAvatars, notifications: [] },
 }
