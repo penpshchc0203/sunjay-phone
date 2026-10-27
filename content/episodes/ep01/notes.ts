@@ -1,4 +1,5 @@
-import { NOTES } from '@/content/notes'
+import data from './notes.json'
+import type { Note } from '@/lib/phone/content-types'
 
-/** EP.01의 기존 notes 데이터를 유지합니다. */
-export const notes = { notes: NOTES }
+/** 이 에피소드의 메모는 notes.json에서 수정하세요. */
+export const notes = data as unknown as { notes: Note[] }

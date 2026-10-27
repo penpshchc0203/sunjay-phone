@@ -42,7 +42,7 @@ export function PhotosApp() {
   useEffect(()=>{setReady(false);setSaved(emptySaved());setPassword('');try { const data=localStorage.getItem(store_key); if(data) {const parsed=JSON.parse(data);setSaved({...emptySaved(),...parsed})} const pass=localStorage.getItem(`${store_key}:password`);if(pass)setPassword(pass)}catch{} setReady(true)},[store_key])
   useEffect(()=>{if(ready)try{localStorage.setItem(store_key,JSON.stringify(saved))}catch{}},[saved,ready])
   const update = (fn:(v:Saved)=>Saved) => setSaved(fn)
-  const photos = useMemo(()=>[...PHOTOS].sort((a,b)=>b.takenAt.localeCompare(a.takenAt)),[])
+  const photos = useMemo(()=>[...PHOTOS].sort((a,b)=>b.takenAt.localeCompare(a.takenAt)),[PHOTOS])
   const isDeleted = (id:string)=>saved.deleted.includes(id)
   const isPurged = (id:string)=>saved.purged.includes(id)
   const isHidden = (p:Photo)=>saved.hidden[p.id] ?? Boolean(p.hidden)

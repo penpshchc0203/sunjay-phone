@@ -28,6 +28,14 @@ export function NotesApp() {
   const [unlockError, setUnlockError] = useState(false)
 
   useEffect(() => {
+    setReady(false)
+    setStore(emptyStore())
+    setFolder(null)
+    setSearch("")
+    setSelected(null)
+    setEditing(false)
+    setDraft(null)
+    setUnlocked([])
     try {
       const saved = localStorage.getItem(key)
       if (saved) {
@@ -36,14 +44,14 @@ export function NotesApp() {
       }
     } catch { /* Browser storage can be unavailable. */ }
     setReady(true)
-  }, [])
+  }, [key])
   useEffect(() => { if (ready) try { localStorage.setItem(key, JSON.stringify(store)) } catch { /* Keep edits in memory. */ } }, [store, ready])
 
   const notes = useMemo(() => {
     const merged = new Map(NOTES.map(note => [note.id, note]))
     Object.values(store.changes).forEach(note => merged.set(note.id, note))
     return [...merged.values()].filter(note => !store.removed.includes(note.id)).sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || (b.updatedAt ?? b.createdAt).localeCompare(a.updatedAt ?? a.createdAt))
-  }, [store])
+  }, [store, NOTES])
   const folders = useMemo(() => [...new Set(notes.map(note => note.folder || '기타'))].sort((a, b) => a.localeCompare(b, 'ko')), [notes])
   const filtered = notes.filter(note => (folder === null || (note.folder || '기타') === folder) && `${note.title} ${note.body}`.toLowerCase().includes(search.toLowerCase()))
   const current = notes.find(note => note.id === selected)
