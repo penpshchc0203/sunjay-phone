@@ -6,7 +6,7 @@
       "memberIds": [
         "sunwoo"
       ],
-      "pinned": true,
+      "pinned": false,
       "messages": [
         { "id": "kakao-user-2","from": "me","text": "안녕하세요??","sentAt": "2026-04-18T19:02" },
         { "id": "kakao-user-1","from": "user","text": "헉","sentAt": "2026-04-18T19:05" },
@@ -28,6 +28,7 @@
         { "id": "kakao-user-1","from": "user","text": "아직 대학생인데..","sentAt": "2026-04-18T19:15" },
         { "id": "kakao-user-1","from": "user","text": "괜찮으실까요?..😢","sentAt": "2026-04-18T19:15" },
         { "id": "kakao-user-2","from": "me","text": "아 뭐 저는 상관없는데..","sentAt": "2026-04-18T19:16" },
+        { "id": "kakao-user-1","from": "user","text": "다행이다😭😭😭","sentAt": "2026-04-18T19:15" },
         { "id": "kakao-user-1","from": "user","text": "다행이다😭😭😭","sentAt": "2026-04-18T19:15" }
       ]
     },
