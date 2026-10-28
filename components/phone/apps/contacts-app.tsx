@@ -20,7 +20,7 @@ export function ContactsApp() {
   const [search, setSearch] = useState('')
   const contacts = useMemo(() => [...(content.contacts ?? [])]
     .sort((a, b) => (a.id === USER_CONTACT_ID ? CHARACTER.user.displayName : a.name)
-      .localeCompare(b.id === USER_CONTACT_ID ? CHARACTER.user.displayName : b.name, 'ko-KR')), [content.contacts])
+      .localeCompare(b.id === USER_CONTACT_ID ? CHARACTER.user.displayName : b.name, 'ko-KR', { sensitivity: 'base' })), [content.contacts])
   const filtered = contacts.filter(c => {
     const name = c.id === USER_CONTACT_ID ? CHARACTER.user.displayName : c.name
     return `${name} ${c.phoneNumber ?? ''}`.toLocaleLowerCase().includes(search.trim().toLocaleLowerCase())

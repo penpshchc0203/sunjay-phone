@@ -75,7 +75,7 @@ function EpisodePickerScreen() {
       </header>
       <div className="virtual-phone-scrollbars min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-5">
         {EPISODES.map(ep => (
-          <button key={ep.id} type="button" onClick={() => selectEpisode(ep.id)} className="flex w-full items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-4 text-left transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white">
+          <button key={ep.id} type="button" onClick={() => selectEpisode(ep.id)} disabled={ep.id !== 'ep01'} className="flex w-full items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-4 text-left transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/[0.06]">
             <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-indigo-600/80"><Layers3 size={22} /></span>
             <span className="min-w-0 flex-1"><span className="block break-words text-sm font-semibold">{ep.title}</span><span className="mt-1 block text-xs text-white/55">{ep.dateTime.replace('T',' ')} · {ep.characterIds.length ? ep.characterIds.join(', ') : '기록'}</span></span>
             {episode.id === ep.id && <Check size={20} className="shrink-0 text-indigo-300" aria-label="현재 에피소드" />}

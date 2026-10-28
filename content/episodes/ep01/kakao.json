@@ -140,7 +140,6 @@
           "text": "ㅎㅎ아 아까 표정 굳은거는",
           "sentAt": "2026-04-17T19:16"
         },
-        
         {
           "id": "kakao-user-2",
           "from": "me",
@@ -604,7 +603,7 @@
         "jake",
         "sunghoon"
       ],
-      "unreadCount": 3,
+      "unreadCount": 0,
       "messages": [
         {
           "id": "kakao-friends-1",
@@ -1395,6 +1394,71 @@
           "from": "me",
           "text": "네 선배님, 오늘 중으로 보내드릴게요!",
           "sentAt": "2026-10-24T16:32"
+        }
+      ]
+    },
+    {
+      "id": "kakao-data-team",
+      "type": "group",
+      "title": "데이터분석1팀",
+      "memberIds": [
+        "dohyunkim",
+        "jaehyunpark",
+        "seungjunlee",
+        "yoonjaechoi",
+        "jihoonseo",
+        "yujinhan"
+      ],
+      "unreadCount": 0,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-data-team-1",
+          "from": "me",
+          "text": "네 확인하겠습니다",
+          "sentAt": "2026-04-21T18:00"
+        }
+      ]
+    },
+    {
+      "id": "kakao-company",
+      "type": "group",
+      "title": "회사 단톡",
+      "memberIds": [
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim"
+      ],
+      "unreadCount": 5,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-company-1",
+          "from": "me",
+          "text": "네 알겠습니다",
+          "sentAt": "2026-04-21T18:00"
+        }
+      ]
+    },
+    {
+      "id": "kakao-coworkers",
+      "type": "group",
+      "title": "직동 단톡",
+      "memberIds": [
+        "jihoonseo",
+        "yujinhan",
+        "yoonjaechoi",
+        "taeokang"
+      ],
+      "unreadCount": 11,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-coworkers-1",
+          "from": "me",
+          "text": "ㅋㅋㅋ 아 그니까",
+          "sentAt": "2026-04-21T18:00"
         }
       ]
     }
