@@ -15,8 +15,8 @@ export const CHARACTER: CharacterConfig = {
   },
 
   device: {
-    deviceName: '종성의 Galaxy S25 Ultra',
+    deviceName: '',
     model: 'Galaxy S25 Ultra',
-    phoneNumber: '010-2478-0913',
+    phoneNumber: '010-2002-0420',
   },
 }
