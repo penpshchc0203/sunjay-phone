@@ -1545,7 +1545,7 @@
     },
     {
       "id": "kakao-mom",
-      "type": "group",
+      "type": "direct",
       "title": "엄마",
       "memberIds": [
         "mom"
