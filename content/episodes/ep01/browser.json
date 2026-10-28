@@ -1,19 +1,9 @@
 {
   "browserSearches": [
     {
-      "id": "search-1",
-      "query": "02-555-0147",
-      "searchedAt": "2026-10-25T17:50"
-    },
-    {
       "id": "search-2",
       "query": "5월 제주도 갈만한 곳",
       "searchedAt": "2026-04-17T14:20"
-    },
-    {
-      "id": "search-3",
-      "query": "제주도 11월 날씨",
-      "searchedAt": "2026-10-21T23:11"
     },
     {
       "id": "search-4",
@@ -63,22 +53,10 @@
   ],
   "browserHistory": [
     {
-      "id": "history-1",
-      "title": "02-555-0147 - 검색 결과",
-      "url": "https://search.example.com/?q=02-555-0147",
-      "visitedAt": "2026-10-25T17:51"
-    },
-    {
       "id": "history-2",
       "title": "5월 제주도 갈만한 곳 - 검색 결과",
       "url": "https://search.example.com/?q=5%EC%9B%94%20%EC%A0%9C%EC%A3%BC%EB%8F%84%20%EA%B0%88%EB%A7%8C%ED%95%9C%20%EA%B3%B3",
       "visitedAt": "2026-04-17T14:21"
-    },
-    {
-      "id": "history-3",
-      "title": "제주도 11월 날씨 - 검색 결과",
-      "url": "https://search.example.com/?q=%EC%A0%9C%EC%A3%BC%EB%8F%84%2011%EC%9B%94%20%EB%82%A0%EC%94%A8",
-      "visitedAt": "2026-10-21T23:12"
     },
     {
       "id": "history-4",
