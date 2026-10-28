@@ -1392,8 +1392,8 @@
         {
           "id": "kakao-jihu-2",
           "from": "me",
-          "text": "네 선배님, 오늘 중으로 보내드릴게요!",
-          "sentAt": "2026-10-24T16:32"
+          "text": "오늘 중으로 보내드리겠습니다",
+          "sentAt": "2026-04-20T16:32"
         }
       ]
     },
@@ -1423,8 +1423,16 @@
     {
       "id": "kakao-company",
       "type": "group",
-      "title": "회사 단톡",
+      "title": "회사",
       "memberIds": [
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
         "hyunwoojang",
         "subinkwon",
         "yerinsong",
@@ -1444,7 +1452,7 @@
     {
       "id": "kakao-coworkers",
       "type": "group",
-      "title": "직동 단톡",
+      "title": "동기",
       "memberIds": [
         "jihoonseo",
         "yujinhan",
@@ -1478,7 +1486,7 @@
     },
     {
       "contactId": "jake",
-      "statusMessage": "여행 D-14"
+      "statusMessage": "여행~~"
     },
     {
       "contactId": "jihu",
