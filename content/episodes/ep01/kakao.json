@@ -1523,6 +1523,43 @@
           "sentAt": "2026-04-21T18:00"
         }
       ]
+    },
+    {
+      "id": "kakao-family",
+      "type": "group",
+      "title": "우리가족",
+      "memberIds": [
+        "mom",
+        "dad"
+      ],
+      "unreadCount": 0,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-family-1",
+          "from": "me",
+          "text": "알겠어요",
+          "sentAt": "2026-04-21T10:03"
+        }
+      ]
+    },
+    {
+      "id": "kakao-mom",
+      "type": "group",
+      "title": "엄마",
+      "memberIds": [
+        "mom"
+      ],
+      "unreadCount": 0,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-family-1",
+          "from": "me",
+          "text": "받았음요",
+          "sentAt": "2026-04-21T11:04"
+        }
+      ]
     }
   ],
   "kakaoProfiles": [
