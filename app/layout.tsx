@@ -11,7 +11,7 @@ const notoSansKr = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   title: '박종성의 휴대폰',
-  description: '캐릭터의 가상 스마트폰을 직접 조작해 보는 인터랙티브 팬 콘텐츠',
+  description: '제이선우 사랑 이야기',
   generator: 'v0.app',
   icons: {
     icon: [
