@@ -63,12 +63,6 @@
       "durationSec": 181
     },
     {
-      "id": "call-10",
-      "contactId": "mom",
-      "type": "missed",
-      "calledAt": "2026-04-19T18:42"
-    },
-    {
       "id": "call-11",
       "unknownNumber": "070-XXXX-6031",
       "type": "rejected",
