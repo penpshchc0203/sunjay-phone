@@ -1038,12 +1038,6 @@
           "sentAt": "2026-04-17T19:00"
         },
         {
-          "id": "kakao-user-2",
-          "from": "me",
-          "text": "안차임ㅡㅡ",
-          "sentAt": "2026-04-17T19:00"
-        },
-        {
           "id": "kakao-friends-1",
           "from": "jake",
           "text": "엉 해보고 결과 알려줘",

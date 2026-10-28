@@ -144,6 +144,36 @@ function RoomView({ room }: { room: KakaoRoom }) {
     {profile && <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-4 bg-[#8da4b6] p-5" role="dialog" aria-label="카카오톡 프로필"><button onClick={() => setProfile(null)} className="absolute left-4 top-4 rounded-full bg-black/10 p-2" aria-label="프로필 닫기"><X/></button><Avatar id={profile} size={94}/><strong className="text-xl">{contactName(profile, content.contacts)}</strong><p className="text-center text-sm">{KAKAO_PROFILES.find(x => x.contactId===profile)?.statusMessage || '상태 메시지가 없습니다'}</p>{KAKAO_PROFILES.find(x=>x.contactId===profile)?.music && <p className="rounded-full bg-white/40 px-4 py-2 text-xs">♫ {KAKAO_PROFILES.find(x=>x.contactId===profile)?.music}</p>}</div>}
   </section>
 }
+// 카카오톡의 읽지 않은 메시지는 방별 unreadCount를 합산하고, 읽음 상태는 에피소드별로 저장합니다.
+function useKakaoUnread() {
+  const { content, episode } = useEpisode()
+  const key = `virtual-phone:kakao-read:v1:${episode.id}`
+  const [readIds, setReadIds] = useState<string[]>([])
+  useEffect(() => {
+    const sync = () => {
+      try {
+        const saved: unknown = JSON.parse(localStorage.getItem(key) || '[]')
+        setReadIds(Array.isArray(saved) ? saved.filter((id): id is string => typeof id === 'string') : [])
+      } catch { setReadIds([]) }
+    }
+    sync()
+    window.addEventListener('phone:kakao-read', sync)
+    return () => window.removeEventListener('phone:kakao-read', sync)
+  }, [key])
+  const unreadForRoom = (room: KakaoRoom) => readIds.includes(room.id) ? 0 : Math.max(0, room.unreadCount ?? 0)
+  const unreadCount = content.kakaoRooms.reduce((sum, room) => sum + unreadForRoom(room), 0)
+  const markRead = (roomId: string) => {
+    try {
+      const saved: unknown = JSON.parse(localStorage.getItem(key) || '[]')
+      const ids = Array.isArray(saved) ? saved.filter((id): id is string => typeof id === 'string') : []
+      if (!ids.includes(roomId)) localStorage.setItem(key, JSON.stringify([...ids, roomId]))
+    } catch { /* 저장이 막힌 브라우저에서도 현재 화면의 읽음 상태는 유지 */ }
+    setReadIds(ids => ids.includes(roomId) ? ids : [...ids, roomId])
+    window.dispatchEvent(new Event('phone:kakao-read'))
+  }
+  return { unreadCount, unreadForRoom, markRead }
+}
+
 function RoomList() {
   const { content } = useEpisode()
   const KAKAO_ROOMS = content.kakaoRooms
@@ -161,7 +191,7 @@ function RoomList() {
   }
   const KAKO_ROOMS_FOR_CLEAR = KAKAO_ROOMS
   const [query,setQuery] = useState('')
-  const [readIds,setReadIds] = useState<string[]>([])
+  const { unreadForRoom, markRead } = useKakaoUnread()
   const rooms = [...KAKAO_ROOMS].sort((a,b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || (b.messages.at(-1)?.sentAt ?? '').localeCompare(a.messages.at(-1)?.sentAt ?? ''))
   const filtered = rooms.filter(room => `${roomTitle(room, content.contacts)} ${room.messages.map(m=>m.text||'').join(' ')}`.toLowerCase().includes(query.toLowerCase()))
   return <section className="relative flex h-full min-h-0 flex-col bg-white text-[#202020]">
@@ -172,10 +202,10 @@ function RoomList() {
       {filtered.length===0 && <p className="p-6 text-center text-sm text-zinc-500">검색 결과가 없어요.</p>}
       {filtered.map(room => {
         const last = room.messages.at(-1)
-        return <button key={room.id} onClick={() => {if (!canOpenKakaoRoom(room)) return; setReadIds(ids=>[...ids,room.id]);pushRoute(`room:${room.id}`)}} disabled={!canOpenKakaoRoom(room)} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-zinc-50 focus-visible:bg-zinc-100">
+        return <button key={room.id} onClick={() => {if (!canOpenKakaoRoom(room)) return; markRead(room.id);pushRoute(`room:${room.id}`)}} disabled={!canOpenKakaoRoom(room)} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-zinc-50 focus-visible:bg-zinc-100">
           <Avatar id={room.memberIds[0] ?? 'me'} group={room.type === 'group'} size={52}/>
           <div className="min-w-0 flex-1"><div className="flex items-center gap-1"><span className="truncate text-[15px] font-semibold">{roomTitle(room, content.contacts)}</span>{room.type === 'group' && <span className="text-xs text-zinc-400">{room.memberIds.length + 1}</span>}{room.pinned && <Pin size={12} className="text-zinc-400"/>}{room.muted && <BellOff size={12} className="text-zinc-400"/>}</div><p className="mt-1 truncate text-[13px] text-zinc-500">{last?.text ?? (messageImages(last ?? { id: '', from: '', sentAt: '' }).length ? '사진' : last?.emoticon ?? '대화 내용 없음')}</p></div>
-          <div className="flex shrink-0 flex-col items-end gap-1"><span className="text-[10px] text-zinc-400">{last ? timeLabel(last.sentAt) : ''}</span>{Boolean(room.unreadCount) && !readIds.includes(room.id) && <span className="flex min-w-5 items-center justify-center rounded-full bg-[#f05c53] px-1.5 py-0.5 text-[10px] text-white">{room.unreadCount}</span>}</div>
+          <div className="flex shrink-0 flex-col items-end gap-1"><span className="text-[10px] text-zinc-400">{last ? timeLabel(last.sentAt) : ''}</span>{unreadForRoom(room) > 0 && <span className="flex min-w-5 items-center justify-center rounded-full bg-[#f05c53] px-1.5 py-0.5 text-[10px] text-white">{unreadForRoom(room)}</span>}</div>
         </button>
       })}
     </div>
@@ -186,11 +216,12 @@ function RoomList() {
 }
 
 function KakaoTabs({ active, onFriends, onChats }: { active: 'friends' | 'chats'; onFriends: () => void; onChats: () => void }) {
+  const { unreadCount } = useKakaoUnread()
   const iconClass = (selected: boolean) => selected ? 'text-[#30363c]' : 'text-[#afb2b6]'
   return <nav aria-label="카카오톡 메뉴" className="flex h-[62px] shrink-0 items-center justify-around border-t border-zinc-100 bg-white px-1">
     <button onClick={onFriends} aria-label="친구" aria-current={active === 'friends' ? 'page' : undefined} className={`flex h-full flex-1 items-center justify-center ${iconClass(active === 'friends')}`}><UserRound size={27} fill={active === 'friends' ? 'currentColor' : 'none'} strokeWidth={1.8}/></button>
-    <button onClick={onChats} aria-label="채팅" aria-current={active === 'chats' ? 'page' : undefined} className={`relative flex h-full flex-1 items-center justify-center ${iconClass(active === 'chats')}`}><MessageCircle size={28} fill={active === 'chats' ? 'currentColor' : 'none'} strokeWidth={1.8}/><span className="absolute left-[55%] top-1 rounded-full bg-[#ff4d3b] px-[5px] py-[1px] text-[10px] leading-4 text-white">44</span></button>
-    <button disabled aria-label="오픈채팅 (비활성화)" className="relative flex h-full flex-1 cursor-default items-center justify-center text-[#afb2b6]"><CirclePlay size={29} strokeWidth={2.2}/><span className="absolute left-[55%] top-1 rounded-full bg-[#ff4d3b] px-[5px] py-[1px] text-[10px] leading-4 text-white">1</span></button>
+    <button onClick={onChats} aria-label="채팅" aria-current={active === 'chats' ? 'page' : undefined} className={`relative flex h-full flex-1 items-center justify-center ${iconClass(active === 'chats')}`}><MessageCircle size={28} fill={active === 'chats' ? 'currentColor' : 'none'} strokeWidth={1.8}/>{unreadCount > 0 && <span className="absolute left-[55%] top-1 min-w-[19px] rounded-full bg-[#ff4d3b] px-[5px] py-[1px] text-center text-[10px] leading-4 text-white">{unreadCount > 99 ? "99+" : unreadCount}</span>}</button>
+    <button disabled aria-label="오픈채팅 (비활성화)" className="relative flex h-full flex-1 cursor-default items-center justify-center text-[#afb2b6]"><CirclePlay size={29} strokeWidth={2.2}/></button>
     <button disabled aria-label="쇼핑 (비활성화)" className="flex h-full flex-1 cursor-default items-center justify-center text-[#afb2b6]"><ShoppingBag size={27} strokeWidth={2.4}/></button>
     <button disabled aria-label="더보기 (비활성화)" className="relative flex h-full flex-1 cursor-default items-center justify-center text-[#afb2b6]"><Ellipsis size={31} strokeWidth={3}/><span className="absolute right-[30%] top-2 h-2 w-2 rounded-full bg-[#ff4d3b]"/></button>
   </nav>

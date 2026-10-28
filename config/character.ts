@@ -11,7 +11,7 @@ export const CHARACTER: CharacterConfig = {
   user: {
     displayName: '선우씨',
     avatar: '/sunjay-phone/images/profile/sunwookakao.jpg',
-    phoneNumber: '010-2003-0624',
+    phoneNumber: '010-XXX-0624',
   },
 
   device: {

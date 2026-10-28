@@ -13,7 +13,7 @@ export const CONTACTS: Contact[] = [
     id: 'sunwoo',
     name: '선우씨',
     phoneNumber: CHARACTER.user.phoneNumber,
-    relation: '귀염둥이',
+    relation: '귀여워',
     avatar: CHARACTER.user.avatar,
     favorite: false,
   },
