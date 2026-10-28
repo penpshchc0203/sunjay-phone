@@ -52,7 +52,7 @@
     {
       "id": "call-8",
       "unknownNumber": "070-XXXX-1284",
-      "type": "missed",
+      "type": "rejected",
       "calledAt": "2026-04-20T10:21"
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "call-21",
       "unknownNumber": "070-XXXX-2670",
-      "type": "missed",
+      "type": "rejected",
       "calledAt": "2026-04-15T12:07"
     },
     {
