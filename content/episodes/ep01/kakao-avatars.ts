@@ -3,4 +3,6 @@ export const kakaoAvatars: Record<string, string> = {
   me: '/sunjay-phone/images/profile/jayprofile.jpg',
   sunwoo: '/sunjay-phone/images/profile/sunwookakao.jpg',
   user: '/sunjay-phone/images/profile/sunwookakao.jpg',
+  sunghoon: '/sunjay-phone/images/profile/hoonkakao.jpg',
+  jake: '/sunjay-phone/images/profile/jakekakao.jpg',
 }
