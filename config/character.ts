@@ -9,7 +9,7 @@ export const CHARACTER: CharacterConfig = {
   },
 
   user: {
-    displayName: '떠누',
+    displayName: '선우씨',
     avatar: '/sunjay-phone/images/profile/sunwookakao.jpg',
     phoneNumber: '010-2003-0624',
   },
