@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, MessageCircle, BellOff, Pin, Users, ImageIcon, Search, X, UserRound, Star, Music2, Play, Pause, Send, Settings, Trash2 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, MessageCircle, BellOff, Pin, Users, ImageIcon, Search, X, UserRound, Star, Music2, Play, Pause, Send, Settings, Trash2, ShoppingBag, Ellipsis, CirclePlay, UserRoundPlus, Gift, ChevronDown, ChevronUp } from 'lucide-react'
 import { useEpisodeProgress } from '../use-episode-progress'
 import { useEpisode } from '../episode-provider'
 import { USER_CONTACT_ID } from '@/content/contacts'
@@ -53,8 +53,8 @@ function Avatar({ id, group = false, size = 44 }: { id: string; group?: boolean;
   const name = group ? '그룹' : contactName(id, content.contacts) || contact?.name || id
   const [failed, setFailed] = useState(false)
   useEffect(() => setFailed(false), [src])
-  return <span className="flex shrink-0 items-center justify-center overflow-hidden rounded-[38%] bg-[#e5e2da] text-[#5a554e]" style={{width:size,height:size}}>
-    {src && !failed ? <img src={src} alt={`${name} 프로필`} className="h-full w-full object-cover" onError={() => setFailed(true)}/> : group ? <Users size={size*.45}/> : <UserRound size={size*.5} strokeWidth={1.5} aria-label="기본 프로필"/>}
+  return <span className="flex shrink-0 items-center justify-center overflow-hidden rounded-[38%] bg-[#a7d9fa] text-white" style={{width:size,height:size}}>
+    {src && !failed ? <img src={src} alt={`${name} 프로필`} className="h-full w-full object-cover" onError={() => setFailed(true)}/> : group ? <Users size={size*.45}/> : <svg viewBox="0 0 48 48" width={size*.75} height={size*.75} aria-label="기본 프로필" role="img"><circle cx="24" cy="17" r="9" fill="#e5f3ff"/><path d="M6 43c0-11 7-17 18-17s18 6 18 17" fill="#e5f3ff"/></svg>}
   </span>
 }
 const messageImages = (message: KakaoMessage) => (message.images?.length ? message.images : message.image ? [message.image] : []).filter(Boolean).slice(0, 4)
@@ -186,31 +186,56 @@ function RoomList() {
 }
 
 function KakaoTabs({ active, onFriends, onChats }: { active: 'friends' | 'chats'; onFriends: () => void; onChats: () => void }) {
-  return <nav aria-label="카카오톡 메뉴" className="flex shrink-0 items-center justify-around border-t border-zinc-100 bg-white py-2">
-    <button onClick={onFriends} aria-current={active === 'friends' ? 'page' : undefined} className={`flex min-w-20 flex-col items-center gap-1 py-1 text-[11px] ${active === 'friends' ? 'text-[#242424]' : 'text-zinc-400'}`}><UserRound size={23} strokeWidth={active === 'friends' ? 2.5 : 1.8}/></button>
-    <button onClick={onChats} aria-current={active === 'chats' ? 'page' : undefined} className={`flex min-w-20 flex-col items-center gap-1 py-1 text-[11px] ${active === 'chats' ? 'text-[#242424]' : 'text-zinc-400'}`}><MessageCircle size={23} strokeWidth={active === 'chats' ? 2.5 : 1.8}/></button>
+  const iconClass = (selected: boolean) => selected ? 'text-[#30363c]' : 'text-[#afb2b6]'
+  return <nav aria-label="카카오톡 메뉴" className="flex h-[62px] shrink-0 items-center justify-around border-t border-zinc-100 bg-white px-1">
+    <button onClick={onFriends} aria-label="친구" aria-current={active === 'friends' ? 'page' : undefined} className={`flex h-full flex-1 items-center justify-center ${iconClass(active === 'friends')}`}><UserRound size={27} fill={active === 'friends' ? 'currentColor' : 'none'} strokeWidth={1.8}/></button>
+    <button onClick={onChats} aria-label="채팅" aria-current={active === 'chats' ? 'page' : undefined} className={`relative flex h-full flex-1 items-center justify-center ${iconClass(active === 'chats')}`}><MessageCircle size={28} fill={active === 'chats' ? 'currentColor' : 'none'} strokeWidth={1.8}/><span className="absolute left-[55%] top-1 rounded-full bg-[#ff4d3b] px-[5px] py-[1px] text-[10px] leading-4 text-white">44</span></button>
+    <button disabled aria-label="오픈채팅 (비활성화)" className="relative flex h-full flex-1 cursor-default items-center justify-center text-[#afb2b6]"><CirclePlay size={29} strokeWidth={2.2}/><span className="absolute left-[55%] top-1 rounded-full bg-[#ff4d3b] px-[5px] py-[1px] text-[10px] leading-4 text-white">1</span></button>
+    <button disabled aria-label="쇼핑 (비활성화)" className="flex h-full flex-1 cursor-default items-center justify-center text-[#afb2b6]"><ShoppingBag size={27} strokeWidth={2.4}/></button>
+    <button disabled aria-label="더보기 (비활성화)" className="relative flex h-full flex-1 cursor-default items-center justify-center text-[#afb2b6]"><Ellipsis size={31} strokeWidth={3}/><span className="absolute right-[30%] top-2 h-2 w-2 rounded-full bg-[#ff4d3b]"/></button>
   </nav>
 }
 
 function FriendList() {
   const { content } = useEpisode()
-  const KAKAO_ROOMS = content.kakaoRooms
   const KAKAO_PROFILES = content.kakaoProfiles
-  const CONTACTS = content.contacts
   const { pushRoute, back } = usePhone()
-  const friends = CONTACTS.filter(c => c.id !== USER_CONTACT_ID)
+  const friends = content.contacts.filter(c => c.id !== USER_CONTACT_ID && c.id !== 'me')
   const favorites = friends.filter(c => c.favorite)
-  const others = friends.filter(c => !c.favorite)
+  const others = friends.filter(c => !c.favorite).sort((a,b) => a.name.localeCompare(b.name,'ko'))
+  const [showFavorites,setShowFavorites] = useState(true)
+  const [showFriends,setShowFriends] = useState(true)
+  const [friendSearch,setFriendSearch] = useState(false)
+  const [query,setQuery] = useState('')
+  const [settingsOpen,setSettingsOpen] = useState(false)
+  const matches = (id:string) => contactName(id,content.contacts).toLowerCase().includes(query.toLowerCase())
   const profileRow = (id: string, own = false) => <button key={id} onClick={() => pushRoute(`profile:${id}`)} className="flex w-full items-center gap-3 px-5 py-2.5 text-left hover:bg-zinc-50 focus-visible:bg-zinc-100">
-    <Avatar id={id} size={own ? 56 : 45}/>
-    <span className="min-w-0 flex-1"><span className="block truncate text-[14px] font-semibold">{contactName(id, content.contacts)}</span><span className="mt-0.5 block truncate text-[12px] text-zinc-400">{KAKAO_PROFILES.find(p => p.contactId === id)?.statusMessage ?? (id === 'me' ? CHARACTER.owner.statusMessage : '')}</span></span>
+    <Avatar id={id} size={own ? 53 : 49}/>
+    <span className="min-w-0 flex-1"><span className="block truncate text-[15px] font-medium">{contactName(id, content.contacts)}</span><span className="mt-0.5 block truncate text-[12px] text-zinc-400">{KAKAO_PROFILES.find(p => p.contactId === id)?.statusMessage ?? (id === 'me' ? CHARACTER.owner.statusMessage : '')}</span></span>
   </button>
-  return <section className="flex h-full min-h-0 flex-col bg-white text-[#202020]">
+  return <section className="relative flex h-full min-h-0 flex-col bg-white text-[#202020]">
+    <header className="flex h-[62px] shrink-0 items-center gap-3 px-5">
+      <button onClick={() => pushRoute('profile:me')} aria-label="내 프로필"><Avatar id="me" size={38}/></button>
+      <h1 className="min-w-0 flex-1 truncate text-[20px] font-bold">{CHARACTER.owner.name}</h1>
+      <button onClick={() => setFriendSearch(v=>!v)} aria-label="친구 검색" className="p-1"><Search size={25}/></button>
+      <button disabled aria-label="친구 추가 (비활성화)" className="cursor-default p-1"><UserRoundPlus size={25}/></button>
+      <button disabled aria-label="선물하기 (비활성화)" className="cursor-default p-1"><Gift size={24}/></button>
+      <button onClick={() => setSettingsOpen(v=>!v)} aria-label="카카오톡 설정" className="p-1"><Settings size={25}/></button>
+    </header>
+    {friendSearch && <div className="mx-5 mb-2 flex items-center gap-2 rounded-xl bg-zinc-100 px-3 py-2"><Search size={16}/><input autoFocus value={query} onChange={e=>setQuery(e.target.value)} placeholder="친구 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none"/><button onClick={()=>{setFriendSearch(false);setQuery('')}} aria-label="검색 닫기"><X size={17}/></button></div>}
+    <div className="flex shrink-0 gap-2 px-5 pb-4 pt-1"><span className="rounded-full bg-[#1b1b1b] px-5 py-2 text-sm font-semibold text-white">친구</span><span className="rounded-full bg-[#f4f4f4] px-5 py-2 text-sm text-[#777]">소식</span></div>
     <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-      <div className="border-b border-zinc-100 py-2">{profileRow('me', true)}</div>
-      <div className="pt-3"><div className="flex items-center gap-1 px-5 pb-1 text-[11px] text-zinc-400"><Star size={12}/>즐겨찾는 친구 {favorites.length}</div>{favorites.map(c => profileRow(c.id))}</div>
-      <div className="pt-3"><div className="px-5 pb-1 text-[11px] text-zinc-400">친구 {others.length}</div>{others.map(c => profileRow(c.id))}</div>
+      <div className="mx-5 mb-5 flex h-[90px] items-center justify-between rounded-[17px] bg-[#f4f4f4] px-5"><div><p className="text-[10px] font-bold tracking-widest text-[#555]">KAKAO FRIENDS</p><p className="mt-2 text-[15px] font-bold">친구에게 마음 전하기</p><p className="text-[11px] text-zinc-500">소중한 순간을 선물해요</p></div><Gift size={43} className="text-[#c7b3a3]" strokeWidth={1.3}/></div>
+      <div className="border-t border-zinc-100 pt-2">
+        <button onClick={()=>setShowFavorites(v=>!v)} className="flex w-full items-center justify-between px-5 py-3 text-left text-[13px] font-medium">즐겨찾는 친구 {favorites.length}{showFavorites?<ChevronUp size={18} className="text-zinc-400"/>:<ChevronDown size={18} className="text-zinc-400"/>}</button>
+        {showFavorites && favorites.filter(c=>matches(c.id)).map(c=>profileRow(c.id))}
+      </div>
+      <div className="border-t border-zinc-100 pt-2">
+        <div className="flex w-full items-center justify-between px-5 py-3"><button onClick={()=>setShowFriends(v=>!v)} className="flex flex-1 items-center justify-between text-left text-[13px] font-medium">친구 {others.length}{showFriends?<ChevronUp size={18} className="text-zinc-400"/>:<ChevronDown size={18} className="text-zinc-400"/>}</button></div>
+        {showFriends && others.filter(c=>matches(c.id)).map(c=>profileRow(c.id))}
+      </div>
     </div>
+    {settingsOpen && <div className="absolute inset-0 z-40 bg-white"><header className="flex h-14 items-center gap-3 border-b px-4"><button onClick={()=>setSettingsOpen(false)} aria-label="설정 닫기"><ChevronLeft size={23}/></button><h2 className="font-semibold">카카오톡 설정</h2></header></div>}
     <KakaoTabs active="friends" onFriends={() => {}} onChats={() => back()}/>
   </section>
 }
