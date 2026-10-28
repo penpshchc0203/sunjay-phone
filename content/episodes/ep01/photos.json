@@ -34,7 +34,7 @@
     },
     {
       "id": "photo-weverse-3-333927967",
-      "src": "/sunjay-phone/images/photos/weverse_3-333927967.jpg",
+      "src": "/sunjay-phone/images/photos/weverse_4-333927967.jpg",
       "alt": "",
       "takenAt": "2026-04-19T15:11",
       "album": "카메라",
@@ -71,6 +71,14 @@
       "takenAt": "2026-04-18T17:20",
       "album": "카메라",
       "favorite": false
+    },
+    {
+      "id": "photo-weverse-4-331875684",
+      "src": "/sunjay-phone/images/photos/weverse_4-331875684.jpg",
+      "alt": "",
+      "takenAt": "2026-04-10T10:20",
+      "album": "카메라",
+      "favorite": true
     }
   ]
 }
