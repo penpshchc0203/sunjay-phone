@@ -118,7 +118,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
         return <div key={msg.id}>
           {showDate && <div className="mx-auto mb-4 w-fit rounded-full bg-[#879bac]/65 px-3 py-1 text-center text-[11px] text-white">{dateLabel(msg.sentAt)}</div>}
           <div className={`flex items-start gap-2 ${mine ? 'justify-end' : 'justify-start'}`}>
-            {showSender && <button aria-label={`${contactName(msg.from, content.contacts)} 프로필 보기`} onClick={() => setProfile(msg.from)}><Avatar id={msg.from} size={34}/></button>}
+            {!mine && <div className="w-[34px] shrink-0">{showSender && <button aria-label={`${contactName(msg.from, content.contacts)} 프로필 보기`} onClick={() => setProfile(msg.from)}><Avatar id={msg.from} size={34}/></button>}</div>}
             <div className={`flex min-w-0 max-w-[78%] flex-col ${mine ? 'items-end' : 'items-start'}`}>
               {showSender && <span className="mb-1 text-xs text-[#263645]">{contactName(msg.from, content.contacts)}</span>}
               <div className={`flex max-w-full items-end gap-1 ${mine ? 'flex-row-reverse' : ''}`}>
