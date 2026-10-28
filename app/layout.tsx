@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/sunjay-phone/icon.svg',
+        url: '/sunjay-phone/icon-light-32x32.png',
         type: 'image/svg+xml',
       },
     ],
