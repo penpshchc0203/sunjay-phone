@@ -1059,7 +1059,8 @@
           "id": "kakao-friends-added-20261027-0001",
           "from": "me",
           "text": "안차임ㅡㅡ",
-          "sentAt": "2026-04-17T19:28"
+          "sentAt": "2026-04-17T19:28",
+          "replyToId": "kakao-friends-3-dup12"
         },
         {
           "id": "kakao-friends-added-20261027-0002",
@@ -1071,7 +1072,8 @@
           "id": "kakao-friends-added-20261027-0003",
           "from": "sunghoon",
           "text": "대박",
-          "sentAt": "2026-04-17T19:30"
+          "sentAt": "2026-04-17T19:30",
+          "replyToId": "kakao-friends-added-20261027-0002"
         },
         {
           "id": "kakao-friends-added-20261027-0004",

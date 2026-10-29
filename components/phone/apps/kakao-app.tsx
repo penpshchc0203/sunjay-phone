@@ -109,7 +109,18 @@ function RoomView({ room }: { room: KakaoRoom }) {
     setReplyTarget(null)
   }
   const allMessages = [...room.messages, ...sent]
-  const replyInfo = (msg: KakaoMessage) => (msg as KakaoMessage & {replyTo?: {id: string; from: string; text: string}}).replyTo
+  const replyInfo = (msg: KakaoMessage) => {
+    const reply = msg as KakaoMessage & { replyTo?: { id: string; from: string; text: string }; replyToId?: string }
+    if (reply.replyTo) return reply.replyTo
+    if (!reply.replyToId) return undefined
+    const original = allMessages.find(item => item.id === reply.replyToId)
+    if (!original) return undefined
+    return {
+      id: original.id,
+      from: original.from,
+      text: original.text || (messageImages(original).length ? '사진' : original.emoticon || '메시지'),
+    }
+  }
   useEffect(() => { bottomRef.current?.scrollIntoView({ block: 'end' }) }, [room.id, sent.length])
   let lastDate = ''
   return <section className="relative flex h-full min-h-0 flex-col bg-[#b2c7d9] text-[#222]" style={(room.backgroundImage || room.wallpaper) ? {backgroundImage:`url(${JSON.stringify(room.backgroundImage || room.wallpaper).slice(1,-1)})`,backgroundPosition:'center',backgroundSize:'cover'} : undefined}>
