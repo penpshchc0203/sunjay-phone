@@ -1,4 +1,6 @@
 import {
+  AlarmClock,
+  ShoppingBag,
   AtSign,
   BookUser,
   Globe,
@@ -17,7 +19,7 @@ import type { DesignConfig } from '@/lib/phone/config-types'
  */
 export const DESIGN: DesignConfig = {
   lockScreen: {
-    wallpaper: '/sunjay-phone/images/wallpaper.jpg',
+    wallpaper: '/sunjay-phone/images/photos/y2f7n.jpg',
     dimOpacity: 0.25,
     clockColor: '#ffffff',
     textColor: '#ffffff',
@@ -87,6 +89,19 @@ export const DESIGN: DesignConfig = {
       tileColor: '#f43f5e',
       implemented: true,
     },
+    alarms: {
+      name: '시계',
+      icon: AlarmClock,
+      tileColor: '#353e58',
+      implemented: true,
+    },
+    coupang: {
+      name: '쿠팡',
+      icon: ShoppingBag,
+      iconImage: '/sunjay-phone/app-icons/coupang.webp',
+      tileColor: '#2676df',
+      implemented: true,
+    },
     notes: {
       name: '메모',
       icon: StickyNote,
@@ -108,6 +123,6 @@ export const DESIGN: DesignConfig = {
     },
   },
 
-  homeGrid: ['contacts', 'photos', 'notes', 'instagram', 'kakao'],
+  homeGrid: ['contacts', 'photos', 'notes', 'instagram', 'kakao', 'alarms', 'coupang'],
   dock: ['phone', 'messages', 'browser', 'settings'],
 }

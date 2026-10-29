@@ -1,0 +1,71 @@
+
+{
+  "orders": [
+    {
+      "id": "order-20260427-001",
+      "orderNumber": "202604270001",
+      "orderedAt": "2026-04-27T20:31:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-001",
+          "name": "튀르키예산 메르칸 구운 카다이프면 디저트 과자 베이커리 재료 원산지:터키, 500g, 1개",
+          "image": "/images/coupang/cou_kadayif.jpg",
+          "price": 6480,
+          "quantity": 1
+        },
+        {
+          "id": "item-002",
+          "name": "목초방목 기버터(주문시 국내생산) 거두올림 320g",
+          "image": "/images/coupang/cou_butter.jpg",
+          "price": 20490,
+          "quantity": 1
+        },
+        {
+          "id": "item-003",
+          "name": "CAFE FRUIT 피스타치오 스프레드 1KG 우유생크림을 가득 넣은 피스타치오 크림",
+          "image": "/images/coupang/cou_pistachio.jpg",
+          "price": 41720,
+          "quantity": 1
+        },
+        {
+          "id": "item-004",
+          "name": "파베글라스 화이트 커버춰 리얼 초콜릿 40%, 400g, 1개",
+          "image": "/images/coupang/cou_whitch.jpg",
+          "price": 12940,
+          "quantity": 1
+        },
+        {
+          "id": "item-005",
+          "name": "[당일출고] 화이트 빅 마시멜로우 두쫀쿠 마쉬멜로우, 1kg, 1개",
+          "image": "/images/coupang/cou_mash.jpg",
+          "price": 3900,
+          "quantity": 1
+        },
+        {
+          "id": "item-006",
+          "name": "허쉬 코코아 파우더",
+          "image": "/images/coupang/cou_cocoa.jpg",
+          "price": 10090,
+          "quantity": 1
+        },
+        {
+          "id": "item-007",
+          "name": "경인상단 탈지분유, 1개, 500g",
+          "image": "/images/coupang/cou_milk1.jpg",
+          "price": 8000,
+          "quantity": 1
+        },
+        {
+          "id": "item-008",
+          "name": "국산 두쫀쿠 포장 용기 케이스 1구 (유산지 포함)",
+          "image": "/images/coupang/cou_yong.jpg",
+          "price": 6710,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 110330
+    }
+  ]
+}

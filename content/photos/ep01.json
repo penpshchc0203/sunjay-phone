@@ -79,6 +79,174 @@
       "takenAt": "2026-04-10T10:20",
       "album": "카메라",
       "favorite": true
+    },
+    {
+      "id": "photo-p4x8n",
+      "src": "/sunjay-phone/images/photos/p4x8n.jpg",
+      "alt": "",
+      "takenAt": "2026-04-22T13:17",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-b9q3v",
+      "src": "/sunjay-phone/images/kakao/js_selfie_22.jpg",
+      "alt": "",
+      "takenAt": "2026-04-22T20:36",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-t2j6r",
+      "src": "/sunjay-phone/images/photos/t2j6r.jpg",
+      "alt": "",
+      "takenAt": "2026-04-23T12:08",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-f5w1c",
+      "src": "/sunjay-phone/images/kakao/js_meat_23.jpg",
+      "alt": "",
+      "takenAt": "2026-04-23T18:54",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-h8d4s",
+      "src": "/sunjay-phone/images/kakao/js_selfie_24.jpg",
+      "alt": "",
+      "takenAt": "2026-04-24T19:23",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-c4v9e",
+      "src": "/sunjay-phone/images/photos/c4v9e.jpg",
+      "alt": "",
+      "takenAt": "2026-04-25T12:32",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-w1j5t",
+      "src": "/sunjay-phone/images/photos/w1j5t.jpg",
+      "alt": "",
+      "takenAt": "2026-04-25T13:46",
+      "album": "카메라",
+      "favorite": true
+    },
+    {
+      "id": "photo-m8b3q",
+      "src": "/sunjay-phone/images/photos/m8b3q.jpg",
+      "alt": "",
+      "takenAt": "2026-04-25T15:08",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-y2f7n",
+      "src": "/sunjay-phone/images/photos/y2f7n.jpg",
+      "alt": "",
+      "takenAt": "2026-04-25T15:08",
+      "album": "카메라",
+      "favorite": true
+    },
+    {
+      "id": "photo-d9k4p",
+      "src": "/sunjay-phone/images/photos/d9k4p.jpg",
+      "alt": "",
+      "takenAt": "2026-04-25T15:09",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-g3m8v",
+      "src": "/sunjay-phone/images/photos/g3m8v.jpg",
+      "alt": "",
+      "takenAt": "2026-04-26T11:36",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-j7q1b",
+      "src": "/sunjay-phone/images/kakao/js_guitar_26.jpg",
+      "alt": "",
+      "takenAt": "2026-04-26T11:37",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-v4t9c",
+      "src": "/sunjay-phone/images/photos/v4t9c.jpg",
+      "alt": "",
+      "takenAt": "2026-04-26T15:44",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-a6n2w",
+      "src": "/sunjay-phone/images/photos/a6n2w.jpg",
+      "alt": "",
+      "takenAt": "2026-04-26T17:19",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-q2d7m",
+      "src": "/sunjay-phone/images/photos/q2d7m.jpg",
+      "alt": "",
+      "takenAt": "2026-04-27T12:43",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-l9f4x",
+      "src": "/sunjay-phone/images/photos/l9f4x.jpg",
+      "alt": "",
+      "takenAt": "2026-04-27T19:26",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-u5b2j",
+      "src": "/sunjay-phone/images/photos/u5b2j.jpg",
+      "alt": "",
+      "takenAt": "2026-04-28T14:52",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-c8w6n",
+      "src": "/sunjay-phone/images/photos/c8w6n.jpg",
+      "alt": "",
+      "takenAt": "2026-04-28T21:35",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-r2x5f",
+      "src": "/sunjay-phone/images/photos/r2x5f.jpg",
+      "alt": "",
+      "takenAt": "2026-04-29T18:13",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-n6j8q",
+      "src": "/sunjay-phone/images/photos/n6j8q.jpg",
+      "alt": "",
+      "takenAt": "2026-04-29T22:04",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-b3s7k",
+      "src": "/sunjay-phone/images/photos/b3s7k.jpg",
+      "alt": "",
+      "takenAt": "2026-04-30T19:37",
+      "album": "카메라",
+      "favorite": false
     }
   ]
 }

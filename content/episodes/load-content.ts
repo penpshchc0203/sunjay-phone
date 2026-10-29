@@ -30,9 +30,19 @@ import photos_all from '../photos/all.json'
 import photos_ep01 from '../photos/ep01.json'
 import photos_ep02 from '../photos/ep02.json'
 import photos_ep03 from '../photos/ep03.json'
+import alarms_all from '../alarms/all.json'
+import alarms_ep01 from '../alarms/ep01.json'
+import alarms_ep02 from '../alarms/ep02.json'
+import alarms_ep03 from '../alarms/ep03.json'
+import coupang_all from '../coupang/all.json'
+import coupang_ep01 from '../coupang/ep01.json'
+import coupang_ep02 from '../coupang/ep02.json'
+import coupang_ep03 from '../coupang/ep03.json'
 type Row = Record<string, any>
 type Dataset = Record<string, any>
 const sources: Record<string, Record<string, Dataset>> = {
+  coupang: {all: coupang_all, ep01: coupang_ep01, ep02: coupang_ep02, ep03: coupang_ep03},
+  alarms: {all: alarms_all, ep01: alarms_ep01, ep02: alarms_ep02, ep03: alarms_ep03},
   kakao: {all: kakao_all, ep01: kakao_ep01, ep02: kakao_ep02, ep03: kakao_ep03},
   browser: {all: browser_all, ep01: browser_ep01, ep02: browser_ep02, ep03: browser_ep03},
   calls: {all: calls_all, ep01: calls_ep01, ep02: calls_ep02, ep03: calls_ep03},

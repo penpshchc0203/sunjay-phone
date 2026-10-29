@@ -18,7 +18,7 @@ const defaults: Required<EpisodeContent> = {
   kakaoAvatars: {}, contacts: CONTACTS, kakaoRooms: KAKAO_ROOMS, kakaoProfiles: KAKAO_PROFILES,
   instagramProfile: INSTAGRAM_PROFILE, instagramAccounts: INSTAGRAM_ACCOUNTS,
   instagramPosts: INSTAGRAM_POSTS, instagramDms: INSTAGRAM_DMS, instagramStories: INSTAGRAM_STORIES,
-  photos: PHOTOS, notes: NOTES, calls: CALL_LOG, smsThreads: SMS_THREADS, notifications: LOCK_NOTIFICATIONS,
+  photos: PHOTOS, notes: NOTES, alarms: [], orders: [], calls: CALL_LOG, smsThreads: SMS_THREADS, notifications: LOCK_NOTIFICATIONS,
   browserSearches: BROWSER_SEARCHES, browserResults: BROWSER_RESULTS,
 }
 interface EpisodeContextValue { episode: Episode; content: Required<EpisodeContent>; selectEpisode: (id: string) => void; showPicker: () => void; hidePicker: () => void; choosing: boolean }

@@ -15,7 +15,7 @@ export const CONTACTS: Contact[] = [
     phoneNumber: CHARACTER.user.phoneNumber,
     relation: '귀여워',
     avatar: CHARACTER.user.avatar,
-    favorite: false,
+    favorite: true,
   },
   {
     id: 'sunghoon',
