@@ -34,7 +34,17 @@ const seoulParts = (value: string): { day: string; minute: string; hour: number;
 }
 const timeLabel = (date: string) => {
   const time = seoulParts(date)
-  return time ? `${time.hour < 12 ? '오전' : '오후'} ${time.hour % 12 || 12}:${String(time.min).padStart(2, '0')}` : ''
+  return time ? `${String(time.hour).padStart(2, '0')}:${String(time.min).padStart(2, '0')}` : ''
+}
+const roomListDateLabel = (date: string) => {
+  const day = seoulParts(date)?.day
+  if (!day) return ''
+  const today = new Intl.DateTimeFormat('en-CA', {timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit'}).formatToParts(new Date())
+  const get = (type: string) => today.find(part => part.type === type)?.value ?? ''
+  const todayKey = `${get('year')}-${get('month')}-${get('day')}`
+  if (day === todayKey) return timeLabel(date)
+  const [year, month, dateOfMonth] = day.split('-')
+  return year === get('year') ? `${Number(month)}월 ${Number(dateOfMonth)}일` : `${year}.${month}.${dateOfMonth}`
 }
 const dateLabel = (date: string) => {
   const day = seoulParts(date)?.day ?? date.slice(0, 10)
@@ -83,6 +93,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
   const stepPreview = (direction: number) => setPreview(current => current ? { ...current, index: Math.max(0, Math.min(current.images.length - 1, current.index + direction)) } : null)
   const [profile, setProfile] = useState<string|null>(null)
   const [draft, setDraft] = useState('')
+  const [replyTarget, setReplyTarget] = useState<KakaoMessage | null>(null)
   const [sent, setSent] = useState<KakaoMessage[]>([])
   const { episode } = useEpisode()
   const storageKey = `virtual-phone:kakao-sent:v1:${episode.id}:${room.id}`
@@ -92,11 +103,13 @@ function RoomView({ room }: { room: KakaoRoom }) {
   const send = () => {
     const text = draft.trim()
     if (!text) return
-    const msg: KakaoMessage = {id: `reader-${Date.now()}-${Math.random().toString(36).slice(2)}`, from: 'me', text, sentAt: new Date().toISOString()}
+    const msg: KakaoMessage = {id: `reader-${Date.now()}-${Math.random().toString(36).slice(2)}`, from: 'me', text, sentAt: new Date().toISOString(), ...(replyTarget ? { replyTo: {id: replyTarget.id, from: replyTarget.from, text: replyTarget.text || (messageImages(replyTarget).length ? '사진' : replyTarget.emoticon || '메시지')} } : {})} as KakaoMessage & {replyTo?: {id: string; from: string; text: string}}
     setSent(old => {const next = [...old,msg]; try {localStorage.setItem(storageKey,JSON.stringify(next))} catch {} return next})
     setDraft('')
+    setReplyTarget(null)
   }
   const allMessages = [...room.messages, ...sent]
+  const replyInfo = (msg: KakaoMessage) => (msg as KakaoMessage & {replyTo?: {id: string; from: string; text: string}}).replyTo
   useEffect(() => { bottomRef.current?.scrollIntoView({ block: 'end' }) }, [room.id, sent.length])
   let lastDate = ''
   return <section className="relative flex h-full min-h-0 flex-col bg-[#b2c7d9] text-[#222]" style={(room.backgroundImage || room.wallpaper) ? {backgroundImage:`url(${JSON.stringify(room.backgroundImage || room.wallpaper).slice(1,-1)})`,backgroundPosition:'center',backgroundSize:'cover'} : undefined}>
@@ -122,7 +135,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
             <div className={`flex min-w-0 max-w-[78%] flex-col ${mine ? 'items-end' : 'items-start'}`}>
               {showSender && <span className="mb-1 text-xs text-[#263645]">{contactName(msg.from, content.contacts)}</span>}
               <div className={`flex max-w-full items-end gap-1 ${mine ? 'flex-row-reverse' : ''}`}>
-                <div className={`min-w-0 text-[13px] leading-relaxed ${messageImages(msg).length > 0 && !msg.text && !msg.emoticon && !msg.deleted ? 'overflow-hidden rounded-xl' : `rounded-xl px-3 py-2 shadow-sm ${mine ? 'bg-[#fee500]' : 'bg-white'}`}`}><MessageBody message={msg} onImage={openPreview}/></div>
+                <div role="button" tabIndex={0} aria-label="이 메시지에 답장" onClick={() => setReplyTarget(msg)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setReplyTarget(msg) } }} className={`min-w-0 cursor-pointer text-[13px] leading-relaxed ${messageImages(msg).length > 0 && !msg.text && !msg.emoticon && !msg.deleted ? 'overflow-hidden rounded-xl' : `rounded-xl px-3 py-2 shadow-sm ${mine ? 'bg-[#fee500]' : 'bg-white'}`}`}>{replyInfo(msg) && <div className="mb-2 border-l-2 border-[#7b8e9f] pl-2 text-[11px]"><div className="font-semibold">{contactName(replyInfo(msg)!.from, content.contacts)}에게 답장</div><div className="max-w-48 truncate opacity-70">{replyInfo(msg)!.text}</div></div>}<MessageBody message={msg} onImage={openPreview}/></div>
                 <div className="shrink-0 pb-0.5 text-[9px] text-[#536574]">{typeof msg.unreadCount === 'number' && msg.unreadCount > 0 && <span className="block text-right font-bold text-[#8a5b00]">{msg.unreadCount}</span>}{showTime && timeLabel(msg.sentAt)}</div>
               </div>
             </div>
@@ -131,6 +144,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
       })}
       <div ref={bottomRef}/>
     </div>
+    {replyTarget && <div className="flex shrink-0 items-center gap-3 border-t border-black/10 bg-[#f8f8f8] px-4 py-2"><div className="min-w-0 flex-1 border-l-[3px] border-[#fee500] pl-3"><p className="text-xs font-semibold">{contactName(replyTarget.from, content.contacts)}에게 답장</p><p className="truncate text-xs text-zinc-500">{replyTarget.text || (messageImages(replyTarget).length ? '사진' : replyTarget.emoticon || '메시지')}</p></div><button type="button" onClick={() => setReplyTarget(null)} aria-label="답장 취소" className="rounded-full p-1 text-zinc-500"><X size={18}/></button></div>}
     <form onSubmit={e => {e.preventDefault();send()}} className="flex shrink-0 items-end gap-2 border-t border-black/5 bg-[#f8f8f8] px-3 py-2">
       <textarea aria-label="메시지 입력" rows={1} value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.nativeEvent.isComposing){e.preventDefault();send()}}} placeholder="메시지 입력" className="max-h-28 min-h-10 min-w-0 flex-1 resize-none overflow-y-auto rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none"/>
       <button type="submit" disabled={!draft.trim()} aria-label="메시지 전송" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#fee500] disabled:opacity-40"><Send size={18}/></button>
@@ -205,7 +219,7 @@ function RoomList() {
         return <button key={room.id} onClick={() => {if (!canOpenKakaoRoom(room)) return; markRead(room.id);pushRoute(`room:${room.id}`)}} disabled={!canOpenKakaoRoom(room)} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-zinc-50 focus-visible:bg-zinc-100">
           <Avatar id={room.memberIds[0] ?? 'me'} group={room.type === 'group'} size={52}/>
           <div className="min-w-0 flex-1"><div className="flex items-center gap-1"><span className="truncate text-[15px] font-semibold">{roomTitle(room, content.contacts)}</span>{room.type === 'group' && <span className="text-xs text-zinc-400">{room.memberIds.length + 1}</span>}{room.pinned && <Pin size={12} className="text-zinc-400"/>}{room.muted && <BellOff size={12} className="text-zinc-400"/>}</div><p className="mt-1 truncate text-[13px] text-zinc-500">{last?.text ?? (messageImages(last ?? { id: '', from: '', sentAt: '' }).length ? '사진' : last?.emoticon ?? '대화 내용 없음')}</p></div>
-          <div className="flex shrink-0 flex-col items-end gap-1"><span className="text-[10px] text-zinc-400">{last ? timeLabel(last.sentAt) : ''}</span>{unreadForRoom(room) > 0 && <span className="flex min-w-5 items-center justify-center rounded-full bg-[#f05c53] px-1.5 py-0.5 text-[10px] text-white">{unreadForRoom(room)}</span>}</div>
+          <div className="flex shrink-0 flex-col items-end gap-1"><span className="text-[10px] text-zinc-400">{last ? roomListDateLabel(last.sentAt) : ''}</span>{unreadForRoom(room) > 0 && <span className="flex min-w-5 items-center justify-center rounded-full bg-[#f05c53] px-1.5 py-0.5 text-[10px] text-white">{unreadForRoom(room)}</span>}</div>
         </button>
       })}
     </div>

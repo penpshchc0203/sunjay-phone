@@ -14,7 +14,7 @@ type RelationshipMode = 'followers' | 'following'
 type Tab = 'home' | 'search' | 'profile' | 'inbox'
 const readableTime = (value: string) => {
   const date = new Date(value)
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, hourCycle: 'h23' })
 }
 function Avatar({ src, name, size = 42 }: { src?: string; name: string; size?: number }) {
   const [failed, setFailed] = useState(false)

@@ -11,7 +11,7 @@ const empty = (): Stored => ({ added: [], removed: [] })
 const STORAGE_KEY = 'virtual-phone:browser-search:v1'
 const prettyTime = (value: string) => {
   const d = new Date(value)
-  return Number.isNaN(d.getTime()) ? value : d.toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+  return Number.isNaN(d.getTime()) ? value : d.toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, hourCycle: 'h23' })
 }
 
 export function BrowserApp() {

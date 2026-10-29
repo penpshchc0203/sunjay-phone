@@ -11,7 +11,7 @@ import { usePhone } from '../phone-provider'
 type View = 'recent' | 'favorites' | 'contacts'
 const iconFor = (type: CallLogEntry['type']) => type === 'incoming' ? PhoneIncoming : type === 'outgoing' ? PhoneOutgoing : type === 'missed' ? PhoneMissed : PhoneOff
 const typeName = (type: CallLogEntry['type']) => ({ incoming: '수신', outgoing: '발신', missed: '부재중', rejected: '거절' })[type]
-const formatDate = (value: string) => { const d = new Date(value); return Number.isNaN(d.getTime()) ? value : d.toLocaleString('ko-KR', { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' }) }
+const formatDate = (value: string) => { const d = new Date(value); return Number.isNaN(d.getTime()) ? value : d.toLocaleString('ko-KR', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, hourCycle: 'h23' }) }
 const duration = (sec?: number) => sec === undefined ? '기록 없음' : sec >= 3600 ? `${Math.floor(sec / 3600)}시간 ${Math.floor(sec % 3600 / 60)}분 ${sec % 60}초` : `${Math.floor(sec / 60)}분 ${sec % 60}초`
 
 export function PhoneApp() {
