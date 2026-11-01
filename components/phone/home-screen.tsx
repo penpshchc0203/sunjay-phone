@@ -23,8 +23,8 @@ function ExtraAppButton({ id, onClick, plainLabel = false }: { id: ExtraAppId; o
   const app = EXTRA_APPS[id]
   const Icon = app.icon
   return <button type="button" onClick={onClick} aria-label={`${app.name} 열기`} className="flex min-w-0 flex-col items-center gap-1.5 rounded-xl p-1 text-xs">
-    <span className={`relative flex size-14 items-center justify-center overflow-hidden rounded-[32%]`} style={{backgroundColor:app.iconImage?'transparent':app.tileColor,color:app.iconColor}}>
-      {app.iconImage ? <Image src={app.iconImage} alt="" fill sizes="56px" className="object-contain" unoptimized/> : <Icon size={27}/>}</span>
+    <span className={`relative flex aspect-square w-[var(--launcher-icon-size,3.5rem)] shrink-0 items-center justify-center overflow-hidden rounded-[32%]`} style={{backgroundColor:app.iconImage?'transparent':app.tileColor,color:app.iconColor}}>
+      {app.iconImage ? <Image src={app.iconImage} alt="" fill sizes="56px" className="object-contain" unoptimized/> : <Icon className="size-[48%]" strokeWidth={2}/>}</span>
     <span className={`max-w-[4.5rem] truncate ${plainLabel?'font-normal':'font-medium'}`}>{app.name}</span>
   </button>
 }
@@ -98,14 +98,14 @@ export function HomeScreen() {
       onMouseUp={e=>end(e.clientX,e.clientY)}
       style={{ color: DESIGN.homeScreen.textColor }}
     >
-      <style>{`@media (max-height: 800px) {
+      <style>{`.home-compact { --launcher-icon-size: 56px; }
+      @media (max-height: 800px) {
+        .home-compact { --launcher-icon-size: 46px; }
         .home-compact .home-spotify {transform: scale(.87); transform-origin: center; margin-block: -13px}
-        .home-compact ul[aria-label="앱"] > li button > span:first-child > span,
-        .home-compact ul[aria-label="즐겨찾는 앱"] > li button > span:first-child > span {width: 46px !important}
         .home-compact ul[aria-label="앱"] > li button, .home-compact ul[aria-label="즐겨찾는 앱"] > li button {gap: 2px}
         .home-compact ul[aria-label="앱"] {row-gap: 3px}
       }
-      @media (max-height: 680px) {.home-compact .home-spotify {transform: scale(.74); margin-block: -26px} .home-compact ul[aria-label="앱"] > li button > span:first-child > span, .home-compact ul[aria-label="즐겨찾는 앱"] > li button > span:first-child > span {width: 40px !important}}
+      @media (max-height: 680px) {.home-compact { --launcher-icon-size: 40px; } .home-compact .home-spotify {transform: scale(.74); margin-block: -26px}}
       `}</style>
       {page===0&&<><div className="flex items-start justify-between gap-2 px-2 pt-5 [text-shadow:0_1px_8px_rgb(0_0_0/0.4)]"><div>
         <p

@@ -17,8 +17,8 @@ export function AppIconTile({ appId, className }: { appId: AppId; className?: st
       aria-hidden="true"
       className={cn(
         app.iconImage && !imageFailed
-          ? 'relative flex aspect-square items-center justify-center overflow-hidden rounded-[32%] bg-transparent shadow-none'
-          : 'relative flex aspect-square items-center justify-center overflow-hidden rounded-[32%] shadow-sm',
+          ? 'relative flex aspect-square shrink-0 items-center justify-center overflow-hidden rounded-[32%] bg-transparent shadow-none'
+          : 'relative flex aspect-square shrink-0 items-center justify-center overflow-hidden rounded-[32%] shadow-sm',
         className,
       )}
       style={{
@@ -60,7 +60,7 @@ export function AppLauncherButton({
     >
       <span className="relative"><AppIconTile
         appId={appId}
-        className="w-14 transition-transform group-active:scale-90 sm:w-[3.75rem] md:w-14"
+        className="w-[var(--launcher-icon-size,3.5rem)] transition-transform group-active:scale-90"
       />{badge > 0 && <span className="absolute -right-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white" aria-label={`읽지 않은 알림 ${badge}개`}>{badge > 99 ? "99+" : badge}</span>}</span>
       {showLabel && (
         <span className={cn("max-w-full truncate text-xs", plainLabel ? "font-normal [text-shadow:none]" : "font-medium [text-shadow:0_1px_2px_rgb(0_0_0/0.5)]")}>

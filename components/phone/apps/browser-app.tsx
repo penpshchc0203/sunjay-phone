@@ -42,7 +42,11 @@ function BrowserSession() {
       if (saved) {
         const data = JSON.parse(saved)
         if (data && typeof data === 'object') setStore({
-          added: Array.isArray(data.added) ? data.added : [],
+          // Remove only legacy October 2026 searches persisted before the episode timeline was established.
+          // Keep other reader searches and all JSON-provided episode history unchanged.
+          added: Array.isArray(data.added)
+            ? data.added.filter((item: BrowserSearchEntry) => !item?.searchedAt?.startsWith('2026-10-'))
+            : [],
           removed: Array.isArray(data.removed) ? data.removed : [],
         })
       }
