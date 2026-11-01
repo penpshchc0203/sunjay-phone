@@ -1,0 +1,5 @@
+[
+ {"id":"cal-work-meeting-0420","title":"회사 회의","date":"2026-04-20","start":"10:00","end":"11:00","location":"회의실","memo":"예시 일정","category":"work"},
+ {"id":"cal-deadline-0424","title":"업무 마감","date":"2026-04-24","start":"17:00","end":"18:00","location":"회사","memo":"예시 일정","category":"work"},
+ {"id":"cal-sunwoo-0425","title":"선우 만남","date":"2026-04-25","start":"15:00","end":"18:00","location":"","memo":"예시 일정 — 실제 스토리에 맞게 수정","category":"personal"}
+]

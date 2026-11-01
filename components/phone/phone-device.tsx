@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import { useRef, type CSSProperties } from 'react'
-import { ArrowLeft, Check, Layers3 } from 'lucide-react'
+import { X, Check, Heart } from 'lucide-react'
+import { getEpisodePickerInfo } from '@/config/episode-picker'
 import { EPISODES } from '@/content/episodes'
 import { DESIGN } from '@/config/design'
 import { cn } from '@/lib/utils'
@@ -66,30 +67,30 @@ function Wallpaper({
 
 function EpisodePickerScreen() {
   const { episode, choosing, hidePicker, selectEpisode } = useEpisode()
-  if (!choosing) return null
   return (
-    <section role="dialog" aria-modal="true" aria-label="에피소드 선택" className="absolute inset-0 z-[60] flex flex-col overflow-hidden bg-[#15161c] text-white">
-      <header className="flex shrink-0 items-center gap-3 border-b border-white/10 px-4 pb-3 pt-12">
-        <button type="button" onClick={hidePicker} aria-label="에피소드 선택 취소하고 홈으로 돌아가기" className="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white"><ArrowLeft size={22} /></button>
-        <div className="min-w-0"><h2 className="text-lg font-semibold">에피소드 선택</h2><p className="text-xs text-white/55">원하는 에피소드를 선택하세요</p></div>
-      </header>
-      <div className="virtual-phone-scrollbars min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-5">
-        {EPISODES.map(ep => (
-          <button key={ep.id} type="button" onClick={() => selectEpisode(ep.id)} disabled={ep.id !== 'ep01'} className="flex w-full items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-4 text-left transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/[0.06]">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-indigo-600/80"><Layers3 size={22} /></span>
-            <span className="min-w-0 flex-1"><span className="block break-words text-sm font-semibold">{ep.title}</span><span className="mt-1 block text-xs text-white/55">{ep.dateTime.replace('T',' ')} · {ep.characterIds.length ? ep.characterIds.join(', ') : '기록'}</span></span>
-            {episode.id === ep.id && <Check size={20} className="shrink-0 text-indigo-300" aria-label="현재 에피소드" />}
-          </button>
-        ))}
-      </div>
-      <div className="shrink-0 border-t border-white/10 bg-[#15161c] px-4 pb-7 pt-3"><button type="button" onClick={hidePicker} className="w-full rounded-xl bg-white/10 py-3 text-sm font-semibold hover:bg-white/15">취소</button></div>
-    </section>
+    <div className={`absolute inset-0 z-[60] flex items-end transition-all duration-300 ${choosing ? 'visible bg-black/35 opacity-100' : 'invisible pointer-events-none bg-transparent opacity-0'}`} onClick={hidePicker}>
+      <section role="dialog" aria-modal={choosing} aria-label="에피소드 선택" onClick={e=>e.stopPropagation()} className={`w-full max-h-[75%] overflow-y-auto rounded-t-[32px] bg-[#f2f3f7] px-4 pb-5 pt-3 text-[#191b22] shadow-2xl transition-transform duration-300 ${choosing ? 'translate-y-0' : 'translate-y-full'}`}>
+        <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-[#a4a7b2]"/>
+        <div className="mb-4 flex items-center justify-between"><span className="w-9"/><h2 className="text-lg font-bold">에피소드 선택</h2><button type="button" onClick={hidePicker} aria-label="닫기" className="flex size-9 items-center justify-center rounded-full hover:bg-black/5"><X size={23}/></button></div>
+        <div className="space-y-2">
+          {EPISODES.map((ep) => {
+            const active=episode.id===ep.id
+            const info=getEpisodePickerInfo(ep)
+            return <button key={ep.id} type="button" disabled={!info.enabled} onClick={()=>selectEpisode(ep.id)} className={`flex w-full items-center gap-3 rounded-2xl border px-3 py-3 text-left transition-colors ${active?'border-[#2464ff] bg-[#eaf0ff]':'border-[#e0e1e7] bg-white/90'} disabled:cursor-not-allowed disabled:opacity-55`}>
+              <span className={`flex size-12 shrink-0 items-center justify-center rounded-xl ${info.thumbnailColor} text-white`}><Heart size={23}/></span>
+              <span className="min-w-0 flex-1"><span className="block text-base font-bold">{ep.id.toUpperCase().replace('EP','EP.')}</span><span className="block text-xs text-zinc-600">{info.dateLabel}</span><span className="block text-xs text-zinc-500">{info.description}</span></span>
+              <span className={`flex size-6 shrink-0 items-center justify-center rounded-full border ${active?'border-[#2464ff] bg-[#2464ff] text-white':'border-zinc-400'}`}>{active&&<Check size={16} strokeWidth={3}/>}</span>
+            </button>
+          })}
+        </div>
+      </section>
+    </div>
   )
 }
 
 function PhoneDeviceInner() {
   const { state, hydrated, showRecents, togglePower } = usePhone()
-  const { episode } = useEpisode()
+  const { episode, choosing } = useEpisode()
   const lockScreen = { ...DESIGN.lockScreen, wallpaper: episode.lockWallpaper || DESIGN.lockScreen.wallpaper }
   const homeScreen = { ...DESIGN.homeScreen, wallpaper: episode.homeWallpaper || DESIGN.homeScreen.wallpaper }
   const sameWallpaper = lockScreen.wallpaper === homeScreen.wallpaper
@@ -120,6 +121,8 @@ function PhoneDeviceInner() {
           >
             {hydrated ? (
               <>
+                <div className={`absolute inset-0 flex min-h-0 flex-col overflow-hidden transition-[transform,border-radius] duration-300 ease-out ${choosing ? '-translate-y-3 scale-[0.94] rounded-[25px]' : 'translate-y-0 scale-100 rounded-none'}`}>
+
                 {sameWallpaper ? (
                   <Wallpaper
                     src={lockScreen.wallpaper}
@@ -155,6 +158,7 @@ function PhoneDeviceInner() {
                 </main>
                 {state.mode !== 'lock' && showRecents && <RecentsOverlay />}
                 {state.mode !== 'lock' && <NavigationBar />}
+                </div>
                 <EpisodePickerScreen />
               </>
             ) : (

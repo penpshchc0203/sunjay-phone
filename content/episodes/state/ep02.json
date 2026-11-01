@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "id": "sunwoo",
+      "name": "선우♡",
+      "favorite": true
+    },
+    {
+      "id": "sunghoon",
+      "favorite": false
+    }
+  ],
+  "kakaoProfiles": [
+    {
+      "contactId": "sunwoo",
+      "statusMessage": "💭"
+    }
+  ]
+}

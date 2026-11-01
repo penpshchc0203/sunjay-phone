@@ -11,6 +11,7 @@ import { PhoneApp } from './phone-app'
 import { ContactsApp } from './contacts-app'
 import { BrowserApp } from './browser-app'
 import { AlarmApp } from './alarm-app'
+import { MessagesApp } from './messages-app'
 import { CoupangApp } from './coupang-app'
 import type { AppComponentProps } from './types'
 
@@ -29,6 +30,7 @@ const IMPLEMENTED_APPS: Partial<Record<AppId, ComponentType<AppComponentProps>>>
   browser: BrowserApp,
   alarms: AlarmApp,
   coupang: CoupangApp,
+  messages: MessagesApp,
 }
 
 export function getAppComponent(appId: AppId): ComponentType<AppComponentProps> {

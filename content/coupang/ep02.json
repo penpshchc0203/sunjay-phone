@@ -1,3 +1,190 @@
 {
-  "orders": []
+  "orders": [
+    {
+      "id": "order-20260501-001",
+      "orderNumber": "202605010001",
+      "orderedAt": "2026-05-01T23:42:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep02-010",
+          "name": "퍼실 뉴 디스크 파워 플러스 캡슐세제, 26개입, 2개",
+          "image": "/images/coupang/cou_detergent.jpg",
+          "price": 20910,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-011",
+          "name": "한눈담다 청연 프리미엄 3겹 고평량 천연펄프 화장지",
+          "image": "/images/coupang/cou_tissue.jpg",
+          "price": 18390,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 39300
+    },
+    {
+      "id": "order-20260502-001",
+      "orderNumber": "202605020001",
+      "orderedAt": "2026-05-02T23:18:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep02-012",
+          "name": "모닌 그린민트 시럽, 1L, 1개",
+          "image": "/images/coupang/cou_mint_syrup.jpg",
+          "price": 18400,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-013",
+          "name": "기라델리 초코렛맛 프리미엄 소스, 454g, 1개",
+          "image": "/images/coupang/cou_choco_sauce.jpg",
+          "price": 11750,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-014",
+          "name": "파베글라스 루미에르 다크초코칩, 1kg, 1개",
+          "image": "/images/coupang/cou_choco_chip.jpg",
+          "price": 12980,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-015",
+          "name": "서울우유 멸균 흰우유, 200ml, 24개",
+          "image": "/images/coupang/cou_milk.jpg",
+          "price": 15300,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-016",
+          "name": "이로울생활 투명 PET 아이스컵 + 돔뚜껑",
+          "image": "/images/coupang/cou_ice_cup.jpg",
+          "price": 6900,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 65330
+    },
+    {
+      "id": "order-20260504-001",
+      "orderNumber": "202605040001",
+      "orderedAt": "2026-05-04T11:21:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep02-020",
+          "name": "코지톡 그라운드체어 페스티벌의자 캠핑좌식의자 1+1, 카키, 2개",
+          "image": "/images/coupang/cou_camping_chair.jpg",
+          "price": 29390,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-021",
+          "name": "벨루노르 등산 야외용 휴대용 접이식 방수 방석 1+1",
+          "image": "/images/coupang/cou_picnic_cushion.jpg",
+          "price": 15900,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-022",
+          "name": "KOOLMAN(쿨맨) 다용도 캠핑 미니 테이블",
+          "image": "/images/coupang/cou_folding_table.jpg",
+          "price": 13640,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 58930
+    },
+    {
+      "id": "order-20260506-001",
+      "orderNumber": "202605060001",
+      "orderedAt": "2026-05-06T22:06:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep02-023",
+          "name": "카누 다크 로스트 아메리카노 미니",
+          "image": "/images/coupang/cou_coffee.jpg",
+          "price": 21460,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-024",
+          "name": "라이프홀릭 텀블러 발포 세정제, 150g, 1개",
+          "image": "/images/coupang/cou_tumbler_cleaner.jpg",
+          "price": 7900,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 29360
+    },
+    {
+      "id": "order-20260508-001",
+      "orderNumber": "202605080001",
+      "orderedAt": "2026-05-08T22:13:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep02-025",
+          "name": "다우니 초고농축 호텔 컬렉션 섬유유연제 미스티크 본품, 1L, 1개",
+          "image": "/images/coupang/cou_softener.jpg",
+          "price": 6780,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-026",
+          "name": "러쉬 슬리피 샤워 젤 라벤더향, 520g, 1개",
+          "image": "/images/coupang/cou_bodywash.jpg",
+          "price": 66000,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-027",
+          "name": "질레트랩스 래피드 포밍 쉐이브 젤, 195g, 1개",
+          "image": "/images/coupang/cou_shavegel.jpg",
+          "price": 10900,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 83680
+    },
+    {
+      "id": "order-20260510-001",
+      "orderNumber": "202605100001",
+      "orderedAt": "2026-05-10T20:22:00",
+      "status": "shipping",
+      "items": [
+        {
+          "id": "item-ep02-028",
+          "name": "비마스터 데일리 천연 아카시아 꿀스틱 30p",
+          "image": "/images/coupang/cou_honey_stick.jpg",
+          "price": 21150,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-029",
+          "name": "포카리스웨트 페트 무라벨, 500ml, 20개",
+          "image": "/images/coupang/cou_pocari.jpg",
+          "price": 25290,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep02-030",
+          "name": "본죽 쇠고기죽, 200g, 4개",
+          "image": "/images/coupang/cou_porridge.jpg",
+          "price": 15850,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 62290
+    }
+  ]
 }

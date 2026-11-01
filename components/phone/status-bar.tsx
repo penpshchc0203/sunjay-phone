@@ -24,17 +24,12 @@ function SignalBars({ strength }: { strength: number }) {
 }
 
 function Battery({ level }: { level: number }) {
-  return (
-    <span className="flex items-center gap-1">
-      <span className="text-[11px] tabular-nums">{level}%</span>
-      <span aria-hidden="true" className="flex items-center">
-        <span className="relative h-[11px] w-[21px] rounded-[3px] border border-current/80 p-[1.5px]">
-          <span className="block h-full rounded-[1px] bg-current" style={{ width: `${level}%` }} />
-        </span>
-        <span className="ml-[1px] h-[4px] w-[1.5px] rounded-r-sm bg-current/80" />
-      </span>
+  return <span className="flex items-center gap-1" aria-label={`배터리 ${level}%`}>
+    <span className="relative flex h-[15px] min-w-[31px] items-center justify-center overflow-hidden rounded-[6px] border border-current/70 px-1 text-[10px] font-bold leading-none">
+      <span className="absolute inset-y-0 left-0 bg-current opacity-25" style={{width:`${level}%`}} />
+      <span className="relative tabular-nums">{level}</span>
     </span>
-  )
+  </span>
 }
 
 export function StatusBar() {
@@ -44,13 +39,14 @@ export function StatusBar() {
   const { state } = usePhone()
   const { carrier, batteryLevel, signalStrength, wifi, textColor } = DESIGN.statusBar
   const isLocked = state.mode === 'lock'
+  const inApp = state.mode === 'app'
 
   return (
     <div
       onTouchStart={(e)=>{startY.current=e.touches[0]?.clientY ?? null}}
       onTouchEnd={(e)=>{if(startY.current!==null && (e.changedTouches[0]?.clientY ?? 0)-startY.current>35)setOpen(true);startY.current=null}}
-      className="relative z-20 flex h-9 shrink-0 items-center justify-between px-6 text-[13px] font-medium"
-      style={{ color: textColor }}
+      className="relative z-20 flex h-9 shrink-0 items-center justify-between px-6 text-[13px] font-medium [.virtual-phone-scrollbars:has([data-app-drawer])_&]:bg-[#f3f4f6]/80 [.virtual-phone-scrollbars:has([data-app-drawer])_&]:backdrop-blur-xl"
+      style={{ color: inApp ? "var(--phone-status-text, #27272a)" : textColor, backgroundColor: inApp ? "var(--phone-app-bg)" : undefined }}
       role="status"
       aria-label={`현재 시각 ${formatTime(now)}, 배터리 ${batteryLevel}퍼센트`}
     >

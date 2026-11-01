@@ -1,0 +1,144 @@
+{
+  "todos": [
+    {
+      "id": "t08",
+      "completed": true
+    },
+    {
+      "id": "t07",
+      "completed": true
+    },
+    {
+      "id": "t04",
+      "completed": true
+    },
+    {
+      "id": "t02",
+      "completed": true
+    },
+    {
+      "id": "t05",
+      "completed": true
+    },
+    {
+      "id": "t-ep02-001",
+      "title": "강릉 가기 전에 주유",
+      "category": "개인",
+      "dueDate": "2026-04-30",
+      "completed": true,
+      "memo": "출발하기전에"
+    },
+    {
+      "id": "t-ep02-002",
+      "title": "두쫀쿠 챙기기",
+      "category": "개인",
+      "dueDate": "2026-05-01",
+      "completed": true,
+      "memo": "선우 줄 거!!!잊지마!!!"
+    },
+    {
+      "id": "t-ep02-003",
+      "title": "카메라 배터리 충전",
+      "category": "개인",
+      "dueDate": "2026-04-30",
+      "completed": true,
+      "memo": "강릉 가서 사진 찍기"
+    },
+    {
+      "id": "t-ep02-005",
+      "title": "월요일 연차 처리 확인",
+      "category": "업무",
+      "dueDate": "2026-05-04",
+      "completed": true,
+      "memo": "5월 4일 연차"
+    },
+    {
+      "id": "t-ep02-008",
+      "title": "사진 백업",
+      "category": "개인",
+      "dueDate": "2026-05-06",
+      "completed": true,
+      "memo": ""
+    },
+    {
+      "id": "t-ep02-009",
+      "title": "주간 데이터 분석 보고서 정리",
+      "category": "업무",
+      "dueDate": "2026-05-08",
+      "completed": true,
+      "memo": "주간 보고용"
+    },
+    {
+      "id": "t-ep02-010",
+      "title": "회의 자료 수정본 공유",
+      "category": "업무",
+      "dueDate": "2026-05-07",
+      "completed": true,
+      "memo": "수정본 확인하고 공유"
+    },
+    {
+      "id": "t-ep02-011",
+      "title": "금요일까지 요청 데이터 전달",
+      "category": "업무",
+      "dueDate": "2026-05-08",
+      "completed": true,
+      "memo": "요청받은 데이터 정리"
+    },
+    {
+      "id": "t-ep02-012",
+      "title": "세차하기",
+      "category": "개인",
+      "dueDate": "2026-05-11",
+      "completed": false,
+      "memo": "시간 날 때"
+    },
+    {
+      "id": "t-ep02-013",
+      "title": "제주도 렌터카 예약 내역 확인",
+      "category": "개인",
+      "dueDate": "2026-05-09",
+      "completed": true,
+      "memo": ""
+    },
+    {
+      "id": "t-ep02-014",
+      "title": "렌터카 추가 운전자 등록 확인",
+      "category": "개인",
+      "dueDate": "2026-05-09",
+      "completed": true,
+      "memo": ""
+    },
+    {
+      "id": "t-ep02-016",
+      "title": "제주도 여행 짐 챙기기",
+      "category": "개인",
+      "dueDate": "2026-05-14",
+      "completed": false,
+      "memo": "리스트업 필요함"
+    },
+    {
+      "id": "t-ep02-017",
+      "title": "카메라 SD카드 정리",
+      "category": "개인",
+      "dueDate": "2026-05-14",
+      "completed": false,
+      "memo": ""
+    },
+    {
+      "id": "t-ep02-018",
+      "title": "제주도 여행 전 업무 인수인계",
+      "category": "업무",
+      "dueDate": "2026-05-14",
+      "completed": false,
+      "memo": "여행 전 업무 정리"
+    },
+    {
+      "id": "t-ep02-019",
+      "title": "다음 주 회의 자료 초안 작성",
+      "category": "업무",
+      "dueDate": "2026-05-11",
+      "completed": false,
+      "memo": "회의 자료 초안"
+    }
+  ]
+}

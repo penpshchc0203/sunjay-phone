@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, Home, Search, Plus, Pin, LockKeyhole, Trash2, Save, Folder, FileText } from 'lucide-react'
+import { ArrowLeft, Search, Plus, Pin, LockKeyhole, Trash2, Save, Folder, Menu, MoreVertical, BookOpen, CheckSquare, Type, Sparkles, PenLine, ChevronDown } from 'lucide-react'
 import type { Note } from '@/lib/phone/content-types'
 import { useEpisode, episodeStorageKey } from '../episode-provider'
 import { usePhone } from '../phone-provider'
@@ -35,12 +35,16 @@ export function NotesApp() {
   const [unlocked, setUnlocked] = useState<string[]>([])
   const [unlockInput, setUnlockInput] = useState('')
   const [unlockError, setUnlockError] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   useEffect(() => {
     setReady(false)
     setStore(emptyStore())
     setFolder(null)
     setSearch("")
+    setMenuOpen(false)
+    setSearchOpen(false)
     setSelected(null)
     setEditing(false)
     setDraft(null)
@@ -95,34 +99,45 @@ export function NotesApp() {
     if (unlockInput === NOTE_PASSWORD) { setUnlocked([current.id]); setUnlockInput(''); setUnlockError(false) }
     else setUnlockError(true)
   }
-  return <section className="flex h-full min-h-0 flex-col bg-[#fffdf5] text-zinc-900">
-    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-amber-100 px-3">
-      <button type="button" onClick={goBack} aria-label="뒤로 가기" className="rounded-full p-2 hover:bg-amber-100"><ArrowLeft size={21}/></button>
-      <h1 className="min-w-0 flex-1 truncate text-lg font-semibold">{editing ? '메모 편집' : selected ? '메모' : folder || '메모'}</h1>
-      <button type="button" onClick={goHome} aria-label="홈으로" className="rounded-full p-2 hover:bg-amber-100"><Home size={20}/></button>
+  const grouped = filtered.reduce<Record<string, NoteWithLock[]>>((acc, note) => {
+    const raw = note.updatedAt || note.createdAt
+    const year = raw?.slice(0, 4) || '기타'
+    const key = year === '2026' ? `${Number(raw.slice(5, 7))}월` : `${year}년`
+    ;(acc[key] ??= []).push(note)
+    return acc
+  }, {})
+  return <section className="relative flex h-full min-h-0 flex-col bg-[#fafafa] text-[#171717]">
+    <header className="flex h-[68px] shrink-0 items-center gap-3 bg-[#fafafa] px-4">
+      {selected || editing ? <button type="button" onClick={goBack} aria-label="뒤로" className="p-1"><ArrowLeft size={27} strokeWidth={1.8}/></button> : <button type="button" onClick={() => setMenuOpen(v => !v)} aria-label="메뉴" className="p-1"><Menu size={27} strokeWidth={1.8}/></button>}
+      {editing && draft ? <input aria-label="메모 제목" value={draft.title} onChange={e=>setDraft({...draft,title:e.target.value})} placeholder="제목" className="min-w-0 flex-1 bg-transparent text-[23px] font-medium outline-none"/> : <h1 className={`min-w-0 flex-1 truncate ${selected ? 'text-[23px] text-zinc-400' : 'text-[25px] font-bold'}`}>{selected ? '제목' : folder || '모든 노트'}</h1>}
+      {selected ? <><button type="button" aria-label="메모 고정" onClick={togglePinned} className="p-1"><BookOpen size={24}/></button><button type="button" aria-label="편집" onClick={editing ? save : startEdit} className="p-1">{editing ? <Save size={25}/> : <PenLine size={24}/>}</button><button type="button" aria-label="메뉴" onClick={()=>setMenuOpen(v=>!v)} className="p-1"><MoreVertical size={24}/></button></> : <><button type="button" aria-label="검색" onClick={()=>setSearchOpen(v=>!v)} className="p-1"><Search size={27}/></button><button type="button" aria-label="메뉴" onClick={()=>setMenuOpen(v=>!v)} className="p-1"><MoreVertical size={24}/></button></>}
     </header>
-    {editing && draft ? <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto p-4">
-      <input aria-label="메모 제목" value={draft.title} onChange={e => setDraft({ ...draft, title: e.target.value })} placeholder="제목" className="w-full rounded-lg border border-amber-200 bg-white p-3 text-lg font-semibold outline-amber-500" />
-      <input aria-label="메모 폴더" value={draft.folder || ''} onChange={e => setDraft({ ...draft, folder: e.target.value || undefined })} placeholder="폴더 (선택)" className="w-full rounded-lg border border-amber-200 bg-white p-3 text-sm outline-amber-500" />
-      <textarea aria-label="메모 본문" value={draft.body} onChange={e => setDraft({ ...draft, body: e.target.value })} placeholder="메모를 입력하세요" className="min-h-48 w-full flex-1 resize-none rounded-lg border border-amber-200 bg-white p-3 text-sm leading-7 outline-amber-500" />
-      <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={Boolean(draft.pinned)} onChange={e => setDraft({ ...draft, pinned: e.target.checked })}/> 상단에 고정</label>
-      <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={noteLocked(draft)} onChange={e => setDraft({ ...draft, locked: e.target.checked, isLocked: e.target.checked })}/> 잠긴 메모</label>
-      {noteLocked(draft) && <p className="text-xs text-zinc-500">잠금 비밀번호는 4자리 숫자입니다.</p>}
-      <p className="text-xs text-zinc-500">잠금은 이야기 연출용이며 실제 보안 기능이 아닙니다.</p>
-      <button type="button" onClick={save} className="flex items-center justify-center gap-2 rounded-xl bg-amber-400 p-3 font-semibold"><Save size={18}/> 저장</button>
-    </div> : current ? isLocked ? <div className="flex flex-1 flex-col items-center justify-center gap-4 p-6"><LockKeyhole size={40}/><p className="font-semibold">잠긴 메모</p><input type="password" inputMode="numeric" pattern="[0-9]*" maxLength={4} autoComplete="off" aria-label="메모 암호" value={unlockInput} onChange={e => { setUnlockInput(e.target.value.replace(/\D/g, '').slice(0, 4)); setUnlockError(false) }} onKeyDown={e => { if (e.key === 'Enter') unlock() }} className="w-full rounded-lg border bg-white p-3 text-center text-xl tracking-[0.5em]" placeholder="••••"/>{unlockError && <p className="text-sm text-red-600">암호가 일치하지 않습니다.</p>}<button type="button" onClick={unlock} disabled={unlockInput.length !== 4} className="rounded-lg bg-amber-400 disabled:opacity-40 px-8 py-3">열기</button></div> : <div className="min-h-0 flex-1 overflow-y-auto p-5">
-      <h2 className="break-words text-xl font-bold">{current.title}</h2><p className="mt-1 text-xs text-zinc-500">{displayDate(current.updatedAt || current.createdAt)} · {current.folder || '기타'}</p>
-      <div className="mt-6 whitespace-pre-wrap break-words text-sm leading-7">{noteBody(current)}</div>
-      <div className="mt-8 flex flex-wrap gap-2"><button type="button" onClick={startEdit} className="rounded-lg bg-amber-300 px-4 py-2 text-sm">편집</button><button type="button" onClick={togglePinned} className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm"><Pin size={15}/>{current.pinned ? '고정 해제' : '고정'}</button><button type="button" onClick={remove} className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm text-red-600"><Trash2 size={15}/> 삭제</button></div>
-    </div> : <>
-      <label className="mx-4 mt-3 flex items-center gap-2 rounded-xl bg-amber-100 px-3 py-2"><Search size={17}/><input aria-label="메모 검색" value={search} onChange={e => setSearch(e.target.value)} placeholder="메모 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none"/></label>
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4">
-        {folder === null && <div className="mb-4"><p className="mb-2 text-xs font-semibold text-zinc-500">폴더</p><div className="flex flex-wrap gap-2">{folders.map(name => <button type="button" key={name} onClick={() => setFolder(name)} className="flex items-center gap-1 rounded-lg bg-amber-100 px-3 py-2 text-sm"><Folder size={15}/>{name} ({notes.filter(n => (n.folder || '기타') === name).length})</button>)}</div></div>}
-        <p className="mb-2 text-xs font-semibold text-zinc-500">{folder || '모든 메모'} · {filtered.length}개</p>
-        {filtered.map(note => <button type="button" key={note.id} onClick={() => open(note.id)} className="mb-2 flex w-full items-start gap-3 rounded-xl border border-amber-100 bg-white p-3 text-left shadow-sm"><FileText className="mt-1 shrink-0 text-amber-500" size={20}/><div className="min-w-0 flex-1"><div className="flex items-center gap-1 font-semibold">{note.pinned && <Pin size={13}/>}<span className="truncate">{note.title}</span>{noteLocked(note) && <LockKeyhole size={13}/>} </div><p className="mt-1 truncate text-xs text-zinc-500">{noteLocked(note) ? '잠긴 메모' : noteBody(note) || '내용 없음'}</p><p className="mt-1 text-[11px] text-zinc-400">{displayDate(note.updatedAt || note.createdAt)}</p></div></button>)}
-        {!filtered.length && <p className="py-12 text-center text-sm text-zinc-500">표시할 메모가 없습니다.</p>}
+    {menuOpen && <div className="absolute right-3 top-[60px] z-30 min-w-44 rounded-2xl border border-zinc-200 bg-white p-2 shadow-xl">
+      {!selected && <><button type="button" onClick={()=>{setFolder(null);setMenuOpen(false)}} className="block w-full rounded-lg px-3 py-2 text-left text-sm">모든 노트</button>{folders.map(name=><button type="button" key={name} onClick={()=>{setFolder(name);setMenuOpen(false)}} className="block w-full rounded-lg px-3 py-2 text-left text-sm">{name}</button>)}</>}
+      {selected && !editing && <><button type="button" onClick={()=>{setMenuOpen(false);startEdit()}} className="block w-full px-3 py-2 text-left text-sm">편집 / 분류 변경</button><button type="button" onClick={()=>{setMenuOpen(false);remove()}} className="block w-full px-3 py-2 text-left text-sm text-red-600">삭제</button></>}
+      {editing && <button type="button" onClick={()=>{setMenuOpen(false);save()}} className="block w-full px-3 py-2 text-left text-sm">저장</button>}
+    </div>}
+    {editing && draft ? <div className="flex min-h-0 flex-1 flex-col bg-[#fafafa]">
+      <div className="min-h-0 flex-1 overflow-y-auto px-5 pt-6">
+        <textarea aria-label="메모 본문" value={draft.body} onChange={e=>setDraft({...draft,body:e.target.value})} placeholder="내용을 입력하세요" className="min-h-[65%] w-full resize-none bg-transparent text-[19px] leading-[1.65] outline-none"/>
+        <label className="mt-3 block text-sm text-zinc-500">분류 / 폴더<input aria-label="메모 폴더" value={draft.folder || ''} onChange={e=>setDraft({...draft,folder:e.target.value||undefined})} placeholder="폴더 이름" className="mt-2 w-full rounded-xl border border-zinc-200 bg-white p-3 text-base text-zinc-900 outline-none"/></label>
+        <div className="mt-4 flex gap-5 text-sm"><label className="flex items-center gap-2"><input type="checkbox" checked={Boolean(draft.pinned)} onChange={e=>setDraft({...draft,pinned:e.target.checked})}/>고정</label><label className="flex items-center gap-2"><input type="checkbox" checked={noteLocked(draft)} onChange={e=>setDraft({...draft,locked:e.target.checked,isLocked:e.target.checked})}/>잠금</label></div>
+      </div><div className="flex shrink-0 items-center justify-between border-t border-zinc-200 bg-white px-5 py-3"><span className="text-sm text-zinc-500">메모 편집</span><button type="button" onClick={save} className="rounded-full bg-[#e8e8e8] px-6 py-2 font-medium">완료</button></div>
+    </div> : current ? isLocked ? <div className="flex min-h-0 flex-1 flex-col items-center justify-center bg-[#fafafa] px-8">
+      <div className="mb-5 flex size-20 items-center justify-center rounded-full bg-[#ededed]"><LockKeyhole size={38} className="text-zinc-500"/></div><h2 className="text-xl font-semibold">잠긴 노트</h2><p className="mt-2 text-sm text-zinc-500">비밀번호 4자리를 입력하세요</p>
+      <input type="password" inputMode="numeric" pattern="[0-9]*" maxLength={4} autoComplete="off" aria-label="메모 암호" value={unlockInput} onChange={e=>{const value=e.target.value.replace(/\D/g,'').slice(0,4);setUnlockInput(value);setUnlockError(value.length===4&&value!==NOTE_PASSWORD);if(value===NOTE_PASSWORD&&current){setUnlocked([current.id]);setUnlockInput('');setUnlockError(false)}}} onKeyDown={e=>{if(e.key==='Enter')unlock()}} className="mt-7 w-full max-w-[240px] border-b-2 border-zinc-400 bg-transparent py-3 text-center text-2xl tracking-[0.8em] outline-none focus:border-blue-500" placeholder="••••"/>
+      {unlockError&&<p className="mt-3 text-sm text-red-600">비밀번호가 일치하지 않습니다.</p>}
+    </div> : <div className="flex min-h-0 flex-1 flex-col bg-[#fafafa]">
+      <div className="min-h-0 flex-1 overflow-y-auto px-5 pt-10">
+        <div className="whitespace-pre-wrap break-words text-[19px] leading-[1.7]">{noteBody(current)}</div>
       </div>
-      <div className="flex shrink-0 justify-end border-t border-amber-100 p-3"><button type="button" onClick={startNew} className="flex items-center gap-2 rounded-full bg-amber-400 px-5 py-3 text-sm font-semibold"><Plus size={18}/> 새 메모</button></div>
+      <div className="flex shrink-0 items-center justify-between border-t border-zinc-200 bg-white px-4 py-3 text-zinc-600"><button type="button" aria-label="편집" onClick={startEdit}><PenLine size={24}/></button><button type="button" aria-label="체크리스트 편집" onClick={startEdit}><CheckSquare size={24}/></button><button type="button" aria-label="글자 편집" onClick={startEdit}><Type size={25}/></button><button type="button" aria-label="서식 편집" onClick={startEdit} className="flex items-center gap-1 text-xl">Aa<ChevronDown size={13}/></button><button type="button" aria-label="메모 편집" onClick={startEdit}><Sparkles size={24}/></button></div>
+    </div> : <>
+      {searchOpen&&<label className="mx-4 my-2 flex items-center gap-2 rounded-xl bg-[#eee] px-3 py-2"><Search size={18}/><input aria-label="메모 검색" value={search} onChange={e=>setSearch(e.target.value)} placeholder="메모 검색" className="min-w-0 flex-1 bg-transparent outline-none"/></label>}
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-20 pt-5">
+        {Object.entries(grouped).map(([group,items])=><div key={group} className="mb-9"><h2 className="mb-4 px-2 text-[17px] font-semibold">{group}</h2><div className="grid grid-cols-2 gap-x-3 gap-y-6">{items.map(note=><button type="button" key={note.id} onClick={()=>open(note.id)} className="min-w-0 text-center"><div className="flex aspect-[1.02] flex-col overflow-hidden rounded-[19px] border border-zinc-200 bg-gradient-to-br from-[#f5f5f6] to-white p-4 text-left shadow-sm">{noteLocked(note)?<div className="flex h-full items-center justify-center"><LockKeyhole size={34} className="text-zinc-400" fill="#aaa" stroke="white"/></div>:<p className="line-clamp-[7] whitespace-pre-wrap break-words text-[13px] leading-[1.55]">{noteBody(note)||note.title}</p>}</div><p className="mt-3 truncate px-1 text-[15px] font-semibold">{note.title}</p><p className="mt-1 text-xs text-zinc-400">{dateLabel(note.updatedAt||note.createdAt)}</p></button>)}</div></div>)}
+        {!filtered.length&&<p className="py-12 text-center text-sm text-zinc-500">표시할 메모가 없습니다.</p>}
+      </div><button type="button" onClick={startNew} aria-label="새 메모" className="absolute bottom-5 right-5 flex size-[62px] items-center justify-center rounded-full bg-[#dedede] text-[#ef4145] shadow-lg"><PenLine size={27}/></button>
     </>}
   </section>
 }

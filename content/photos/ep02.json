@@ -1,3 +1,220 @@
 {
-  "photos": []
+  "photos": [
+    {
+      "id": "photo-ep02-80twvm9o",
+      "src": "/sunjay-phone/images/photos/photo-ep02-80twvm9o.jpg",
+      "alt": "강릉 바다와 수평선",
+      "takenAt": "2026-05-01T11:56",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-n271g1p4",
+      "src": "/sunjay-phone/images/photos/photo-ep02-n271g1p4.jpg",
+      "alt": "강릉에서 먹은 점심",
+      "takenAt": "2026-05-01T13:18",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-9qapoh8e",
+      "src": "/sunjay-phone/images/kakao/389ohpg4kef5.jpg",
+      "alt": "강릉 여행 사진 1",
+      "takenAt": "2026-05-01T15:12",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-6tgmqe1x",
+      "src": "/sunjay-phone/images/kakao/o376l7x5wxzi.jpg",
+      "alt": "강릉 여행 사진 2",
+      "takenAt": "2026-05-01T15:13",
+      "album": "카메라",
+      "favorite": true
+    },
+    {
+      "id": "photo-ep02-93297xts",
+      "src": "/sunjay-phone/images/kakao/ax59ppxu1uc0.jpg",
+      "alt": "강릉 여행 사진 3",
+      "takenAt": "2026-05-01T15:15",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-3734apdv",
+      "src": "/sunjay-phone/images/kakao/464iodg5s416.jpg",
+      "alt": "강릉 여행 사진 4",
+      "takenAt": "2026-05-01T15:17",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-uu4i0vh9",
+      "src": "/sunjay-phone/images/photos/photo-ep02-uu4i0vh9.jpg",
+      "alt": "전시회 입구와 포스터",
+      "takenAt": "2026-05-02T15:49",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-bqtv9t5k",
+      "src": "/sunjay-phone/images/photos/photo-ep02-bqtv9t5k.jpg",
+      "alt": "전시장 내부 전경",
+      "takenAt": "2026-05-02T16:06",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-rfxp2eq8",
+      "src": "/sunjay-phone/images/photos/photo-ep02-rfxp2eq8.jpg",
+      "alt": "인상 깊었던 전시 작품",
+      "takenAt": "2026-05-02T16:31",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-axy0us8k",
+      "src": "/sunjay-phone/images/photos/photo-ep02-axy0us8k.jpg",
+      "alt": "전시회 기념품과 티켓",
+      "takenAt": "2026-05-02T17:02",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-zy0ra1k2",
+      "src": "/sunjay-phone/images/photos/photo-ep02-zy0ra1k2.jpg",
+      "alt": "전시 후 함께 먹은 저녁",
+      "takenAt": "2026-05-02T19:12",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-91o4nlux",
+      "src": "/sunjay-phone/images/photos/photo-ep02-91o4nlux.jpg",
+      "alt": "매운 짬뽕 한 그릇",
+      "takenAt": "2026-05-03T19:31",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-5hob1lbj",
+      "src": "/sunjay-phone/images/photos/photo-ep02-5hob1lbj.jpg",
+      "alt": "식사 후 밤거리",
+      "takenAt": "2026-05-03T21:04",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-71a8crt2",
+      "src": "/sunjay-phone/images/photos/photo-ep02-71a8crt2.jpg",
+      "alt": "연차 날 집에서 먹은 라면",
+      "takenAt": "2026-05-04T13:05",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-2gif3dq3",
+      "src": "/sunjay-phone/images/kakao/6gf9wwmysc2c.jpg",
+      "alt": "한강 피크닉 사진 1",
+      "takenAt": "2026-05-05T12:38",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-saa3kcs2",
+      "src": "/sunjay-phone/images/kakao/sa9s0zzszdl8.jpg",
+      "alt": "한강 피크닉 사진 2",
+      "takenAt": "2026-05-05T12:40",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-unbsoycf",
+      "src": "/sunjay-phone/images/photos/photo-ep02-unbsoycf.jpg",
+      "alt": "오후에 마신 두 번째 커피",
+      "takenAt": "2026-05-06T15:46",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-rdu1r64y",
+      "src": "/sunjay-phone/images/kakao/3uxcpa9j1y1j.jpg",
+      "alt": "출근길 종성이 셀카",
+      "takenAt": "2026-05-07T09:05",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-0kws1egz",
+      "src": "/sunjay-phone/images/photos/photo-ep02-0kws1egz.jpg",
+      "alt": "주문한 케이크 두 조각과 음료",
+      "takenAt": "2026-05-07T19:08",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-0i11xqci",
+      "src": "/sunjay-phone/images/photos/photo-ep02-0i11xqci.jpg",
+      "alt": "케이크를 앞에 둔 선우",
+      "takenAt": "2026-05-07T19:24",
+      "album": "카메라",
+      "favorite": true
+    },
+    {
+      "id": "photo-ep02-249yhpox",
+      "src": "/sunjay-phone/images/kakao/jws6oliawwmw.jpg",
+      "alt": "부모님과 저녁 식사 사진 1",
+      "takenAt": "2026-05-08T19:09",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-m0bihg05",
+      "src": "/sunjay-phone/images/kakao/cj6v3oi6tru6.jpg",
+      "alt": "부모님과 저녁 식사 사진 2",
+      "takenAt": "2026-05-08T19:10",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-draify44",
+      "src": "/sunjay-phone/images/kakao/z7nj36a2uc0h.jpg",
+      "alt": "부모님과 저녁 식사 사진 3",
+      "takenAt": "2026-05-08T19:11",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-joixi1qt",
+      "src": "/sunjay-phone/images/kakao/6x7fhd6nxksx.jpg",
+      "alt": "부모님과 저녁 식사 사진 4",
+      "takenAt": "2026-05-08T19:12",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-57j0ja4g",
+      "src": "/sunjay-phone/images/kakao/ovwxrgpq69nb.jpg",
+      "alt": "집에서 찍은 종성이 셀카",
+      "takenAt": "2026-05-09T19:10",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-kz4nzoat",
+      "src": "/sunjay-phone/images/photos/photo-ep02-kz4nzoat.png",
+      "alt": "제주 여행 렌터카 예약 정보 화면",
+      "takenAt": "2026-05-09T14:08",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep02-359q0mfy",
+      "src": "/sunjay-phone/images/photos/photo-ep02-359q0mfy.jpg",
+      "alt": "함께 걸었던 오후 거리",
+      "takenAt": "2026-05-10T16:12",
+      "album": "카메라",
+      "favorite": false
+    }
+  ]
 }

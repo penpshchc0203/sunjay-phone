@@ -159,6 +159,12 @@
       "calledAt": "2026-04-18T09:10"
     },
     {
+      "id": "call-14o",
+      "contactId": "user",
+      "type": "incoming",
+      "calledAt": "2026-04-17T18:04"
+    },
+    {
       "id": "call-13",
       "contactId": "jihoonseo",
       "type": "outgoing",

@@ -1,0 +1,1 @@
+{"forecasts":[{"id":"seoul-0501","cityId":"seoul","date":"2026-05-01","condition":"흐림","low":13,"high":22,"precipitation":30,"hourly":[{"time":"09:00","temperature":16,"precipitation":20},{"time":"12:00","temperature":20,"precipitation":30},{"time":"15:00","temperature":22,"precipitation":30},{"time":"18:00","temperature":19,"precipitation":20}],"sample":true}]}

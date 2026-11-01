@@ -81,8 +81,8 @@ export function CoupangApp() {
               <button type="button" onClick={() => setSelectedId(order.id)} className="mb-4 block w-full text-left"><span className="text-[17px] font-bold">{label(order.status)}</span>{order.deliveredAt && <span className="ml-2 text-sm font-medium text-[#12812a]">{dateLabel(order.deliveredAt)} 도착</span>}{order.rocketFresh && <span className="ml-2 text-sm font-bold italic text-[#13a42d]">🚀 로켓프레시</span>}</button>
               {isExpanded && <div className="space-y-5">{order.items.map(item => <div key={item.id}>
                 <button type="button" onClick={() => setSelectedId(order.id)} className="flex w-full items-center gap-3 text-left"><ItemImage src={item.image} name={item.name}/><div className="min-w-0 flex-1"><p className="text-[15px] leading-6">{item.name}</p>{item.option && <p className="text-xs text-[#777]">{item.option}</p>}<p className="mt-1 text-sm text-[#666]">{money(item.price)} · {item.quantity}개</p></div></button>
-                <button type="button" onClick={() => setSelectedId(order.id)} className="mt-3 w-full rounded border border-[#b9c0c4] py-2.5 text-sm font-semibold text-[#535c63]">배송 · 주문 관리</button>
-              </div>)}</div>}
+
+              </div>)}<button type="button" onClick={() => setSelectedId(order.id)} className="mt-3 w-full rounded border border-[#b9c0c4] py-2.5 text-sm font-semibold text-[#535c63]">배송 · 주문 관리</button></div>}
               {order.items.length > 1 && <button type="button" onClick={() => setExpanded(prev => ({ ...prev, [order.id]: !isExpanded }))} className="mt-4 flex w-full items-center justify-center gap-2 rounded border border-[#c7cccf] py-2.5 text-sm font-medium text-[#555]">{isExpanded ? '접기' : '펼치기'} {isExpanded ? <ChevronUp size={19}/> : <ChevronDown size={19}/>}</button>}
             </div>
           </section>

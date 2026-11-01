@@ -38,8 +38,12 @@ import coupang_all from '../coupang/all.json'
 import coupang_ep01 from '../coupang/ep01.json'
 import coupang_ep02 from '../coupang/ep02.json'
 import coupang_ep03 from '../coupang/ep03.json'
+import state_ep01 from './state/ep01.json'
+import state_ep02 from './state/ep02.json'
+import state_ep03 from './state/ep03.json'
 type Row = Record<string, any>
 type Dataset = Record<string, any>
+const stateSources: Record<string, Dataset> = { ep01: state_ep01, ep02: state_ep02, ep03: state_ep03 }
 const sources: Record<string, Record<string, Dataset>> = {
   coupang: {all: coupang_all, ep01: coupang_ep01, ep02: coupang_ep02, ep03: coupang_ep03},
   alarms: {all: alarms_all, ep01: alarms_ep01, ep02: alarms_ep02, ep03: alarms_ep03},
@@ -54,7 +58,8 @@ const sources: Record<string, Record<string, Dataset>> = {
 function mergeArray(before: Row[], incoming: Row[], key: string): Row[] {
   const result = [...before]
   for (const item of incoming) {
-    const index = item.id == null ? -1 : result.findIndex(old => old.id === item.id)
+    const identity = key === 'kakaoProfiles' ? 'contactId' : 'id'
+    const index = item[identity] == null ? -1 : result.findIndex(old => old[identity] === item[identity])
     if (index < 0) { result.push(item); continue }
     if (key === 'kakaoRooms') {
       const old = result[index]
@@ -95,6 +100,15 @@ export function loadEpisodeContent(episodeId: string): EpisodeContent {
       if (source[id]) data = mergeData(data, source[id])
     }
   }
-  const currentContacts = episodeId === 'ep01' ? contacts : episodeId === 'ep02' ? contactsEp02 : contactsEp03
-  return normalizeAssetPaths({...data, contacts: currentContacts, kakaoAvatars}) as EpisodeContent
+  // Preserve the full EP01 contact list. Later snapshots only override matching IDs;
+  // contacts omitted from a later snapshot remain available in that episode.
+  let currentContacts: Row[] = [...contacts]
+  if (count >= 2) currentContacts = mergeArray(currentContacts, contactsEp02, 'contacts')
+  if (count >= 3) currentContacts = mergeArray(currentContacts, contactsEp03, 'contacts')
+  data = {...data, contacts: currentContacts, kakaoAvatars}
+  for (let i = 1; i <= count; i++) {
+    const id = `ep${String(i).padStart(2, '0')}`
+    if (stateSources[id]) data = mergeData(data, stateSources[id])
+  }
+  return normalizeAssetPaths(data) as EpisodeContent
 }

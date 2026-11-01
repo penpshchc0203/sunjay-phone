@@ -1,13 +1,33 @@
 'use client'
 
-import { DESIGN } from '@/config/design'
-import { Layers3, SkipBack, SkipForward, Play } from 'lucide-react'
+import { DESIGN, EXTRA_APPS } from '@/config/design'
+import { useEffect, useRef, useState } from 'react'
+import { TodoApp } from './apps/todo-app'
+import { Search, ChevronDown, Heart } from 'lucide-react'
+import { WeatherApp } from './apps/weather-app'
+import { ReservationsApp } from './apps/reservations-app'
+import { CalendarView } from './calendar-view'
+import { SkipBack, SkipForward, Play } from 'lucide-react'
 import { useEpisode } from './episode-provider'
 import { formatDate, formatTime, useNow } from '@/hooks/use-now'
-import { DOCK_APPS, HOME_GRID_APPS } from '@/lib/phone/apps'
+import { APPS, DOCK_APPS, HOME_GRID_APPS } from '@/lib/phone/apps'
+import type { AppId } from '@/lib/phone/types'
 import { AppLauncherButton } from './app-icon'
+import Image from 'next/image'
 import { usePhone } from './phone-provider'
 
+
+
+type ExtraAppId = keyof typeof EXTRA_APPS
+function ExtraAppButton({ id, onClick, plainLabel = false }: { id: ExtraAppId; onClick: () => void; plainLabel?: boolean }) {
+  const app = EXTRA_APPS[id]
+  const Icon = app.icon
+  return <button type="button" onClick={onClick} aria-label={`${app.name} 열기`} className="flex min-w-0 flex-col items-center gap-1.5 rounded-xl p-1 text-xs">
+    <span className={`relative flex size-14 items-center justify-center overflow-hidden rounded-[32%]`} style={{backgroundColor:app.iconImage?'transparent':app.tileColor,color:app.iconColor}}>
+      {app.iconImage ? <Image src={app.iconImage} alt="" fill sizes="56px" className="object-contain" unoptimized/> : <Icon size={27}/>}</span>
+    <span className={`max-w-[4.5rem] truncate ${plainLabel?'font-normal':'font-medium'}`}>{app.name}</span>
+  </button>
+}
 
 function SpotifyWidget() {
   // 외부 스트리밍을 임의로 재생하지 않고, 재생 버튼은 Spotify 앨범 페이지로 연결합니다.
@@ -39,57 +59,83 @@ function SpotifyWidget() {
 
 export function HomeScreen() {
   const now = useNow()
+  const [page,setPage] = useState(0)
+  const [drawerOpen,setDrawerOpen] = useState(false)
+  const [drawerQuery,setDrawerQuery] = useState('')
+  const [calendarOpen,setCalendarOpen] = useState(false)
+  const [todoOpen,setTodoOpen] = useState(false)
+  const [weatherOpen,setWeatherOpen] = useState(false)
+  const [reservationsOpen,setReservationsOpen] = useState(false)
+  useEffect(() => {
+    const closeOverlays = () => {
+      setCalendarOpen(false)
+      setTodoOpen(false)
+      setWeatherOpen(false)
+      setReservationsOpen(false)
+      setDrawerOpen(false)
+    }
+    window.addEventListener('phone:close-home-overlay', closeOverlays)
+    return () => window.removeEventListener('phone:close-home-overlay', closeOverlays)
+  }, [])
+  const drag = useRef<{x:number;y:number}|null>(null)
+  const start=(x:number,y:number)=>{drag.current={x,y}}
+  const end=(x:number,y:number)=>{const prev=drag.current;drag.current=null;if(!prev)return;const dx=x-prev.x,dy=y-prev.y;if(drawerOpen){if(dy>65&&Math.abs(dy)>Math.abs(dx)*1.3)setDrawerOpen(false);return}if(dy < -65&&Math.abs(dy)>Math.abs(dx)*1.3){setDrawerOpen(true);return}if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4)setPage(p=>Math.max(0,Math.min(1,p+(dx<0?1:-1))))}
+  const drawerApps: {id: AppId | ExtraAppId; name: string}[] = [...(Object.keys(APPS) as AppId[]).map(id=>({id,name:APPS[id].name})),
+    ...(['calendar','todo','weather','reservations'] as ExtraAppId[]).map(id=>({id,name:EXTRA_APPS[id].name}))]
+    .sort((a,b)=>a.name.localeCompare(b.name,'ko'))
+  const launchExtraApp=(id:ExtraAppId)=>{setDrawerOpen(false);if(id==='calendar')setCalendarOpen(true);else if(id==='todo')setTodoOpen(true);else if(id==='weather')setWeatherOpen(true);else if(id==='reservations')setReservationsOpen(true);else if(id==='episode')showPicker()}
+  const launchDrawerApp=(id:AppId)=>{setDrawerOpen(false);openApp(id)}
   const { openApp } = usePhone()
   const { episode, showPicker } = useEpisode()
 
   return (
     <section
       aria-label="홈 화면"
-      className="flex h-full flex-col overflow-y-auto px-4 pb-3"
+      className="home-compact relative flex h-full min-h-0 flex-col overflow-hidden px-4 pb-2"
+      onTouchStart={e=>start(e.touches[0].clientX,e.touches[0].clientY)}
+      onTouchEnd={e=>end(e.changedTouches[0].clientX,e.changedTouches[0].clientY)}
+      onMouseDown={e=>{if(e.button===0)start(e.clientX,e.clientY)}}
+      onMouseUp={e=>end(e.clientX,e.clientY)}
       style={{ color: DESIGN.homeScreen.textColor }}
     >
-      <div className="px-2 pt-8 [text-shadow:0_1px_8px_rgb(0_0_0/0.4)]">
+      <style>{`@media (max-height: 800px) {
+        .home-compact .home-spotify {transform: scale(.87); transform-origin: center; margin-block: -13px}
+        .home-compact ul[aria-label="앱"] > li button > span:first-child > span,
+        .home-compact ul[aria-label="즐겨찾는 앱"] > li button > span:first-child > span {width: 46px !important}
+        .home-compact ul[aria-label="앱"] > li button, .home-compact ul[aria-label="즐겨찾는 앱"] > li button {gap: 2px}
+        .home-compact ul[aria-label="앱"] {row-gap: 3px}
+      }
+      @media (max-height: 680px) {.home-compact .home-spotify {transform: scale(.74); margin-block: -26px} .home-compact ul[aria-label="앱"] > li button > span:first-child > span, .home-compact ul[aria-label="즐겨찾는 앱"] > li button > span:first-child > span {width: 40px !important}}
+      `}</style>
+      {page===0&&<><div className="flex items-start justify-between gap-2 px-2 pt-5 [text-shadow:0_1px_8px_rgb(0_0_0/0.4)]"><div>
         <p
-          className="text-6xl font-light tabular-nums tracking-tight"
+          className="text-5xl font-light tabular-nums tracking-tight"
           style={{ color: DESIGN.homeScreen.clockColor }}
         >
           {formatTime(now)}
         </p>
         <p className="mt-2 text-sm font-medium opacity-90">{formatDate(now)}</p>
-      </div>
+      </div><button type="button" onClick={showPicker} aria-label={`에피소드 선택, 현재 ${episode.title}`} className="mt-4 flex shrink-0 items-center gap-1.5 rounded-full border border-white/65 bg-white/20 px-3 py-2 text-sm font-medium text-white shadow-sm backdrop-blur-md transition-colors hover:bg-white/30 focus-visible:outline-2 focus-visible:outline-white"><Heart size={16}/><span>{episode.id.toUpperCase().replace('EP','EP.')}</span><ChevronDown size={15}/></button></div>
 
-      <div className="my-auto py-5">
+      <div className="home-spotify my-auto min-h-0 py-2">
         <SpotifyWidget />
       </div>
 
       <div>
-        <ul aria-label="앱" className="grid grid-cols-4 gap-x-2 gap-y-5">
+        <ul aria-label="앱" className="grid grid-cols-4 gap-x-2 gap-y-2">
           {HOME_GRID_APPS.map((id) => (
             <li key={id} className="flex justify-center">
               <AppLauncherButton appId={id} onOpen={openApp} />
             </li>
           ))}
-          <li className="flex justify-center">
-            <button
-              type="button"
-              onClick={showPicker}
-              aria-label={`에피소드 선택, 현재 ${episode.title}`}
-              className="group flex flex-col items-center gap-1.5 rounded-2xl p-1 outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-            >
-              <span className="flex w-14 aspect-square items-center justify-center rounded-[32%] bg-indigo-600 text-white shadow-sm transition-transform group-active:scale-90 sm:w-[3.75rem] md:w-14">
-                <Layers3 className="size-[48%]" strokeWidth={2} aria-hidden="true" />
-              </span>
-              <span className="max-w-[4.5rem] truncate text-xs font-medium [text-shadow:0_1px_2px_rgb(0_0_0/0.5)]">에피소드</span>
-            </button>
-          </li>
+          <li className="flex justify-center"><ExtraAppButton id="todo" onClick={()=>launchExtraApp("todo")}/></li>
         </ul>
 
-        <div aria-hidden="true" className="my-5 flex justify-center gap-1.5">
-          <span className="size-1.5 rounded-full bg-white" />
-          <span className="size-1.5 rounded-full bg-white/40" />
-        </div>
-
-        <ul aria-label="즐겨찾는 앱" className="grid grid-cols-4 gap-x-2 rounded-[1.75rem] bg-white/10 px-1 py-2.5 backdrop-blur-md">
+      </div></>}
+      {page===1&&<div className="flex min-h-0 flex-1 flex-col justify-center py-5"><CalendarView compact onOpen={()=>setCalendarOpen(true)}/></div>}
+      <div className="mt-auto shrink-0">
+        <div aria-label="홈 화면 페이지" className="my-2 flex justify-center gap-3">{[0,1].map(n=><button key={n} aria-label={`${n+1}페이지로 이동`} aria-current={page===n?'page':undefined} onClick={()=>setPage(n)} className={`size-2 rounded-full ${page===n?'bg-white':'bg-white/40'}`}/>)}</div>
+        <ul aria-label="즐겨찾는 앱" className="grid grid-cols-4 gap-x-2 rounded-[1.75rem] bg-white/10 px-1 py-1.5 backdrop-blur-md">
           {DOCK_APPS.map((id) => (
             <li key={id} className="flex justify-center">
               <AppLauncherButton appId={id} onOpen={openApp} />
@@ -97,6 +143,21 @@ export function HomeScreen() {
           ))}
         </ul>
       </div>
+      {drawerOpen&&<div data-app-drawer className="absolute inset-0 z-20 flex min-h-0 flex-col bg-[#f3f4f6]/80 px-1 pt-4 text-[#202124] backdrop-blur-xl" onTouchStart={e=>e.stopPropagation()} onTouchEnd={e=>e.stopPropagation()} onMouseDown={e=>e.stopPropagation()} onMouseUp={e=>e.stopPropagation()}>
+        <button type="button" onClick={()=>setDrawerOpen(false)} className="mb-3 flex items-center justify-center gap-1 text-xs text-gray-600" aria-label="앱 목록 닫기"><ChevronDown size={17}/> 홈 화면으로</button>
+        <label className="mx-3 mb-5 flex items-center gap-3 rounded-full bg-white/85 px-4 py-3 shadow-sm"><Search size={20} className="text-gray-600"/><input value={drawerQuery} onChange={e=>setDrawerQuery(e.target.value)} placeholder="검색" aria-label="앱 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none"/></label>
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 pb-6">
+          <div className="grid grid-cols-4 gap-x-1 gap-y-5">
+            {drawerApps.filter(a=>a.name.toLocaleLowerCase().includes(drawerQuery.toLocaleLowerCase())).map(({id,name})=><div key={id} className="flex min-w-0 justify-center">
+              {id in EXTRA_APPS ? <ExtraAppButton id={id as ExtraAppId} onClick={()=>launchExtraApp(id as ExtraAppId)} plainLabel/> : <AppLauncherButton appId={id as AppId} onOpen={launchDrawerApp} plainLabel/>}
+            </div>)}
+          </div>
+        </div>
+      </div>}
+      {weatherOpen&&<div data-weather-overlay className="absolute inset-0 z-30 min-h-0 overflow-hidden bg-[#fafafa]"><WeatherApp onClose={()=>setWeatherOpen(false)}/></div>}
+      {reservationsOpen&&<div data-reservations-overlay className="absolute inset-0 z-30 min-h-0 overflow-hidden bg-[#fafafa]"><ReservationsApp onClose={()=>setReservationsOpen(false)}/></div>}
+      {todoOpen&&<div data-home-overlay className="absolute inset-0 z-30 min-h-0 overflow-hidden bg-[#fafafa]"><TodoApp onClose={()=>setTodoOpen(false)}/></div>}
+      {calendarOpen&&<div data-home-overlay className="absolute inset-0 z-30 min-h-0 overflow-hidden bg-[#fafafa]"><CalendarView onClose={()=>setCalendarOpen(false)}/></div>}
     </section>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { ArrowLeft, ChevronLeft, ChevronRight, Heart, Home, ImageOff, Info, LockKeyhole, RotateCcw, Search, Trash2, X, EyeOff, FolderOpen, Images, Check } from 'lucide-react'
+import { ArrowLeft, ChevronLeft, ChevronRight, Heart, Home, ImageOff, Info, LockKeyhole, RotateCcw, Search, Trash2, X, EyeOff, FolderOpen, Images, Check, MoreHorizontal, Video, Settings2, Image as ImageIcon, Album as AlbumIcon, Menu as MenuIcon, Plus, Camera } from 'lucide-react'
 import type { Photo } from '@/lib/phone/content-types'
 import { useEpisodeProgress } from '../use-episode-progress'
 import { useEpisode, episodeStorageKey } from '../episode-provider'
@@ -11,7 +11,7 @@ const STORE_KEY = 'virtual-phone:photos:v1'
 type Saved = { favorites: Record<string,boolean>; hidden: Record<string,boolean>; deleted: string[]; purged: string[] }
 const emptySaved = (): Saved => ({favorites:{},hidden:{},deleted:[],purged:[]})
 type Section = 'library' | 'albums' | 'favorites' | 'hidden' | 'deleted' | 'album'
-const dateName = (value: string) => { const d = new Date(value); return Number.isNaN(d.getTime()) ? value.slice(0,10) : d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}) }
+const dateName = (value: string) => { const d = new Date(value); if(Number.isNaN(d.getTime())) return value.slice(0,10); const today=new Date(); const a=new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime(); const b=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime(); if(a===b)return '오늘'; if(b-a===86400000)return '어제'; return `${d.getFullYear()}년 ${String(d.getMonth()+1).padStart(2,'0')}월 ${String(d.getDate()).padStart(2,'0')}일` }
 const albumsOf = (p: Photo) => Array.from(new Set([...(p.albumIds || []),...(p.album ? [p.album] : [])]))
 
 function PhotoTile({photo,onClick}: {photo:Photo;onClick:()=>void}) {
@@ -27,6 +27,8 @@ export function PhotosApp() {
   const store_key = episodeStorageKey(STORE_KEY, episode.id)
   const PHOTOS = content.photos
   const [section,setSection] = useState<Section>('library')
+  const [menuOpen,setMenuOpen] = useState(false)
+  const [showAllAlbums,setShowAllAlbums] = useState(false)
   const [album,setAlbum] = useState('')
   const [search,setSearch] = useState('')
   const [selected,setSelected] = useState<string|null>(null)
@@ -65,29 +67,34 @@ export function PhotosApp() {
   const unlock = ()=>{if(!password||passwordInput===password){setHiddenUnlocked(true);setPasswordError(false);setPasswordInput('')}else setPasswordError(true)}
   const setNewPassword = ()=>{const next=window.prompt('숨김 앨범 비밀번호를 입력하세요. 빈칸으로 저장하면 비밀번호를 해제합니다.',password);if(next===null)return;setPassword(next);try{if(next)localStorage.setItem(`${store_key}:password`,next);else localStorage.removeItem(`${store_key}:password`)}catch{}}
   const groupByDate = shown.reduce<Record<string,Photo[]>>((acc,p)=>{const key=dateName(p.takenAt);(acc[key]??=[]).push(p);return acc},{})
-  return <section className="relative flex h-full min-h-0 flex-col bg-white text-zinc-900">
-    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-zinc-100 px-3">
+  return <section className="relative flex h-full min-h-0 flex-col bg-[#eef0f5] text-zinc-900">
+    <header className="flex h-14 shrink-0 items-center gap-2 px-3">
       <button onClick={goBack} aria-label="뒤로 가기" className="rounded-full p-2 hover:bg-zinc-100"><ArrowLeft size={21}/></button>
-      <h1 className="min-w-0 flex-1 truncate text-lg font-semibold">{section==='library'?'사진':section==='albums'?'앨범':section==='favorites'?'즐겨찾기':section==='hidden'?'가려진 사진':section==='deleted'?'최근 삭제된 항목':album}</h1>
+      <h1 className="min-w-0 flex-1 truncate text-lg font-semibold">{section==='library'?'사진':section==='albums'?'앨범':section==='favorites'?'즐겨찾기':section==='hidden'?'가려진 사진':section==='deleted'?'휴지통':album}</h1>
       <button onClick={goHome} aria-label="홈 화면으로" className="rounded-full p-2 hover:bg-zinc-100"><Home size={20}/></button>
     </header>
-    {section!=='albums' && <label className="mx-4 my-3 flex shrink-0 items-center gap-2 rounded-xl bg-zinc-100 px-3 py-2 text-zinc-500"><Search size={16}/><input className="min-w-0 flex-1 bg-transparent text-sm text-zinc-900 outline-none" placeholder="사진 검색" aria-label="사진 검색" value={search} onChange={e=>setSearch(e.target.value)}/></label>}
+    {section!=='albums' && <label className="mx-4 my-3 flex shrink-0 items-center gap-2 rounded-[20px] bg-zinc-100 px-3 py-2 text-zinc-500"><Search size={16}/><input className="min-w-0 flex-1 bg-transparent text-sm text-zinc-900 outline-none" placeholder="사진 검색" aria-label="사진 검색" value={search} onChange={e=>setSearch(e.target.value)}/></label>}
     <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-5">
-      {section==='albums' ? <div className="grid grid-cols-2 gap-4 p-4">
-        {albumNames.map(name=>{const group=visible.filter(p=>albumsOf(p).includes(name));return <button key={name} onClick={()=>{setAlbum(name);setSectionTo('album')}} className="min-w-0 text-left"><div className="aspect-square overflow-hidden rounded-xl bg-zinc-100"><PhotoCover photo={group[0]}/></div><p className="mt-2 truncate text-sm font-semibold">{name}</p><p className="text-xs text-zinc-500">{group.length}장</p></button>})}
-        <button onClick={()=>setSectionTo('favorites')} className="rounded-xl border border-zinc-200 p-4 text-left"><Heart className="mb-2 text-pink-500"/>즐겨찾기</button>
-        <button onClick={()=>setSectionTo('hidden')} className="rounded-xl border border-zinc-200 p-4 text-left"><EyeOff className="mb-2"/>가려진 사진</button>
-        <button onClick={()=>setSectionTo('deleted')} className="rounded-xl border border-zinc-200 p-4 text-left"><Trash2 className="mb-2"/>최근 삭제된 항목</button>
+      {section==='albums' ? <div className="px-1 pb-6">
+        <div className="flex items-center justify-between px-3 pb-5 pt-3"><h2 className="text-[15px] font-semibold">주요 앨범</h2><button type="button" onClick={()=>setShowAllAlbums(v=>!v)} className="text-[13px] text-[#686458]">{showAllAlbums?'접기':'모두 보기'}</button></div>
+        <div className="grid grid-cols-3 gap-x-2 gap-y-3 px-2">
+          <AlbumCard title="최근 항목" count={visible.length} photo={visible[0]} onClick={()=>setSectionTo('library')} layered />
+          <AlbumCard title="즐겨찾기" count={visible.filter(isFavorite).length} photo={visible.find(isFavorite)} onClick={()=>setSectionTo('favorites')} layered />
+          {albumNames.map(name=>{const group=visible.filter(p=>albumsOf(p).includes(name));return <AlbumCard key={name} title={name} count={group.length} photo={group[0]} onClick={()=>{setAlbum(name);setSectionTo('album')}}/>})}
+        </div>
+        {showAllAlbums&&<p className="px-4 pt-5 text-xs text-zinc-500">앨범은 사진 JSON의 album 또는 albumIds를 기준으로 표시됩니다.</p>}
       </div> : section==='hidden'&&!hiddenUnlocked&&password ? <div className="mx-auto flex max-w-xs flex-col items-center gap-3 px-6 py-12"><LockKeyhole size={35}/><p className="text-sm">숨김 앨범 비밀번호</p><input type="password" value={passwordInput} onChange={e=>setPasswordInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')unlock()}} className="w-full rounded-lg border p-3" placeholder="비밀번호" aria-label="숨김 앨범 비밀번호"/>{passwordError&&<p className="text-xs text-red-600">비밀번호가 일치하지 않습니다.</p>}<button onClick={unlock} className="rounded-lg bg-zinc-900 px-6 py-2 text-white">열기</button><p className="text-center text-xs text-zinc-500">이 잠금은 이야기 연출용이며 실제 보안 기능이 아닙니다.</p></div> : <>
         {section==='hidden'&&<div className="px-4 py-2"><button onClick={setNewPassword} className="text-xs text-blue-600">숨김 앨범 비밀번호 설정·변경 (연출용)</button></div>}
-        {Object.entries(groupByDate).map(([date,group])=><div key={date}><h2 className="px-4 pb-2 pt-3 text-sm font-semibold">{date}</h2><div className="grid grid-cols-3 gap-0.5">{group.map(p=><PhotoTile key={p.id} photo={p} onClick={()=>setSelected(p.id)}/>)}</div></div>)}
+        {Object.entries(groupByDate).map(([date,group])=><div key={date}><h2 className="px-4 pb-2 pt-3 text-sm font-semibold">{date}</h2><div className="grid grid-cols-4 gap-px">{group.map(p=><PhotoTile key={p.id} photo={p} onClick={()=>setSelected(p.id)}/>)}</div></div>)}
         {!shown.length&&<div className="px-5 py-16 text-center text-sm text-zinc-400">{search?'검색 결과가 없습니다.':'사진이 없습니다.'}</div>}
       </>}
     </div>
-    <nav aria-label="사진첩 메뉴" className="flex shrink-0 border-t border-zinc-100 bg-white pb-1">
-      <Tab icon={<Images size={19}/>} label="사진" active={section==='library'} onClick={()=>setSectionTo('library')}/>
-      <Tab icon={<FolderOpen size={19}/>} label="앨범" active={section!=='library'} onClick={()=>setSectionTo('albums')}/>
+    <nav aria-label="사진첩 메뉴" className="mx-auto mb-4 flex w-[min(92%,420px)] shrink-0 items-center rounded-full border border-white/80 bg-white/90 p-1.5 shadow-[0_4px_18px_rgba(0,0,0,0.14)] backdrop-blur-xl">
+      <GalleryTab icon={<ImageIcon size={25} strokeWidth={2.1}/>} label="사진" active={section==='library'} onClick={()=>{setMenuOpen(false);setSectionTo('library')}}/>
+      <GalleryTab icon={<AlbumIcon size={25} strokeWidth={2.1}/>} label="앨범" active={section==='albums'||section==='album'} onClick={()=>{setMenuOpen(false);setSectionTo('albums')}}/>
+      <GalleryTab icon={<MenuIcon size={26} strokeWidth={2.1}/>} label="메뉴" active={menuOpen||['favorites','hidden','deleted'].includes(section)} onClick={()=>setMenuOpen(v=>!v)}/>
     </nav>
+    {menuOpen&&<div className="absolute bottom-24 left-4 right-4 z-30 grid grid-cols-3 gap-3 rounded-[30px] bg-white/95 p-5 shadow-xl">{([{id:"favorites",label:"즐겨찾기",icon:<Heart/>},{id:"hidden",label:"비공개 앨범",icon:<LockKeyhole/>},{id:"deleted",label:"휴지통",icon:<Trash2/>}] as const).map(item=><button key={item.id} onClick={()=>{setSectionTo(item.id);setMenuOpen(false)}} className="flex flex-col items-center gap-3 text-xs"><span className="rounded-full bg-zinc-100 p-4">{item.icon}</span>{item.label}</button>)}</div>}
     {current&&<div role="dialog" aria-modal="true" aria-label="사진 상세" className="absolute inset-0 z-50 flex flex-col bg-black text-white" onTouchStart={e=>{touchX.current=e.touches[0]?.clientX??null}} onTouchEnd={e=>{if(touchX.current===null)return;const dx=(e.changedTouches[0]?.clientX??touchX.current)-touchX.current;if(Math.abs(dx)>45)move(dx<0?1:-1);touchX.current=null}}>
       <header className="flex h-14 shrink-0 items-center gap-2 px-3"><button aria-label="사진 닫기" onClick={()=>{setSelected(null);setShowInfo(false)}} className="rounded-full p-2"><X/></button><div className="min-w-0 flex-1"><p className="text-sm">{dateName(current.takenAt)}</p><p className="text-xs text-white/60">{current.takenAt.split('T')[1]||''}</p></div><button aria-label="사진 정보" onClick={()=>setShowInfo(v=>!v)} className="p-2"><Info/></button></header>
       <div className="relative flex min-h-0 flex-1 items-center justify-center"><PhotoViewer photo={current}/>{shown.length>1&&<><button onClick={()=>move(-1)} aria-label="이전 사진" className="absolute left-1 top-1/2 rounded-full bg-black/50 p-2"><ChevronLeft/></button><button onClick={()=>move(1)} aria-label="다음 사진" className="absolute right-1 top-1/2 rounded-full bg-black/50 p-2"><ChevronRight/></button></>}</div>
@@ -102,3 +109,17 @@ function PhotoCover({photo}:{photo?:Photo}){const [error,setError]=useState(fals
 function PhotoViewer({photo}:{photo:Photo}){const [error,setError]=useState(false);useEffect(()=>setError(false),[photo.id]);return photo.src&&!error?<img src={photo.src} alt={photo.alt||'사진'} onError={()=>setError(true)} className="max-h-full max-w-full object-contain"/>:<div className="flex flex-col items-center gap-2 text-zinc-400"><ImageOff size={40}/><span className="text-xs">이미지를 불러올 수 없습니다.</span></div>}
 function Tab({icon,label,active,onClick}:{icon:ReactNode;label:string;active:boolean;onClick:()=>void}){return <button onClick={onClick} className={`flex flex-1 flex-col items-center gap-1 py-2 text-xs ${active?'text-blue-600':'text-zinc-500'}`}>{icon}{label}</button>}
 function Action({icon,label,onClick}:{icon:ReactNode;label:string;onClick:()=>void}){return <button onClick={onClick} className="flex min-w-16 flex-col items-center gap-1 text-[11px]">{icon}{label}</button>}
+
+function GalleryTab({icon,label,active,onClick}:{icon:ReactNode;label:string;active:boolean;onClick:()=>void}) {
+  return <button type="button" onClick={onClick} aria-current={active?'page':undefined} className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-full py-2 text-[11px] font-medium text-black transition-colors ${active?'bg-[#dedee0]':'bg-transparent'}`}>{icon}<span>{label}</span></button>
+}
+function AlbumCard({title,count,photo,onClick,layered=false}:{title:string;count:number;photo?:Photo;onClick:()=>void;layered?:boolean}) {
+  return <button type="button" onClick={onClick} className="min-w-0 overflow-hidden rounded-[17px] bg-[#e0e0e2] text-left shadow-sm">
+    <div className="relative aspect-square overflow-hidden">
+      {layered&&<><div className="absolute inset-[12%] translate-x-2 -translate-y-1 rounded-xl bg-black/10"/><div className="absolute inset-[12%] -translate-x-1 translate-y-1 rounded-xl bg-white/60 shadow-md"/></>}
+      <div className={layered?'absolute inset-[15%] overflow-hidden rounded-xl shadow-lg':'absolute inset-0'}><PhotoCover photo={photo}/></div>
+      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/55 via-black/10 to-transparent"/>
+      <div className="absolute inset-x-0 bottom-2 px-2 text-center text-white drop-shadow"><p className="truncate text-[13px] font-medium">{title}</p><p className="text-[11px] opacity-90">{count}</p></div>
+    </div>
+  </button>
+}

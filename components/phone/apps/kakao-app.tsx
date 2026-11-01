@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, MessageCircle, BellOff, Pin, Users, ImageIcon, Search, X, UserRound, Star, Music2, Play, Pause, Send, Settings, Trash2, ShoppingBag, Ellipsis, CirclePlay, UserRoundPlus, Gift, ChevronDown, ChevronUp } from 'lucide-react'
 import { useEpisodeProgress } from '../use-episode-progress'
 import { useEpisode } from '../episode-provider'
@@ -85,13 +85,19 @@ function RoomView({ room }: { room: KakaoRoom }) {
   const KAKAO_ROOMS = content.kakaoRooms
   const KAKAO_PROFILES = content.kakaoProfiles
   const CONTACTS = content.contacts
-  const { back } = usePhone()
+  const { back, pushRoute } = usePhone()
   const bottomRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const messageRefs = useRef<Record<number, HTMLDivElement | null>>({})
+  const [datePickerOpen, setDatePickerOpen] = useState(false)
+  const [mediaOpen, setMediaOpen] = useState(false)
+  const [selectedDate, setSelectedDate] = useState('')
+  const [navigationNotice, setNavigationNotice] = useState('')
+  const initializedRoom = useRef('')
   const [preview, setPreview] = useState<{ images: string[]; index: number } | null>(null)
   const previewStart = useRef<number | null>(null)
   const openPreview = (images: string[], index: number) => setPreview({ images, index })
   const stepPreview = (direction: number) => setPreview(current => current ? { ...current, index: Math.max(0, Math.min(current.images.length - 1, current.index + direction)) } : null)
-  const [profile, setProfile] = useState<string|null>(null)
   const [draft, setDraft] = useState('')
   const [replyTarget, setReplyTarget] = useState<KakaoMessage | null>(null)
   const [sent, setSent] = useState<KakaoMessage[]>([])
@@ -121,17 +127,69 @@ function RoomView({ room }: { room: KakaoRoom }) {
       text: original.text || (messageImages(original).length ? '사진' : original.emoticon || '메시지'),
     }
   }
-  useEffect(() => { bottomRef.current?.scrollIntoView({ block: 'end' }) }, [room.id, sent.length])
+  const messageDates = [...new Set(allMessages.map(m => seoulParts(m.sentAt)?.day ?? m.sentAt.slice(0, 10)).filter(Boolean))].sort()
+  const media = allMessages.flatMap((message, messageIndex) => messageImages(message).map((src, imageIndex) => ({ src, messageIndex, imageIndex, date: seoulParts(message.sentAt)?.day ?? message.sentAt.slice(0, 10) })))
+  const goToMessage = (index: number) => {
+    const container = scrollRef.current
+    const target = messageRefs.current[index]
+    if (!container || !target) return
+    container.scrollTop += target.getBoundingClientRect().top - container.getBoundingClientRect().top - 12
+  }
+  const goToDate = (date: string) => {
+    const index = allMessages.findIndex(m => (seoulParts(m.sentAt)?.day ?? m.sentAt.slice(0, 10)) === date)
+    if (index < 0) { setNavigationNotice('해당 날짜에는 메시지가 없습니다.'); return }
+    setNavigationNotice('')
+    setDatePickerOpen(false)
+    goToMessage(index)
+  }
+  useLayoutEffect(() => {
+    const identity = `${episode.id}:${room.id}`
+    if (initializedRoom.current === identity) return
+    const container = scrollRef.current
+    if (!container) return
+    initializedRoom.current = identity
+    const targetIndex = episode.id === 'ep02'
+      ? allMessages.findIndex(m => (seoulParts(m.sentAt)?.day ?? m.sentAt.slice(0, 10)) >= '2026-05-01')
+      : -1
+    let frame = 0
+    let attempts = 0
+    let cancelled = false
+    const position = () => {
+      if (cancelled) return
+      const target = targetIndex >= 0 ? messageRefs.current[targetIndex] : null
+      if (target) {
+        // Offset relative to the scroll container, regardless of nested layout.
+        const delta = target.getBoundingClientRect().top - container.getBoundingClientRect().top
+        container.scrollTop += delta - 12
+      } else if (targetIndex < 0) {
+        container.scrollTop = container.scrollHeight
+      }
+      // Wait for the scrollable area to have a real height before settling.
+      attempts++
+      if (attempts < 12 && (container.clientHeight === 0 || (target && Math.abs(target.getBoundingClientRect().top - container.getBoundingClientRect().top - 12) > 3))) {
+        frame = requestAnimationFrame(position)
+      }
+    }
+    frame = requestAnimationFrame(position)
+    return () => { cancelled = true; cancelAnimationFrame(frame); initializedRoom.current = '' }
+  }, [episode.id, room.id])
+  const previousSentCount = useRef(sent.length)
+  useEffect(() => {
+    if (sent.length > previousSentCount.current && previousSentCount.current > 0 && scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    previousSentCount.current = sent.length
+  }, [sent.length])
   let lastDate = ''
   return <section className="relative flex h-full min-h-0 flex-col bg-[#b2c7d9] text-[#222]" style={(room.backgroundImage || room.wallpaper) ? {backgroundImage:`url(${JSON.stringify(room.backgroundImage || room.wallpaper).slice(1,-1)})`,backgroundPosition:'center',backgroundSize:'cover'} : undefined}>
     <header className="flex h-14 shrink-0 items-center gap-2 border-b border-black/5 px-3">
       <button onClick={back} aria-label="채팅 목록으로" className="rounded-full p-2 hover:bg-black/10"><ChevronLeft size={23}/></button>
       <div className="min-w-0 flex-1"><h1 className="truncate text-base font-semibold">{roomTitle(room, content.contacts)}</h1><p className="text-[11px] text-[#526475]">{room.type === 'group' ? `${room.memberIds.length + 1}명` : '대화방'}</p></div>
       {room.muted && <BellOff size={17} className="text-[#526475]"/>}
+      <button type="button" onClick={() => {setSelectedDate(messageDates.at(-1) ?? '2026-05-01'); setDatePickerOpen(true); setNavigationNotice('')}} aria-label="날짜로 이동" className="rounded-full p-2 hover:bg-black/10"><span className="text-xs font-semibold">날짜</span></button>
+      <button type="button" onClick={() => setMediaOpen(true)} aria-label="사진 모아보기" className="rounded-full p-2 hover:bg-black/10"><ImageIcon size={18}/></button>
       <button onClick={()=>setConfirmRoomClear(true)} aria-label="이 채팅방에서 내가 보낸 메시지 초기화" className="rounded-full p-2 hover:bg-black/10"><Trash2 size={18}/></button>
       
     </header>
-    <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-3 py-4">
+    <div ref={scrollRef} className="relative min-h-0 flex-1 space-y-3 overflow-y-auto px-3 py-4" style={{overflowAnchor:"none"}}>
       {allMessages.map((msg, index) => {
         const date = seoulParts(msg.sentAt)?.day ?? msg.sentAt.slice(0, 10)
         const showTime = index === allMessages.length - 1 || !sameMinuteRun(msg, allMessages[index + 1])
@@ -139,10 +197,10 @@ function RoomView({ room }: { room: KakaoRoom }) {
         lastDate = date
         const mine = msg.from === 'me'
         const showSender = !mine && (index === 0 || !sameMinuteRun(allMessages[index - 1], msg))
-        return <div key={msg.id}>
+        return <div key={`${room.id}-${msg.id}-${index}`} ref={node => { messageRefs.current[index] = node }}>
           {showDate && <div className="mx-auto mb-4 w-fit rounded-full bg-[#879bac]/65 px-3 py-1 text-center text-[11px] text-white">{dateLabel(msg.sentAt)}</div>}
           <div className={`flex items-start gap-2 ${mine ? 'justify-end' : 'justify-start'}`}>
-            {!mine && <div className="w-[34px] shrink-0">{showSender && <button aria-label={`${contactName(msg.from, content.contacts)} 프로필 보기`} onClick={() => setProfile(msg.from)}><Avatar id={msg.from} size={34}/></button>}</div>}
+            {!mine && <div className="w-[34px] shrink-0">{showSender && <button aria-label={`${contactName(msg.from, content.contacts)} 프로필 보기`} onClick={() => pushRoute(`profile:${msg.from}`)}><Avatar id={msg.from} size={34}/></button>}</div>}
             <div className={`flex min-w-0 max-w-[78%] flex-col ${mine ? 'items-end' : 'items-start'}`}>
               {showSender && <span className="mb-1 text-xs text-[#263645]">{contactName(msg.from, content.contacts)}</span>}
               <div className={`flex max-w-full items-end gap-1 ${mine ? 'flex-row-reverse' : ''}`}>
@@ -160,13 +218,14 @@ function RoomView({ room }: { room: KakaoRoom }) {
       <textarea aria-label="메시지 입력" rows={1} value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.nativeEvent.isComposing){e.preventDefault();send()}}} placeholder="메시지 입력" className="max-h-28 min-h-10 min-w-0 flex-1 resize-none overflow-y-auto rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none"/>
       <button type="submit" disabled={!draft.trim()} aria-label="메시지 전송" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#fee500] disabled:opacity-40"><Send size={18}/></button>
     </form>
+    {datePickerOpen && <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/40 p-5" role="dialog" aria-modal="true" aria-label="메시지 날짜 이동"><div className="w-full rounded-2xl bg-white p-5 shadow-xl"><div className="mb-4 flex items-center justify-between"><strong>날짜로 이동</strong><button onClick={() => setDatePickerOpen(false)} aria-label="닫기"><X size={20}/></button></div><input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="w-full rounded-lg border border-zinc-300 p-3"/><p className="mt-2 text-xs text-zinc-500">대화 날짜: {messageDates.length ? `${messageDates[0]} ~ ${messageDates.at(-1)}` : '없음'}</p>{navigationNotice && <p className="mt-2 text-sm text-red-600">{navigationNotice}</p>}<button onClick={() => goToDate(selectedDate)} className="mt-4 w-full rounded-xl bg-[#fee500] p-3 text-sm font-semibold">이동</button></div></div>}
+    {mediaOpen && <div className="absolute inset-0 z-40 flex flex-col bg-[#f7f7f7]" role="dialog" aria-label="채팅방 사진 모아보기"><header className="flex h-14 shrink-0 items-center gap-3 bg-white px-4"><button onClick={() => setMediaOpen(false)} aria-label="사진 목록 닫기"><ChevronLeft size={22}/></button><strong>사진 모아보기 ({media.length})</strong></header><div className="min-h-0 flex-1 overflow-y-auto p-3">{media.length === 0 ? <p className="py-12 text-center text-sm text-zinc-500">주고받은 사진이 없습니다.</p> : <div className="grid grid-cols-3 gap-2">{media.map((item, i) => <div key={`${item.messageIndex}-${item.imageIndex}`} className="min-w-0"><button type="button" onClick={() => openPreview(media.map(x => x.src), i)} className="aspect-square w-full overflow-hidden rounded-lg bg-zinc-200"><img src={item.src} alt={`${item.date} 사진`} className="h-full w-full object-cover"/></button><p className="mt-1 text-center text-[10px] text-zinc-500">{item.date.slice(5)}</p><button type="button" onClick={() => {setMediaOpen(false); requestAnimationFrame(() => goToMessage(item.messageIndex))}} className="w-full py-1 text-[10px] text-blue-600">대화로 이동</button></div>)}</div>}</div></div>}
     {confirmRoomClear && <div role="dialog" aria-modal="true" aria-label="현재 채팅방 메시지 초기화" className="absolute inset-0 z-[60] flex items-center justify-center bg-black/45 p-5"><div className="w-full rounded-2xl bg-white p-5 shadow-xl"><h2 className="font-semibold">내가 보낸 메시지 초기화</h2><p className="mt-2 text-sm text-zinc-600">이 채팅방에서 직접 보낸 메시지만 삭제할까요? 작품 원본 대화는 유지됩니다.</p><div className="mt-5 flex justify-end gap-3"><button onClick={()=>setConfirmRoomClear(false)} className="rounded-lg px-3 py-2 text-sm">취소</button><button onClick={clearSentInRoom} className="rounded-lg bg-red-600 px-3 py-2 text-sm text-white">초기화</button></div></div></div>}
     {preview && <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/95 p-3 text-white" role="dialog" aria-modal="true" aria-label="사진 확대" onTouchStart={e => { previewStart.current = e.touches[0]?.clientX ?? null }} onTouchEnd={e => { if (previewStart.current === null) return; const delta = (e.changedTouches[0]?.clientX ?? previewStart.current) - previewStart.current; if (Math.abs(delta) > 45) stepPreview(delta < 0 ? 1 : -1); previewStart.current = null }}>
       <button onClick={() => setPreview(null)} className="absolute right-4 top-4 z-10 rounded-full bg-white/20 p-2" aria-label="사진 닫기"><X/></button>
       <img src={preview.images[preview.index]} alt={`확대된 대화 사진 ${preview.index + 1}`} className="max-h-[78%] max-w-full object-contain"/>
       {preview.images.length > 1 && <><button onClick={() => stepPreview(-1)} disabled={preview.index === 0} className="absolute left-2 top-1/2 rounded-full bg-white/20 p-2 disabled:cursor-not-allowed disabled:opacity-30" aria-label="이전 사진"><ChevronLeft/></button><button onClick={() => stepPreview(1)} disabled={preview.index === preview.images.length - 1} className="absolute right-2 top-1/2 rounded-full bg-white/20 p-2 disabled:cursor-not-allowed disabled:opacity-30" aria-label="다음 사진"><ChevronRight/></button><span className="absolute bottom-8 text-sm">{preview.index + 1} / {preview.images.length}</span></>}
     </div>}
-    {profile && <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-4 bg-[#8da4b6] p-5" role="dialog" aria-label="카카오톡 프로필"><button onClick={() => setProfile(null)} className="absolute left-4 top-4 rounded-full bg-black/10 p-2" aria-label="프로필 닫기"><X/></button><Avatar id={profile} size={94}/><strong className="text-xl">{contactName(profile, content.contacts)}</strong><p className="text-center text-sm">{KAKAO_PROFILES.find(x => x.contactId===profile)?.statusMessage || '상태 메시지가 없습니다'}</p>{KAKAO_PROFILES.find(x=>x.contactId===profile)?.music && <p className="rounded-full bg-white/40 px-4 py-2 text-xs">♫ {KAKAO_PROFILES.find(x=>x.contactId===profile)?.music}</p>}</div>}
   </section>
 }
 // 카카오톡의 읽지 않은 메시지는 방별 unreadCount를 합산하고, 읽음 상태는 에피소드별로 저장합니다.
@@ -272,7 +331,7 @@ function FriendList() {
   return <section className="relative flex h-full min-h-0 flex-col bg-white text-[#202020]">
     <header className="flex h-[62px] shrink-0 items-center gap-3 px-5">
       <button onClick={() => pushRoute('profile:me')} aria-label="내 프로필"><Avatar id="me" size={38}/></button>
-      <h1 className="min-w-0 flex-1 truncate text-[20px] font-bold">{CHARACTER.owner.name}</h1>
+      <button onClick={() => pushRoute('profile:me')} className="min-w-0 flex-1 truncate text-left text-[20px] font-bold">{CHARACTER.owner.name}</button>
       <button onClick={() => setFriendSearch(v=>!v)} aria-label="친구 검색" className="p-1"><Search size={25}/></button>
       <button disabled aria-label="친구 추가 (비활성화)" className="cursor-default p-1"><UserRoundPlus size={25}/></button>
       <button disabled aria-label="선물하기 (비활성화)" className="cursor-default p-1"><Gift size={24}/></button>

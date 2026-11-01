@@ -1,3 +1,266 @@
 {
-  "calls": []
+  "calls": 
+  [
+    {
+      "id": "call-54",
+      "contactId": "user",
+      "type": "outgoing",
+      "calledAt": "2026-05-01T08:49",
+      "durationSec": 32
+    },
+    {
+      "id": "call-55",
+      "contactId": "mom",
+      "type": "incoming",
+      "calledAt": "2026-05-01T22:37",
+      "durationSec": 126
+    },
+    {
+      "id": "call-56",
+      "contactId": "user",
+      "type": "outgoing",
+      "calledAt": "2026-05-02T11:57",
+      "durationSec": 648
+    },
+    {
+      "id": "call-57",
+      "contactId": "user",
+      "type": "incoming",
+      "calledAt": "2026-05-02T22:16",
+      "durationSec": 1847
+    },
+    {
+      "id": "call-58",
+      "contactId": "dad",
+      "type": "outgoing",
+      "calledAt": "2026-05-02T13:24",
+      "durationSec": 173
+    },
+    {
+      "id": "call-59",
+      "unknownNumber": "070-XXXX-4816",
+      "type": "rejected",
+      "calledAt": "2026-05-02T10:43"
+    },
+    {
+      "id": "call-60",
+      "contactId": "user",
+      "type": "outgoing",
+      "calledAt": "2026-05-03T18:58",
+      "durationSec": 21
+    },
+    {
+      "id": "call-61",
+      "contactId": "user",
+      "type": "incoming",
+      "calledAt": "2026-05-03T23:04",
+      "durationSec": 2036
+    },
+    {
+      "id": "call-62",
+      "contactId": "mom",
+      "type": "outgoing",
+      "calledAt": "2026-05-03T14:12",
+      "durationSec": 284
+    },
+    {
+      "id": "call-63",
+      "contactId": "jake",
+      "type": "incoming",
+      "calledAt": "2026-05-03T15:47",
+      "durationSec": 76
+    },
+    {
+      "id": "call-64",
+      "contactId": "user",
+      "type": "outgoing",
+      "calledAt": "2026-05-04T21:39",
+      "durationSec": 1764
+    },
+    {
+      "id": "call-65",
+      "contactId": "mom",
+      "type": "incoming",
+      "calledAt": "2026-05-04T11:26",
+      "durationSec": 196
+    },
+    {
+      "id": "call-66",
+      "unknownNumber": "070-XXXX-9273",
+      "type": "rejected",
+      "calledAt": "2026-05-04T14:37"
+    },
+    {
+      "id": "call-67",
+      "contactId": "user",
+      "type": "incoming",
+      "calledAt": "2026-05-05T21:42",
+      "durationSec": 2193
+    },
+    {
+      "id": "call-68",
+      "contactId": "dad",
+      "type": "incoming",
+      "calledAt": "2026-05-05T17:13",
+      "durationSec": 143
+    },
+    {
+      "id": "call-69",
+      "contactId": "user",
+      "type": "outgoing",
+      "calledAt": "2026-05-06T22:18",
+      "durationSec": 2386
+    },
+    {
+      "id": "call-70",
+      "contactId": "dohyunkim",
+      "type": "incoming",
+      "calledAt": "2026-05-06T09:17",
+      "durationSec": 137
+    },
+    {
+      "id": "call-71",
+      "contactId": "seungjunlee",
+      "type": "outgoing",
+      "calledAt": "2026-05-06T11:06",
+      "durationSec": 83
+    },
+    {
+      "id": "call-72",
+      "contactId": "jaehyunpark",
+      "type": "incoming",
+      "calledAt": "2026-05-06T14:32",
+      "durationSec": 114
+    },
+    {
+      "id": "call-73",
+      "contactId": "yoonjaechoi",
+      "type": "outgoing",
+      "calledAt": "2026-05-06T17:08",
+      "durationSec": 49
+    },
+    {
+      "id": "call-74",
+      "unknownNumber": "070-XXXX-3158",
+      "type": "rejected",
+      "calledAt": "2026-05-06T13:46"
+    },
+    {
+      "id": "call-75",
+      "contactId": "user",
+      "type": "outgoing",
+      "calledAt": "2026-05-07T18:27",
+      "durationSec": 26
+    },
+    {
+      "id": "call-76",
+      "contactId": "user",
+      "type": "incoming",
+      "calledAt": "2026-05-07T22:14",
+      "durationSec": 1928
+    },
+    {
+      "id": "call-77",
+      "contactId": "jihoonseo",
+      "type": "incoming",
+      "calledAt": "2026-05-07T10:28",
+      "durationSec": 57
+    },
+    {
+      "id": "call-78",
+      "contactId": "seungjunlee",
+      "type": "outgoing",
+      "calledAt": "2026-05-07T14:17",
+      "durationSec": 96
+    },
+    {
+      "id": "call-79",
+      "contactId": "yujinhan",
+      "type": "incoming",
+      "calledAt": "2026-05-07T16:08",
+      "durationSec": 42
+    },
+    {
+      "id": "call-80",
+      "contactId": "mom",
+      "type": "incoming",
+      "calledAt": "2026-05-08T12:36",
+      "durationSec": 312
+    },
+    {
+      "id": "call-81",
+      "contactId": "dad",
+      "type": "outgoing",
+      "calledAt": "2026-05-08T16:41",
+      "durationSec": 94
+    },
+    {
+      "id": "call-82",
+      "contactId": "jihu",
+      "type": "incoming",
+      "calledAt": "2026-05-08T16:28",
+      "durationSec": 68
+    },
+    {
+      "id": "call-83",
+      "contactId": "seungjunlee",
+      "type": "incoming",
+      "calledAt": "2026-05-08T10:22",
+      "durationSec": 126
+    },
+    {
+      "id": "call-84",
+      "unknownNumber": "070-XXXX-8062",
+      "type": "rejected",
+      "calledAt": "2026-05-08T11:14"
+    },
+    {
+      "id": "call-85",
+      "contactId": "user",
+      "type": "incoming",
+      "calledAt": "2026-05-09T23:02",
+      "durationSec": 1673
+    },
+    {
+      "id": "call-86",
+      "contactId": "mom",
+      "type": "outgoing",
+      "calledAt": "2026-05-09T11:12",
+      "durationSec": 348
+    },
+    {
+      "id": "call-87",
+      "contactId": "sunghoon",
+      "type": "outgoing",
+      "calledAt": "2026-05-09T14:06",
+      "durationSec": 92
+    },
+    {
+      "id": "call-88",
+      "unknownNumber": "070-XXXX-1947",
+      "type": "rejected",
+      "calledAt": "2026-05-09T12:28"
+    },
+    {
+      "id": "call-89",
+      "contactId": "user",
+      "type": "outgoing",
+      "calledAt": "2026-05-10T19:36",
+      "durationSec": 2258
+    },
+    {
+      "id": "call-90",
+      "contactId": "jaehyunpark",
+      "type": "incoming",
+      "calledAt": "2026-05-10T14:58",
+      "durationSec": 46
+    },
+    {
+      "id": "call-91",
+      "contactId": "mom",
+      "type": "incoming",
+      "calledAt": "2026-05-10T18:24",
+      "durationSec": 207
+    }
+]
 }

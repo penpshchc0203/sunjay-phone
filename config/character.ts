@@ -11,12 +11,12 @@ export const CHARACTER: CharacterConfig = {
   user: {
     displayName: '선우',
     avatar: '/sunjay-phone/images/profile/sunwookakao.jpg',
-    phoneNumber: '010-XXX-0624',
+    phoneNumber: '010-000-0624',
   },
 
   device: {
     deviceName: '',
     model: 'Galaxy S25 Ultra',
-    phoneNumber: '010-2002-0420',
+    phoneNumber: '010-000-0420',
   },
 }

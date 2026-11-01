@@ -1,0 +1,68 @@
+{
+  "todos": [
+    {
+      "id": "t01",
+      "title": "강릉 맛집 예약",
+      "category": "약속",
+      "dueDate": "2026-04-29",
+      "completed": true,
+      "memo": ""
+    },
+    {
+      "id": "t02",
+      "title": "세차하기",
+      "category": "개인",
+      "dueDate": "2026-04-30",
+      "completed": false,
+      "memo": ""
+    },
+    {
+      "id": "t03",
+      "title": "두쫀쿠 만들기",
+      "category": "개인",
+      "dueDate": "2026-04-30",
+      "completed": true,
+      "memo": ""
+    },
+    {
+      "id": "t04",
+      "title": "두쫀쿠 챙기기",
+      "category": "개인",
+      "dueDate": "2026-05-01",
+      "completed": false,
+      "memo": ""
+    },
+    {
+      "id": "t05",
+      "title": "강릉 여행 준비물 챙기기",
+      "category": "개인",
+      "dueDate": "2026-04-30",
+      "completed": false,
+      "memo": ""
+    },
+    {
+      "id": "t06",
+      "title": "회사 주간 보고서 작성",
+      "category": "업무",
+      "dueDate": "2026-04-29",
+      "completed": true,
+      "memo": ""
+    },
+    {
+      "id": "t07",
+      "title": "업무 회의 자료 정리",
+      "category": "업무",
+      "dueDate": "2026-04-30",
+      "completed": false,
+      "memo": ""
+    },
+    {
+      "id": "t08",
+      "title": "프로젝트 관련 업무 처리",
+      "category": "업무",
+      "dueDate": "2026-05-04",
+      "completed": false,
+      "memo": ""
+    }
+  ]
+}

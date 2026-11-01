@@ -37,7 +37,7 @@ interface PhoneContextValue {
 const PhoneContext = createContext<PhoneContextValue | null>(null)
 
 export function PhoneProvider({ children }: { children: ReactNode }) {
-  const { episode } = useEpisode()
+  const { episode, enteredFromPicker } = useEpisode()
   const storageKey = episodeStorageKey(STORAGE_KEY, episode.id)
   const [state, dispatch] = useReducer(phoneReducer, initialPhoneState)
   const [hydrated, setHydrated] = useState(false)
@@ -47,8 +47,10 @@ export function PhoneProvider({ children }: { children: ReactNode }) {
     try {
       const raw = window.localStorage.getItem(storageKey)
       if (raw) dispatch({ type: 'HYDRATE', state: { ...sanitizePhoneState(JSON.parse(raw)), mode: 'lock', currentApp: null } })
+      if (enteredFromPicker) dispatch({ type: 'GO_HOME' })
     } catch {
       window.localStorage.removeItem(storageKey)
+      if (enteredFromPicker) dispatch({ type: 'GO_HOME' })
     }
     setHydrated(true)
   }, [])

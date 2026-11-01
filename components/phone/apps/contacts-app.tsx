@@ -4,8 +4,6 @@ import { useMemo, useState } from 'react'
 import { ArrowLeft, Home, Search, UserRound } from 'lucide-react'
 import { useEpisode } from '../episode-provider'
 import { usePhone } from '../phone-provider'
-import { USER_CONTACT_ID } from '@/content/contacts'
-import { CHARACTER } from '@/config/character'
 
 function ContactAvatar({ src, name }: { src?: string; name: string }) {
   const [failed, setFailed] = useState(false)
@@ -19,10 +17,9 @@ export function ContactsApp() {
   const { content } = useEpisode()
   const [search, setSearch] = useState('')
   const contacts = useMemo(() => [...(content.contacts ?? [])]
-    .sort((a, b) => (a.id === USER_CONTACT_ID ? CHARACTER.user.displayName : a.name)
-      .localeCompare(b.id === USER_CONTACT_ID ? CHARACTER.user.displayName : b.name, 'ko-KR', { sensitivity: 'base' })), [content.contacts])
+    .sort((a, b) => a.name.localeCompare(b.name, 'ko-KR', { sensitivity: 'base' })), [content.contacts])
   const filtered = contacts.filter(c => {
-    const name = c.id === USER_CONTACT_ID ? CHARACTER.user.displayName : c.name
+    const name = c.name
     return `${name} ${c.phoneNumber ?? ''}`.toLocaleLowerCase().includes(search.trim().toLocaleLowerCase())
   })
   return <section className="flex h-full min-h-0 flex-col bg-white text-zinc-900">
@@ -38,7 +35,7 @@ export function ContactsApp() {
     </label>
     <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain" role="list" aria-label="연락처 목록">
       {filtered.map(c => {
-        const name = c.id === USER_CONTACT_ID ? CHARACTER.user.displayName : c.name
+        const name = c.name
         return <div role="listitem" key={c.id} className="flex items-center gap-3 border-b border-zinc-100 px-4 py-3">
           <ContactAvatar src={c.avatar} name={name}/>
           <div className="min-w-0 flex-1">

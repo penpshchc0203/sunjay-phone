@@ -32,7 +32,114 @@
       "avatar": "/sunjay-phone/images/profile/toridoinsta.jpg"
     }
   ],
-  "instagramPosts": [],
+  "instagramPosts":
+  [
+      {
+        "id": "post-gangneung-0502",
+        "images": [
+          "/sunjay-phone/images/instagram/jj_gangneung_0502_01.jpg",
+          "/sunjay-phone/images/instagram/jj_gangneung_0502_02.jpg"
+        ],
+        "caption": "오랜만에 바다 🌊",
+        "postedAt": "2026-05-02T10:32",
+        "likes": 112,
+        "comments": [
+          {
+            "id": "post-gangneung-0502-c1",
+            "accountId": "jake_sim",
+            "text": "좋았겠다ㅎㅎ",
+            "commentedAt": "2026-05-02T11:28"
+          },
+          {
+            "id": "post-gangneung-0502-c2",
+            "accountId": "me",
+            "text": "ㅋㅋㅋㅋ좋았지",
+            "commentedAt": "2026-05-02T11:35"
+          },
+          {
+            "id": "post-gangneung-0502-c3",
+            "accountId": "sunghoon.p",
+            "text": "날씨 좋네",
+            "commentedAt": "2026-05-02T13:06"
+          }
+        ]
+    }
+  ],
   "instagramDms": [],
-  "instagramStories": []
+  "instagramStories":
+  [
+    {
+      "id": "story-sunwoo-0501",
+      "accountId": "torido0624",
+      "image": "/sunjay-phone/images/instagram/sw_gangneung_0501.webp",
+      "caption": "",
+      "postedAt": "2026-05-01T17:32",
+      "fit": "cover"
+    },
+    {
+      "id": "story-sunwoo-0502",
+      "accountId": "torido0624",
+      "image": "/sunjay-phone/images/instagram/sw_exhibition_0502.webp",
+      "caption": "",
+      "postedAt": "2026-05-02T17:48",
+      "fit": "cover"
+    },
+    {
+      "id": "story-sunwoo-0503",
+      "accountId": "torido0624",
+      "image": "/sunjay-phone/images/instagram/sw_jjamppong_0503.webp",
+      "caption": "",
+      "postedAt": "2026-05-03T20:16",
+      "fit": "cover"
+    },
+    {
+      "id": "story-jjong-0505",
+      "accountId": "me",
+      "image": "/sunjay-phone/images/instagram/jj_picnic_0505.webp",
+      "caption": "",
+      "postedAt": "2026-05-05T14:26",
+      "fit": "cover"
+    },
+    {
+      "id": "story-sunwoo-0505",
+      "accountId": "torido0624",
+      "image": "/sunjay-phone/images/instagram/sw_picnic_0505.webp",
+      "caption": "",
+      "postedAt": "2026-05-05T15:08",
+      "fit": "cover"
+    },
+    {
+      "id": "story-jjong-0506",
+      "accountId": "me",
+      "image": "/sunjay-phone/images/instagram/jj_coffee_0506.jpg",
+      "caption": "",
+      "postedAt": "2026-05-06T16:02",
+      "fit": "cover"
+    },
+    {
+      "id": "story-sunwoo-0507",
+      "accountId": "torido0624",
+      "image": "/sunjay-phone/images/instagram/sw_cake_0507.webp",
+      "caption": "",
+      "postedAt": "2026-05-07T19:42",
+      "fit": "cover"
+    },
+    {
+      "id": "story-sunwoo-0509",
+      "accountId": "torido0624",
+      "image": "/sunjay-phone/images/instagram/sw_gathering_0509.webp",
+      "caption": "",
+      "postedAt": "2026-05-09T20:14",
+      "fit": "cover"
+    },
+    {
+      "id": "story-sunwoo-0510",
+      "accountId": "torido0624",
+      "image": "/sunjay-phone/images/instagram/sw_hangover_0510.webp",
+      "caption": "",
+      "postedAt": "2026-05-10T17:56",
+      "fit": "cover"
+    }
+  ]
+
 }

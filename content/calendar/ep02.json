@@ -1,0 +1,102 @@
+[
+  {
+    "id": "cal-gangneung-0501",
+    "title": "강릉",
+    "date": "2026-05-01",
+    "start": "08:00",
+    "end": "23:00",
+    "location": "강릉",
+    "memo": "두쫀쿠 챙겨라!!!!",
+    "category": "travel"
+  },
+  {
+    "id": "cal-dayoff-0504",
+    "title": "연차",
+    "date": "2026-05-04",
+    "start": "09:00",
+    "end": "18:00",
+    "location": "",
+    "memo": "",
+    "category": "personal"
+  },
+  {
+    "id": "cal-meeting-0506",
+    "title": "오전 팀 회의",
+    "date": "2026-05-06",
+    "start": "09:00",
+    "end": "12:00",
+    "location": "회사",
+    "memo": "연휴 이후 업무 현황 및 데이터 분석 진행 상황 공유",
+    "category": "work"
+  },
+  {
+    "id": "cal-report-0506",
+    "title": "분석 보고서 정리",
+    "date": "2026-05-06",
+    "start": "14:00",
+    "end": "17:30",
+    "location": "회사",
+    "memo": "회의 내용 반영해서 보고서 수정",
+    "category": "work"
+  },
+  {
+    "id": "cal-work-0508",
+    "title": "주간 업무 마감",
+    "date": "2026-05-08",
+    "start": "10:00",
+    "end": "17:00",
+    "location": "회사",
+    "memo": "요청 데이터 전달, 보고서 최종 확인",
+    "category": "work"
+  },
+  {
+    "id": "cal-family-0508",
+    "title": "부모님이랑 저녁",
+    "date": "2026-05-08",
+    "start": "18:30",
+    "end": "20:30",
+    "location": "",
+    "memo": "부모님이랑 외식",
+    "category": "personal"
+  },
+  {
+    "id": "cal-rental-0509",
+    "title": "제주도 렌터카 확인",
+    "date": "2026-05-09",
+    "start": "13:00",
+    "end": "14:00",
+    "location": "",
+    "memo": "재윤이 예약. 운전 종성, 성훈. 추가 운전자 등록 확인. 공항 셔틀 이용",
+    "category": "personal"
+  },
+  {
+    "id": "cal-rental-0515",
+    "title": "제주도 여행",
+    "date": "2026-05-15",
+    "start": "",
+    "end": "",
+    "location": "",
+    "memo": "",
+    "category": "personal"
+  },
+  {
+    "id": "cal-rental-0516",
+    "title": "제주도 여행",
+    "date": "2026-05-16",
+    "start": "",
+    "end": "",
+    "location": "",
+    "memo": "",
+    "category": "personal"
+  },
+  {
+    "id": "cal-rental-0517",
+    "title": "제주도 여행",
+    "date": "2026-05-17",
+    "start": "",
+    "end": "",
+    "location": "",
+    "memo": "",
+    "category": "personal"
+  }
+]

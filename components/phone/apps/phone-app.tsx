@@ -1,42 +1,79 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { ArrowLeft, Home, PhoneIncoming, PhoneOutgoing, PhoneMissed, PhoneOff, Star, Search, UserRound, Clock, BookUser } from 'lucide-react'
-import { USER_CONTACT_ID } from '@/content/contacts'
+import { ArrowDownLeft, ArrowUpRight, Phone, PhoneMissed, Search, MoreVertical, Plus, Star, UserRound, Mic, Delete, X } from 'lucide-react'
 import { useEpisode } from '../episode-provider'
-import { CHARACTER } from '@/config/character'
-import type { CallLogEntry } from '@/lib/phone/content-types'
 import { usePhone } from '../phone-provider'
+import type { CallLogEntry } from '@/lib/phone/content-types'
+import callSummaries from '@/content/calls/summaries.json'
+import { ArrowLeft, ChevronRight, Copy, Sparkles } from 'lucide-react'
 
-type View = 'recent' | 'favorites' | 'contacts'
-const iconFor = (type: CallLogEntry['type']) => type === 'incoming' ? PhoneIncoming : type === 'outgoing' ? PhoneOutgoing : type === 'missed' ? PhoneMissed : PhoneOff
-const typeName = (type: CallLogEntry['type']) => ({ incoming: '수신', outgoing: '발신', missed: '부재중', rejected: '거절' })[type]
-const formatDate = (value: string) => { const d = new Date(value); return Number.isNaN(d.getTime()) ? value : d.toLocaleString('ko-KR', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, hourCycle: 'h23' }) }
-const duration = (sec?: number) => sec === undefined ? '기록 없음' : sec >= 3600 ? `${Math.floor(sec / 3600)}시간 ${Math.floor(sec % 3600 / 60)}분 ${sec % 60}초` : `${Math.floor(sec / 60)}분 ${sec % 60}초`
+type Tab = 'keypad' | 'recent' | 'contacts'
+const KEYS = [['1',''],['2','ABC'],['3','DEF'],['4','GHI'],['5','JKL'],['6','MNO'],['7','PQRS'],['8','TUV'],['9','WXYZ'],['*',''],['0','+'],['#','']]
+const formatDay = (date: string) => { const d = new Date(date); return Number.isNaN(d.getTime()) ? date : `${d.getMonth()+1}월 ${d.getDate()}일 ${['일','월','화','수','목','금','토'][d.getDay()]}요일` }
+const formatTime = (date: string) => date.slice(11,16)
+const callIcon = (type: CallLogEntry['type']) => type === 'incoming' ? ArrowDownLeft : type === 'outgoing' ? ArrowUpRight : PhoneMissed
 
 export function PhoneApp() {
-  const { goHome, back } = usePhone()
+  const { back } = usePhone()
   const { content } = useEpisode()
-  const CALL_LOG = content.calls
-  const CONTACTS = content.contacts
-  const [view, setView] = useState<View>('recent')
-  const [search, setSearch] = useState('')
+  const contacts = content.contacts ?? []
+  const [tab, setTab] = useState<Tab>('recent')
+  const [number, setNumber] = useState('')
+  const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
-  const [contactSelected, setContactSelected] = useState<string | null>(null)
-  const contact = (id?: string) => CONTACTS.find(c => c.id === id)
-  const name = (id?: string, unknownNumber?: string) => id === USER_CONTACT_ID ? CHARACTER.user.displayName : contact(id)?.name || unknownNumber || '알 수 없음'
-  const calls = useMemo(() => [...CALL_LOG].sort((a, b) => b.calledAt.localeCompare(a.calledAt)), [])
-  const filteredCalls = calls.filter(c => `${name(c.contactId, c.unknownNumber)} ${c.unknownNumber || contact(c.contactId)?.phoneNumber || ''}`.toLowerCase().includes(search.toLowerCase()))
-  const filteredContacts = CONTACTS.filter(c => `${c.name} ${c.phoneNumber || ''}`.toLowerCase().includes(search.toLowerCase()) && (view !== 'favorites' || c.favorite))
-  const currentCall = calls.find(c => c.id === selected)
-  const currentContact = contact(contactSelected || currentCall?.contactId)
-  const goBack = () => { if (selected || contactSelected) { setSelected(null); setContactSelected(null) } else back() }
-  return <section className="flex h-full min-h-0 flex-col bg-white text-zinc-900">
-    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-zinc-100 px-3"><button type="button" onClick={goBack} aria-label="뒤로 가기" className="rounded-full p-2 hover:bg-zinc-100"><ArrowLeft size={21}/></button><h1 className="min-w-0 flex-1 truncate text-lg font-semibold">{selected || contactSelected ? '상세 정보' : '전화'}</h1><button type="button" onClick={goHome} aria-label="홈으로" className="rounded-full p-2 hover:bg-zinc-100"><Home size={20}/></button></header>
-    {selected || contactSelected ? <div className="min-h-0 flex-1 overflow-y-auto p-5"><div className="flex flex-col items-center gap-2 py-5"><div className="flex size-20 items-center justify-center overflow-hidden rounded-full bg-zinc-100">{currentContact?.avatar ? <img src={currentContact.avatar} alt="연락처 프로필" onError={e => { e.currentTarget.style.display = 'none' }} className="size-full object-cover"/> : <UserRound size={38} className="text-zinc-400"/>}</div><h2 className="text-xl font-semibold">{name(contactSelected || currentCall?.contactId, currentCall?.unknownNumber)}</h2><p className="text-sm text-zinc-500">{currentContact?.phoneNumber || currentCall?.unknownNumber || '번호 없음'}</p>{currentContact?.relation && <p className="text-xs text-zinc-500">{currentContact.relation}</p>}</div>{currentCall && <div className="rounded-xl bg-zinc-50 p-4 text-sm"><p className="font-semibold">통화 기록</p><p className="mt-3">종류: {typeName(currentCall.type)}</p><p className="mt-2">일시: {formatDate(currentCall.calledAt)}</p><p className="mt-2">통화 시간: {duration(currentCall.durationSec)}</p></div>}{currentContact && <div className="mt-4 rounded-xl bg-zinc-50 p-4 text-sm"><p className="font-semibold">연락처 정보</p><p className="mt-2">{currentContact.phoneNumber || '번호 없음'}</p><p className="mt-2">{currentContact.favorite ? '★ 즐겨찾는 연락처' : '일반 연락처'}</p></div>}<p className="mt-6 text-center text-xs text-zinc-400">가상 휴대폰입니다. 실제 통화는 연결되지 않습니다.</p></div> : <>
-      <label className="mx-4 my-3 flex shrink-0 items-center gap-2 rounded-xl bg-zinc-100 px-3 py-2"><Search size={16} className="text-zinc-500"/><input aria-label="통화 및 연락처 검색" value={search} onChange={e => setSearch(e.target.value)} placeholder="이름 또는 전화번호 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none"/></label>
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">{view === 'recent' ? <>{filteredCalls.map(c => { const Icon = iconFor(c.type); return <button type="button" key={c.id} onClick={() => { setSelected(c.id); setContactSelected(null) }} className="flex w-full items-center gap-3 border-b border-zinc-100 px-4 py-3 text-left hover:bg-zinc-50"><Icon size={19} className={c.type === 'missed' || c.type === 'rejected' ? 'text-red-500' : 'text-zinc-500'}/><div className="min-w-0 flex-1"><p className={`truncate text-sm font-semibold ${c.type === 'missed' ? 'text-red-600' : ''}`}>{name(c.contactId, c.unknownNumber)}</p><p className="text-xs text-zinc-500">{typeName(c.type)} · {duration(c.durationSec)}</p></div><span className="shrink-0 text-[11px] text-zinc-400">{formatDate(c.calledAt)}</span></button>})}{!filteredCalls.length && <p className="p-8 text-center text-sm text-zinc-500">통화 기록이 없습니다.</p>}</> : <>{filteredContacts.map(c => <button type="button" key={c.id} onClick={() => { setContactSelected(c.id); setSelected(null) }} className="flex w-full items-center gap-3 border-b border-zinc-100 px-4 py-3 text-left hover:bg-zinc-50"><div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-100">{c.avatar ? <img src={c.avatar} alt="" onError={e => { e.currentTarget.style.display = 'none' }} className="size-full object-cover"/> : <UserRound size={22} className="text-zinc-400"/>}</div><div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{c.id === USER_CONTACT_ID ? CHARACTER.user.displayName : c.name}</p><p className="text-xs text-zinc-500">{c.phoneNumber || c.relation || '번호 없음'}</p></div>{c.favorite && <Star size={16} fill="#eab308" className="text-yellow-500"/>}</button>)}{!filteredContacts.length && <p className="p-8 text-center text-sm text-zinc-500">연락처가 없습니다.</p>}</>}</div>
-      <nav aria-label="전화 탭" className="flex shrink-0 justify-around border-t border-zinc-100 bg-white py-2">{([{ id: 'favorites', title: '즐겨찾기', icon: Star }, { id: 'recent', title: '최근 통화', icon: Clock }, { id: 'contacts', title: '연락처', icon: BookUser }] as const).map(tab => <button type="button" key={tab.id} onClick={() => { setView(tab.id); setSearch('') }} className={`flex min-w-20 flex-col items-center gap-1 px-3 py-1 text-xs ${view === tab.id ? 'text-emerald-600' : 'text-zinc-500'}`}><tab.icon size={20}/>{tab.title}</button>)}</nav>
-    </>}
+  const [summaryOpen, setSummaryOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [showNotice, setShowNotice] = useState(false)
+  const [favoritesOnly, setFavoritesOnly] = useState(false)
+  const contactById = (id?: string) => contacts.find(c => c.id === (id === 'user' ? 'sunwoo' : id))
+  const displayName = (id?: string, unknown?: string) => contactById(id)?.name || unknown || '알 수 없음'
+  const calls = useMemo(() => [...(content.calls ?? [])].sort((a,b) => b.calledAt.localeCompare(a.calledAt)), [content.calls])
+  const filteredCalls = calls.filter(c => `${displayName(c.contactId,c.unknownNumber)} ${c.unknownNumber ?? ''}`.toLowerCase().includes(query.toLowerCase()))
+  const grouped = filteredCalls.reduce<{day:string; items: typeof calls}[]>((groups,c) => { const day = c.calledAt.slice(0,10); const last = groups[groups.length-1]; if(last?.day === day) last.items.push(c); else groups.push({day,items:[c]}); return groups }, [])
+  const filteredContacts = [...contacts].filter(c => (!favoritesOnly || c.favorite) && `${c.name} ${c.phoneNumber ?? ''}`.toLowerCase().includes(query.toLowerCase())).sort((a,b) => a.name.localeCompare(b.name,'ko'))
+  const favoriteContacts = contacts.filter(c => c.favorite)
+  const selectedCall = calls.find(c => c.id === selected)
+  const summary = callSummaries.summaries.find(s => s.callId === selectedCall?.id)
+  const selectedContact = contactById(selected ?? selectedCall?.contactId)
+  const closeDetail = () => { if(summaryOpen) setSummaryOpen(false); else if(selected) setSelected(null); else back() }
+  const avatar = (c: typeof contacts[number], size='h-9 w-9') => <div className={`${size} shrink-0 overflow-hidden rounded-full bg-[#d5e7df] flex items-center justify-center text-white`}>{c.avatar ? <img src={c.avatar} alt="" className="h-full w-full object-cover"/> : <UserRound size={20}/>}</div>
+  return <section className="relative flex h-full min-h-0 flex-col bg-[#f0f1f6] text-black">
+    <header className="flex h-14 shrink-0 items-center gap-3 px-5 pt-1">
+      {tab !== 'keypad' && <h1 className="flex-1 text-[20px] font-bold">{tab === 'recent' ? '전화' : '전화'}</h1>}
+      {tab === 'keypad' && <div className="flex-1"/>}
+      {tab === 'contacts' && <button aria-label="연락처 추가 안내" onClick={() => setShowNotice(true)}><Plus size={20} strokeWidth={1.7}/></button>}
+      {tab === 'recent' && <button aria-label="정렬" onClick={() => setShowNotice(true)} className="text-2xl">☷</button>}
+      <button aria-label="검색" onClick={() => setSearchOpen(v=>!v)}><Search size={20} strokeWidth={1.8}/></button>
+      <button aria-label="더보기" onClick={() => setShowNotice(true)}><MoreVertical size={21}/></button>
+    </header>
+    {searchOpen && <div className="mx-5 mb-2 flex items-center gap-2 rounded-full bg-white px-4 py-2"><Search size={18}/><input autoFocus value={query} onChange={e=>setQuery(e.target.value)} placeholder="이름 또는 번호 검색" className="w-full bg-transparent outline-none"/><button onClick={()=>{setQuery('');setSearchOpen(false)}} aria-label="검색 닫기"><X size={18}/></button></div>}
+    {tab === 'keypad' && <div className="flex min-h-0 flex-1 flex-col justify-end pb-24">
+      <div className="flex h-14 items-center justify-center gap-2 px-8"><span className="min-w-0 truncate text-[25px]">{number}</span>{number && <button onClick={()=>setNumber(v=>v.slice(0,-1))} aria-label="한 글자 지우기"><Delete size={24}/></button>}</div>
+      <div className="mx-auto grid w-[82%] max-w-[310px] grid-cols-3 gap-y-2">{KEYS.map(([digit,letters])=><button key={digit} onClick={()=>setNumber(v=>v+digit)} className="flex h-[53px] flex-col items-center justify-center rounded-2xl active:bg-white/70"><span className="text-[37px] font-light leading-[39px]">{digit}</span><span className="h-4 text-[11px] tracking-wide text-[#88898d]">{letters}</span></button>)}</div>
+      <button aria-label="통화 시뮬레이션 안내" onClick={()=>setShowNotice(true)} className="mx-auto mt-5 flex h-[66px] w-[66px] items-center justify-center rounded-full bg-[#9aadd8] text-white"><Phone size={30} fill="currentColor"/></button>
+    </div>}
+      {tab === 'recent' && <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-28 pt-2">{grouped.map(g=><div key={g.day}><h2 className="mb-2 mt-4 px-5 text-[13px] font-semibold">{formatDay(g.items[0].calledAt)}</h2><div className="overflow-hidden rounded-[24px] bg-white">{g.items.map(c=>{const Icon=callIcon(c.type);const missed=c.type==='missed'||c.type==='rejected';const expanded=selected===c.id;const detailSummary=callSummaries.summaries.find(s=>s.callId===c.id);const contact=contactById(c.contactId);return <div key={c.id}><button aria-expanded={expanded} onClick={()=>{setSelected(v=>v===c.id?null:c.id);setSummaryOpen(false)}} className="flex min-h-[61px] w-full items-center gap-3 px-5 text-left active:bg-zinc-100"><Icon size={20} strokeWidth={2.7} className={missed?'text-[#d33814]':'text-[#726d5e]'}/><div className="min-w-0 flex-1"><div className={`truncate text-[16px] ${detailSummary ? 'font-bold' : ''}`}>{displayName(c.contactId,c.unknownNumber)}</div>{c.unknownNumber && !contact && <div className="truncate text-sm">{c.unknownNumber}</div>}</div><div className={`text-[13px] ${missed?'text-red-600':''}`}>{formatTime(c.calledAt)}{c.durationSec ? <Mic className="ml-auto text-[#77766b]" size={15}/> : null}</div></button>{expanded && <div className="mx-3 mb-3 rounded-[24px] bg-[#fafafa] px-4 pb-5 pt-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><h3 className="truncate text-[19px] font-bold">{displayName(c.contactId,c.unknownNumber)}</h3><p className="mt-1 text-[13px] text-zinc-500">{contact?.phoneNumber ?? c.unknownNumber ?? ''}</p></div>{contact && avatar(contact,'h-12 w-12')}</div><div className="mt-4 flex items-center gap-2 text-[13px]"><Icon size={17}/><span>{c.type==='incoming'?'수신전화':c.type==='outgoing'?'발신전화':missed?'부재중 전화':'통화'}{c.durationSec ? `, ${Math.floor(c.durationSec/60)}분 ${c.durationSec%60}초` : ''}</span></div><p className="mt-1 text-[12px] text-zinc-500">{formatTime(c.calledAt)}</p>{detailSummary && <button onClick={()=>{setSelected(c.id);setSummaryOpen(true)}} className="mt-4 flex w-full items-center justify-between gap-2 rounded-full border border-[#d9e4f5] bg-gradient-to-r from-[#e9e8ff] to-[#e5f9f7] px-4 py-3 text-left text-[13px] font-medium shadow-sm"><span className="min-w-0 truncate">{detailSummary.title}</span><ChevronRight size={19} className="shrink-0"/></button>}<div className="mt-4 flex justify-around border-t border-zinc-100 pt-4 text-[#9aadd8]"><button onClick={()=>setShowNotice(true)} aria-label="통화"><Phone size={22}/></button><button onClick={()=>setShowNotice(true)} aria-label="메시지"><span className="text-xl">☏</span></button><button onClick={()=>setShowNotice(true)} aria-label="영상 통화"><span className="text-xl">▣</span></button><button onClick={()=>setShowNotice(true)} aria-label="더보기"><span className="text-xl">☷</span></button></div></div>}</div>})}</div></div>)}{!grouped.length && <p className="py-12 text-center text-zinc-500">통화 기록이 없습니다.</p>}</div>}
+    {tab === 'contacts' && <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-28 pt-3"><button onClick={()=>setFavoritesOnly(v=>!v)} className="mb-3 flex items-center gap-2 px-5 text-[14px] font-semibold"><Star size={19} fill={favoritesOnly?'black':'black'}/>즐겨찾기 {favoritesOnly?'· 전체 보기':''}</button>{!favoritesOnly && <div className="mb-5 grid grid-cols-3 gap-2">{favoriteContacts.slice(0,6).map(c=><button key={c.id} onClick={()=>setSelected(c.id)} className="flex h-28 flex-col items-center justify-center gap-2 rounded-[18px] bg-[#a6a8d8] p-2 text-white">{avatar(c,'h-12 w-12')}<span className="max-w-full truncate text-[13px]">{c.name}</span></button>)}</div>}<h2 className="mb-3 px-7 text-[13px] font-semibold">연락처</h2><div className="overflow-hidden rounded-[22px] bg-white">{filteredContacts.map(c=><button key={c.id} onClick={()=>setSelected(c.id)} className="flex w-full items-center gap-3 px-4 py-2 text-left active:bg-zinc-100">{avatar(c)}<span className="truncate text-[16px]">{c.name}</span></button>)}{!filteredContacts.length && <p className="p-6 text-center text-zinc-500">연락처가 없습니다.</p>}</div></div>}
+    <nav className="absolute bottom-4 left-1/2 z-10 flex w-[min(84%,310px)] -translate-x-1/2 rounded-full border border-white bg-white/90 p-1 shadow-lg backdrop-blur" aria-label="전화 메뉴">{([{id:'keypad',label:'키패드',icon:'⠿'},{id:'recent',label:'최근기록',icon:'↗'},{id:'contacts',label:'연락처',icon:'♙'}] as const).map(t=><button key={t.id} onClick={()=>{setTab(t.id);setSelected(null);setQuery('');setSearchOpen(false)}} className={`flex flex-1 flex-col items-center justify-center rounded-full py-1.5 ${tab===t.id?'bg-[#e0e0e0]':''}`}><span className="text-[22px] leading-7">{t.icon}</span><span className="text-[11px]">{t.label}</span></button>)}</nav>
+    {selected && summaryOpen && summary && <div className="absolute inset-0 z-20 flex min-h-0 flex-col bg-[#f0f1f6]">
+      <>
+        <header className="flex h-20 shrink-0 items-center gap-3 bg-white px-4">
+          <button onClick={closeDetail} aria-label="통화 상세로 돌아가기"><ArrowLeft size={23}/></button>
+          {selectedContact && avatar(selectedContact,'h-11 w-11')}
+          <div className="min-w-0 flex-1"><h2 className="truncate text-[20px] font-bold">{displayName(selectedCall?.contactId,selectedCall?.unknownNumber)}</h2><p className="text-sm">통화 녹음 · 요약</p></div>
+        </header>
+        <div className="min-h-0 flex-1 overflow-y-auto bg-gradient-to-br from-[#d8eefe] via-[#eef1ff] to-white px-6 pb-16 pt-7">
+          <div className="mb-7 flex items-center gap-2 text-[20px] font-bold"><Sparkles className="text-[#418dd2]" size={23}/> 요약</div>
+          <h3 className="mb-7 text-[19px] font-bold">{summary.title}</h3>
+          <p className="mb-8 text-[15px] leading-relaxed">{summary.overview}</p>
+          {summary.sections.map((section,i)=><div key={i} className="mb-7"><h4 className="mb-2 text-[16px] font-bold">{section.heading}</h4><ul className="list-disc space-y-1 pl-5 text-[15px] leading-relaxed">{section.bullets.map((item,j)=><li key={j}>{item}</li>)}</ul></div>)}
+          <div className="mt-8 flex flex-wrap gap-2">{summary.keywords.map(k=><span key={k} className="rounded-full bg-[#e2e6f2] px-4 py-2 text-[13px]">{k}</span>)}</div>
+          <p className="mt-8 text-xs text-slate-500">가상 통화 요약 예시 · 실제 녹음이나 AI 분석 결과가 아닙니다.</p>
+          <button onClick={()=>{const text=[summary.title,summary.overview,...summary.sections.flatMap(s=>[s.heading,...s.bullets])].join('\n');void navigator.clipboard?.writeText(text)}} className="mt-8 flex w-full items-center justify-end gap-2 py-3 text-sm"><Copy size={17}/> 복사</button>
+        </div>
+      </>
+    </div>}
+    {showNotice && <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/25 p-7" onClick={()=>setShowNotice(false)}><div className="w-full rounded-3xl bg-white p-6 text-center" onClick={e=>e.stopPropagation()}><p className="mb-5">가상 휴대폰에서는 실제 통화 및 연락처 추가를 지원하지 않습니다.</p><button onClick={()=>setShowNotice(false)} className="rounded-full bg-[#e5e8f3] px-8 py-2">확인</button></div></div>}
   </section>
 }

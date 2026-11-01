@@ -139,7 +139,7 @@ export const contacts: Contact[] = [
 export const contactsEp02: Contact[] = [
   {
     id: 'sunwoo',
-    name: CHARACTER.user.displayName,
+    name: '선우♡',
     phoneNumber: CHARACTER.user.phoneNumber,
     relation: '귀염둥이',
     avatar: CHARACTER.user.avatar,
@@ -150,12 +150,12 @@ export const contactsEp02: Contact[] = [
     name: '박성훈',
     phoneNumber: '010-5512-3307',
     relation: '대학 동기',
-    favorite: true,
+    favorite: false,
   },
   {
     id: 'mom',
     name: '엄마',
-    phoneNumber: '010-8820-1145',
+    phoneNumber: '010-XXX-1234',
     relation: '가족',
     favorite: true,
   },
@@ -194,7 +194,7 @@ export const contactsEp03: Contact[] = [
   {
     id: 'mom',
     name: '엄마',
-    phoneNumber: '010-8820-1145',
+    phoneNumber: '010-XXX-1234',
     relation: '가족',
     favorite: true,
   },
