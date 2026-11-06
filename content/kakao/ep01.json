@@ -2898,12 +2898,6 @@
       "muted": true,
       "messages": [
         {
-          "id": "kakao-jihu-1",
-          "from": "jihu",
-          "text": "종성 씨, 월요일 회의 자료 공유 부탁해요.",
-          "sentAt": "2026-10-24T16:30"
-        },
-        {
           "id": "kakao-jihu-2",
           "from": "me",
           "text": "아 네",

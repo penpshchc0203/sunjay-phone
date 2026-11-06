@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef, type CSSProperties } from 'react'
 import { X, Check, Heart } from 'lucide-react'
 import { getEpisodePickerInfo } from '@/config/episode-picker'
 import { EPISODES } from '@/content/episodes'
@@ -17,6 +16,9 @@ import { StatusBar } from './status-bar'
 import { NotificationProvider } from './notification-provider'
 import { useEpisode } from './episode-provider'
 import { NotificationCenter } from './notification-center'
+import { EventBanner } from './event-banner'
+import { usePhoneEvents } from './event-provider'
+import { useEffect, useRef, type CSSProperties } from 'react'
 
 const THEME_VARS = {
   '--phone-app-bg': DESIGN.theme.appBackground,
@@ -91,6 +93,13 @@ function EpisodePickerScreen() {
 function PhoneDeviceInner() {
   const { state, hydrated, showRecents, togglePower } = usePhone()
   const { episode, choosing } = useEpisode()
+  const { dispatchEvent: triggerPhoneEvent } = usePhoneEvents()
+  const lastOpened = useRef<string|null>(null)
+  useEffect(()=>{
+    const current=state.mode==='app'?state.currentApp:null
+    if(current && current!==lastOpened.current)triggerPhoneEvent({type:'app.open',appId:current,triggerId:`app-open:${current}:${Date.now()}`})
+    lastOpened.current=current
+  },[state.mode,state.currentApp,triggerPhoneEvent])
   const lockScreen = { ...DESIGN.lockScreen, wallpaper: episode.lockWallpaper || DESIGN.lockScreen.wallpaper }
   const homeScreen = { ...DESIGN.homeScreen, wallpaper: episode.homeWallpaper || DESIGN.homeScreen.wallpaper }
   const sameWallpaper = lockScreen.wallpaper === homeScreen.wallpaper
@@ -160,6 +169,7 @@ function PhoneDeviceInner() {
                 {state.mode !== 'lock' && <NavigationBar />}
                 </div>
                 <EpisodePickerScreen />
+                <EventBanner />
               </>
             ) : (
               <div className="flex h-full items-center justify-center" role="status">

@@ -1,0 +1,98 @@
+
+{
+  "id": "entry-call-ep02",
+  "enabled": true,
+  "contactId": "sunwoo",
+  "displayName": "선우♡",
+  "timeRanges": {
+    "lunch": {
+      "start": "11:00",
+      "end": "13:59"
+    },
+    "evening": {
+      "start": "16:00",
+      "end": "19:59"
+    },
+    "night": {
+      "start": "20:00",
+      "end": "23:59"
+    }
+  },
+  "variants": {
+    "lunch": {
+      "rejectText": "점심먹구있오?",
+      "lines": [
+        { "from": "other", "text": "여보세요? 형?" },
+        { "from": "me", "text": "여보세요? 어! 선우!" },
+        { "from": "other", "text": "형 뭐해?" },
+        { "from": "me", "text": "나 지금 막 점심 먹고 나왔어! 선우는?" },
+        { "from": "other", "text": "응 나도 방금 먹었어. 다시 회사 가?" },
+        { "from": "me", "text": "응 그치. 왜 전화 했어?" },
+        { "from": "other", "text": "그냥. 뭐하나 궁금해서." },
+        { "from": "me", "text": "허허 참~ 안 바빠?" },
+        { "from": "other", "text": "이제 다시 수업 가야지. 얼른 회사 들어가! 카톡해!" },
+        { "from": "me", "text": "어잉 알겠어!" }
+      ]
+    },
+    "evening": {
+      "rejectText": "형 퇴근했오?",
+      "lines": [
+        { "from": "me", "text": "어 선우야!" },
+        { "from": "other", "text": "형! 퇴근했어?" },
+        { "from": "me", "text": "응! 했지!" },
+        { "from": "other", "text": "오늘 뭐해?" },
+        { "from": "me", "text": "나? 그냥 운동 갔다가 집 가서 저녁 먹겠지?" },
+        { "from": "other", "text": "뭐 먹어?" },
+        { "from": "me", "text": "음 글쎄? 아직 안 정했어." },
+        { "from": "other", "text": "나 먹고싶은거 있는데." },
+        { "from": "me", "text": "응? 뭐 먹고 싶은데?" },
+        { "from": "other", "text": "그때 형이 맛있다고 했던 라멘집 있잖아." },
+        { "from": "me", "text": "아, 우리 회사 근처? 어어 거기." },
+        { "from": "other", "text": "오늘 그거 생각이 나가지구." },
+        { "from": "me", "text": "그래? 같이 먹으러 갈까?" },
+        { "from": "other", "text": "헐! 진짜? 오늘 시간 돼? 운동 가야 된다며!" },
+        { "from": "me", "text": "하루 정도 빠지는 거야 뭐. 지금 집이야? 준비하는데 얼마나 걸려?" },
+        { "from": "other", "text": "나도 방금 집 와서 그냥 바로 나가면 돼!" },
+        { "from": "me", "text": "알겠어. 그럼 나와서 다시 전화해." },
+        { "from": "other", "text": "응 알겠어!" }
+      ]
+    },
+    "night": {
+      "rejectText": "형 자? 잠깨운건아니겠지 ㅠ 잘자!",
+      "lines": [
+        { "from": "me", "text": "어 선우! 왜!" },
+        { "from": "other", "text": "형 뭐해?" },
+        { "from": "me", "text": "나? 그냥 기타 악보 찾아보고 있었어." },
+        { "from": "other", "text": "악보? 무슨 악보?" },
+        { "from": "me", "text": "어, 새로 배우고 싶은 곡이 있어가지고." },
+        { "from": "other", "text": "아아...." },
+        { "from": "me", "text": "선우는? 집이야?" },
+        { "from": "other", "text": "응응. 팩 하면서 숏츠 보는데 형 생각 나가지구." },
+        { "from": "me", "text": "숏츠? (웃음) 뭘 봤길래?" },
+        { "from": "other", "text": "요리가 취미인 남잔데, 혼자 살면서도 엄청 잘 챙겨먹더라." },
+        { "from": "me", "text": "아, 그래?(웃음)" },
+        { "from": "other", "text": "형도 매 끼 잘 챙겨먹어?" },
+        { "from": "me", "text": "남들보다는 잘 챙겨먹기는 하는데, 생각보다 그게 쉽지가 않아. 장보고 정리하고, 재료 손질하고 준비하고 하는게 여간 힘든게 아니야." },
+        { "from": "other", "text": "그래? 그래도 형은 잘 차려먹을거 같은데." },
+        { "from": "me", "text": "가끔 대충 끓인 라면이 더 맛있기도 해." },
+        { "from": "other", "text": "그러면 형은 혼자 밥 먹을때 뭐 제일 많이 해 먹어?" },
+        { "from": "me", "text": "음.... 간단하게 볶음밥? 파스타도 자주 해 먹고. 그냥 엄마가 보내준 반찬 꺼내서 먹기도 하고." },
+        { "from": "other", "text": "오 파스타? 형 파스타 잘해?" },
+        { "from": "me", "text": "뭐 못하지는 않지. 먹을 만은 해. 왜? 궁금해?" },
+        { "from": "other", "text": "응(웃음). 형이 요리하는거 상상이 잘 안 가." },
+        { "from": "me", "text": "에에? 나 요리 꽤 잘해." },
+        { "from": "other", "text": "(웃음) 진짜? 자신 있어?" },
+        { "from": "me", "text": "응?" },
+        { "from": "other", "text": "나도 형이 만든 파스타 먹어보고 싶어." },
+        { "from": "me", "text": "아, 어엉. 다음에 해줄게. 맛 없어도 다 먹어야 돼." },
+        { "from": "other", "text": "맛없으면 형이 다 먹어." },
+        { "from": "me", "text": "참내(웃음). 알겠어. 그럼 맛있게 해야겠네." },
+        { "from": "other", "text": "아 형 근데 내일 일찍 일어나야 되는 거 아니야?" },
+        { "from": "me", "text": "응. 이제 슬슬 자야지. 너도 얼른 자." },
+        { "from": "other", "text": "웅. 형 잘 자!" },
+        { "from": "me", "text": "어, 선우도 잘 자. 내일 연락해." },
+        { "from": "other", "text": "응! 내일 봐!" }
+      ]
+    }
+  }
+}

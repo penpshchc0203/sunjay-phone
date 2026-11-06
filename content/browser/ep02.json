@@ -1,6 +1,5 @@
 {
-  "browserSearches": 
-  [
+  "browserSearches": [
     {
       "id": "search-32",
       "query": "좋아하는 사람한테 고백 언제",
@@ -145,11 +144,14 @@
       "id": "search-64",
       "query": "역삼역 해장국 맛집",
       "searchedAt": "2026-05-10T11:02"
+    },
+    {
+      "id": "search-ep02-guitar-example",
+      "query": "신인류 안식처 기타 악보",
+      "searchedAt": "2026-05-10T22:13"
     }
-  ]
-,
-  "browserHistory":
-  [
+  ],
+  "browserHistory": [
     {
       "id": "history-28",
       "title": "좋아하는 사람한테 고백 언제 - 검색 결과",
@@ -323,7 +325,31 @@
       "title": "역삼역 해장국 맛집 - 검색 결과",
       "url": "https://search.example.com/?q=%EC%97%AD%EC%82%BC%EC%97%AD%20%ED%95%B4%EC%9E%A5%EA%B5%AD%20%EB%A7%9B%EC%A7%91",
       "visitedAt": "2026-05-10T11:03"
+    },
+    {
+      "id": "history-ep02-guitar-example",
+      "title": "신인류 - 안식처 | 기타 악보 검색 결과",
+      "url": "https://guitar-practice.example/notes/001",
+      "visitedAt": "2026-05-10T22:15"
     }
   ],
-  "browserResults": []
+  "browserResults": [
+    {
+      "id": "result-ep02-guitar-example",
+      "query": "신인류 안식처 기타 악보",
+      "title": "안식처 - 신인류 | 기타 연습 노트",
+      "siteName": "Guitar Practice Notes",
+      "url": "https://guitar-practice.example/notes/001",
+      "description": "신인류 〈안식처〉 기타 연습을 위한 곡 정보와 개인 연습 메모",
+      "body": "신인류 - 안식처\n\n기타로 연주해 보고 싶은 곡. 원곡의 정확한 코드·타브 악보는 별도 채보 확인이 필요합니다.",
+      "chordSheet": {
+        "songTitle": "안식처",
+        "artist": "신인류",
+        "tuning": "Standard tuning",
+        "capo": "",
+        "progression": [],
+        "practiceNotes": "원곡 듣고 기타 파트 구간 나누기.\n인트로부터 천천히 귀로 따라가 보기.\n정확한 코드와 운지법은 악보 확인 후 적기."
+      }
+    }
+  ]
 }

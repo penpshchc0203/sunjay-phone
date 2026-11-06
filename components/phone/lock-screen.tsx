@@ -10,11 +10,14 @@ import { useNotifications } from './notification-provider'
 import type { AppId } from '@/lib/phone/types'
 import { AppIconTile } from './app-icon'
 import { usePhone } from './phone-provider'
+import { usePhoneEvents,eventNotifications } from './event-provider'
 
 export function LockScreen() {
   const now = useNow()
   const { notifications, openNotification } = useNotifications()
-  const { unlock, openApp } = usePhone()
+  const { unlock, openApp,pushRoute } = usePhone()
+  const {executions,deliveredIds,notificationReadIds,notificationDismissedIds,markEventNotificationRead}=usePhoneEvents()
+  const eventItems=eventNotifications(executions,deliveredIds).filter(n=>!notificationReadIds.includes(n.id)&&!notificationDismissedIds.includes(n.id))
   const [hours, minutes] = formatTime(now).split(':')
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
@@ -40,6 +43,7 @@ export function LockScreen() {
       </div>
 
       <ul aria-label="알림" className="mt-4 min-h-0 flex-1 space-y-2 overflow-y-auto overscroll-contain pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {eventItems.map(n=><li key={n.id}><button type="button" onClick={()=>{markEventNotificationRead(n.id);unlock();openApp(n.appId);if(n.appId==='kakao'&&n.targetId)pushRoute(`room:${n.targetId}`)}} className="flex w-full items-start gap-3 rounded-3xl bg-white/15 p-3 text-left backdrop-blur-xl"><AppIconTile appId={n.appId} className="mt-0.5 w-8 shrink-0"/><span className="min-w-0 flex-1"><span className="block text-sm font-semibold">{n.title}</span><span className="mt-0.5 block text-[13px] text-white/85">{n.body}</span></span></button></li>)}
         {notifications.map((n) => (
           <li key={n.id}>
             <button

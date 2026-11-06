@@ -1,0 +1,35 @@
+{
+  "defaultProfile": {
+    "bgm": {
+      "title": "곡 제목",
+      "artist": "가수 이름",
+      "albumImage": "/sunjay-phone/images/kakao/album.jpg",
+      "position": "middle"
+    },
+    "dday": {
+      "title": "기념일",
+      "date": "2026-05-22",
+      "position": "top"
+    }
+  },
+  "multiProfiles": [
+    {
+      "id": "multi-private",
+      "name": "쫑",
+      "avatar": "/sunjay-phone/images/profile/jay.jpg",
+      "backgroundImage": "/sunjay-phone/images/kakao/background.jpg",
+      "statusMessage": "",
+      "friendIds": ["jake", "sunghoon"],
+      "bgm": {
+        "title": "곡 제목",
+        "artist": "가수 이름",
+        "position": "middle"
+      },
+      "dday": {
+        "title": "D-day",
+        "date": "2026-05-22",
+        "position": "top"
+      }
+    }
+  ]
+}

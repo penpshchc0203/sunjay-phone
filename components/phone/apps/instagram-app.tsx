@@ -8,6 +8,7 @@ import { useEpisode, episodeStorageKey } from '../episode-provider'
 import type { InstagramDmMessage, InstagramPost, InstagramStory } from '@/lib/phone/content-types'
 import type { AppComponentProps } from './types'
 import { useNotifications } from '../notification-provider'
+import { usePhoneEvents } from '../event-provider'
 
 
 type RelationshipMode = 'followers' | 'following'
@@ -30,6 +31,16 @@ function Photo({ src, alt, className = '' }: { src: string; alt: string; classNa
 }
 export function InstagramApp(_props: AppComponentProps) {
   const { content, episode } = useEpisode()
+  const {dispatchEvent,executions,deliveredIds,markEventNotificationRead}=usePhoneEvents()
+  const storyUploadKey=`virtual-phone:instagram-uploaded-stories:v1:${episode.id}`
+  const dmStorageKey=`virtual-phone:instagram-reader-dms:v1:${episode.id}`
+  const [uploadedStories,setUploadedStories]=useState<InstagramStory[]>([])
+  const [storyImageDraft,setStoryImageDraft]=useState('')
+  const [storyCaptionDraft,setStoryCaptionDraft]=useState('')
+  const [uploadOpen,setUploadOpen]=useState(false)
+  useEffect(()=>{try{const v=JSON.parse(localStorage.getItem(storyUploadKey)||'[]');setUploadedStories(Array.isArray(v)?v:[])}catch{setUploadedStories([])}},[storyUploadKey])
+  const uploadStory=()=>{const image=storyImageDraft.trim();if(!image)return;const item={id:`reader-story-${Date.now()}-${Math.random().toString(36).slice(2)}`,accountId:'me',image,caption:storyCaptionDraft.trim(),postedAt:new Date().toISOString(),fit:'cover'} as InstagramStory;setUploadedStories(prev=>{const next=[...prev,item];try{localStorage.setItem(storyUploadKey,JSON.stringify(next))}catch{}return next});dispatchEvent({type:'instagram.story.upload',keyword:item.caption,triggerId:item.id,occurredAt:item.postedAt});setUploadOpen(false);setStoryImageDraft('');setStoryCaptionDraft('')}
+
   const INSTAGRAM_ACCOUNTS = content.instagramAccounts
   const INSTAGRAM_DMS = content.instagramDms
   const INSTAGRAM_POSTS = content.instagramPosts
@@ -50,6 +61,8 @@ export function InstagramApp(_props: AppComponentProps) {
   const [highlightIndex, setHighlightIndex] = useState(0)
 
   const [threadId, setThreadId] = useState<string | null>(null)
+  useEffect(()=>{if(threadId){eventNotificationsForThread(threadId)}},[threadId,executions,deliveredIds])
+  const eventNotificationsForThread=(id:string)=>{executions.filter(e=>deliveredIds.includes(e.id)).forEach(e=>e.actions.forEach((a,i)=>{if(a.type==='notification'&&a.appId==='instagram'&&a.targetId===id)markEventNotificationRead(`event:${e.id}:${i}`)}))}
   const { markTargetRead } = useNotifications()
   useEffect(()=>{if(threadId)markTargetRead('instagram',threadId)},[threadId,markTargetRead])
   
@@ -58,6 +71,7 @@ export function InstagramApp(_props: AppComponentProps) {
   const [draft, setDraft] = useState('')
   const [search, setSearch] = useState('')
   const [sentMessages, setSentMessages] = useState<Record<string, InstagramDmMessage[]>>({})
+  useEffect(()=>{try{const v=JSON.parse(localStorage.getItem(dmStorageKey)||'{}');setSentMessages(v&&typeof v==='object'&&!Array.isArray(v)?v:{})}catch{setSentMessages({})}},[dmStorageKey])
   const [likedPosts, setLikedPosts] = useState<string[]>([])
   const ownerId = INSTAGRAM_PROFILE.id || 'me'
   const isOwner = (id: string) => id === 'me' || id === ownerId
@@ -90,8 +104,9 @@ export function InstagramApp(_props: AppComponentProps) {
     try { const value = JSON.parse(localStorage.getItem(readKey) || '[]'); setReadStories(Array.isArray(value) ? value : []) }
     catch { setReadStories([]) }
   }, [readKey])
-  const allStories = INSTAGRAM_STORIES
+  const allStories = [...INSTAGRAM_STORIES,...uploadedStories]
   const visibleStories = allStories.filter(st => isOwner(st.accountId) || isFollowing(st.accountId) || Boolean(getAccount(st.accountId))).sort((a,b)=>a.postedAt.localeCompare(b.postedAt))
+  const storyLikes=executions.filter(e=>deliveredIds.includes(e.id)).flatMap(e=>e.actions.filter(a=>a.type==='instagram.story.like').map(a=>({storyId:a.storyId==='$trigger'?e.triggerId:a.storyId,accountId:a.accountId})))
   const storyAccounts = [...new Set(visibleStories.map(st => st.accountId))].sort((a,b)=>{ const rank=(id:string)=>isOwner(id)?0:isFollowing(id)?1:2; return rank(a)-rank(b) })
   const activeStory = allStories.find(st=>st.id===storyId)
   const storySequence = activeStory ? visibleStories.filter(st=>st.accountId===activeStory.accountId) : []
@@ -176,21 +191,25 @@ export function InstagramApp(_props: AppComponentProps) {
   const openRelationship = (mode: RelationshipMode) => { setRelationshipMode(mode); setRelationshipSearch('') }
   const openHighlight = (id: string) => { setHighlightId(id); setHighlightIndex(0) }
   const moveHighlight = (step: number) => { const next = highlightIndex + step; if(next < 0 || next >= highlightStories.length) { setHighlightId(null); return }; setHighlightIndex(next) }
-  const selectedThread = INSTAGRAM_DMS.find((thread) => thread.id === threadId)
+  const triggeredDms=executions.filter(e=>deliveredIds.includes(e.id)).flatMap(e=>e.actions.flatMap((a,i)=>a.type==='instagram.dm'? [{id:`event-dm:${e.id}:${i}`,from:a.from,text:a.text,sentAt:e.executedAt,threadId:a.threadId,accountId:a.accountId}]:[]))
+  const dmThreads=[...INSTAGRAM_DMS]
+  triggeredDms.forEach(m=>{if(!dmThreads.some(t=>t.id===m.threadId))dmThreads.push({id:m.threadId,accountId:m.accountId,messages:[]} as typeof dmThreads[number])})
+  const selectedThread = dmThreads.find((thread) => thread.id === threadId)
   const selectedPost = INSTAGRAM_POSTS.find((post) => post.id === postId)
   const account = selectedThread ? getAccount(selectedThread.accountId) : undefined
-  const messages = selectedThread ? [...selectedThread.messages, ...(sentMessages[selectedThread.id] || [])] : []
-  const filteredThreads = useMemo(() => INSTAGRAM_DMS.filter((thread) => {
+  const messages = selectedThread ? [...selectedThread.messages,...triggeredDms.filter(m=>m.threadId===selectedThread.id).map(({threadId,accountId,...m})=>m as InstagramDmMessage), ...(sentMessages[selectedThread.id] || [])].sort((a,b)=>a.sentAt.localeCompare(b.sentAt)) : []
+  const filteredThreads = dmThreads.filter((thread) => {
     const item = getAccount(thread.accountId)
     return `${item?.username || ''} ${item?.displayName || ''}`.toLowerCase().includes(search.toLowerCase())
-  }), [search])
+  })
   const sendMessage = () => {
     if (!selectedThread || !draft.trim()) return
     const message: InstagramDmMessage = { id: `local-${Date.now()}`, from: 'me', text: draft.trim(), sentAt: new Date().toISOString() }
-    setSentMessages((prev) => ({ ...prev, [selectedThread.id]: [...(prev[selectedThread.id] || []), message] }))
+    setSentMessages((prev) => {const next={...prev,[selectedThread.id]:[...(prev[selectedThread.id]||[]),message]};try{localStorage.setItem(dmStorageKey,JSON.stringify(next))}catch{}return next})
     setDraft('')
   }
   const openPost = (post: InstagramPost) => { setPostId(post.id); setPostImageIndex(0);setCommentsOpen(false);setCommentDraft('') }
+  useEffect(()=>{const openDm=(e:Event)=>{const id=(e as CustomEvent<string>).detail;if(typeof id==='string'&&id){setThreadId(id);setTab('inbox');setStoryId(null);setPostId(null)}};window.addEventListener('phone:open-instagram-dm',openDm);const pending=sessionStorage.getItem('phone:pending-instagram-dm');if(pending){sessionStorage.removeItem('phone:pending-instagram-dm');openDm(new CustomEvent('phone:open-instagram-dm',{detail:pending}))}return()=>window.removeEventListener('phone:open-instagram-dm',openDm)},[])
   const back = () => { if (highlightId) setHighlightId(null); else if (storyId) closeStory(); else if (relationshipMode) setRelationshipMode(null); else if (postId) setPostId(null); else if (threadId) setThreadId(null); else if (returnView) {setViewAccountId(returnView.accountId);setTab(returnView.tab);setThreadId(returnView.threadId);setReturnView(null)} else if (viewAccountId !== 'me') {setViewAccountId('me');setTab('home')} else setTab('home') }
   const goHome = () => {closeStory();setHighlightId(null);setTab('home');setViewAccountId('me');setThreadId(null);setPostId(null);setRelationshipMode(null);setReturnView(null)}
   const goProfile = () => {setHomeCommentsPostId(null);setTab('profile');setViewAccountId('me');setThreadId(null);setPostId(null);setRelationshipMode(null);setReturnView(null)}
@@ -208,7 +227,7 @@ export function InstagramApp(_props: AppComponentProps) {
       {relationshipAccounts.length===0 && <p className="py-8 text-center text-sm text-zinc-400">표시할 계정이 없어요. content/instagram.ts에서 관계 ID를 등록해 주세요.</p>}</div>
     </> : storyId ? <div className="relative flex min-h-0 flex-1 flex-col bg-black" onTouchStart={e=>{touchStart.current=e.touches[0].clientX}} onTouchEnd={e=>{if(touchStart.current!==null){const dx=e.changedTouches[0].clientX-touchStart.current;if(Math.abs(dx)>60)moveStory(dx<0?1:-1);touchStart.current=null}}} onPointerDown={()=>setStoryPaused(true)} onPointerUp={()=>setStoryPaused(false)} onPointerCancel={()=>setStoryPaused(false)}>
       <div className="flex gap-1 px-3 pt-3">{storySequence.map((st,i)=><div key={st.id} className="h-1 flex-1 overflow-hidden rounded bg-white/30"><div className="h-full bg-white" style={{width:`${i < storySequence.findIndex(item => item.id === storyId) ? 100 : st.id === storyId ? storyProgress : 0}%`}}/></div>)}</div>
-      <div className="flex items-center gap-2 px-4 py-3"><Avatar src={ownerAvatar(activeStory?.accountId||'me')} name={ownerName(activeStory?.accountId||'me')} size={30}/><strong className="min-w-0 flex-1 truncate text-sm">{ownerName(activeStory?.accountId||'me')}</strong><span className="text-[10px] text-zinc-400">{activeStory?.postedAt?readableTime(activeStory.postedAt):''}</span><button aria-label="스토리 닫기" onClick={closeStory}><X size={23}/></button></div>
+      <div className="flex items-center gap-2 px-4 py-3"><Avatar src={ownerAvatar(activeStory?.accountId||'me')} name={ownerName(activeStory?.accountId||'me')} size={30}/><strong className="min-w-0 flex-1 truncate text-sm">{ownerName(activeStory?.accountId||'me')}</strong>{storyLikes.some(l=>l.storyId===storyId)&&<span className="text-xs text-pink-400">♥ 선우님이 좋아합니다</span>}<span className="text-[10px] text-zinc-400">{activeStory?.postedAt?readableTime(activeStory.postedAt):''}</span><button aria-label="스토리 닫기" onClick={closeStory}><X size={23}/></button></div>
       <div className="relative flex min-h-0 flex-1 items-center justify-center" style={{backgroundColor:activeStory?.backgroundColor||'#000'}}>
         {activeStory?.mediaType==='video' || /\.(mp4|webm|mov)(\?|$)/i.test(activeStory?.image||'') ? <video key={storyId} src={activeStory?.image} autoPlay muted playsInline className="max-h-full w-full" style={{objectFit:activeStory?.fit||'contain'}}/> : <Photo src={activeStory?.image||''} alt="스토리 사진" className={`max-h-full w-full ${activeStory?.fit==='cover'?'h-full object-cover':'object-contain'}`}/>}
         {activeStory?.caption && <p className={`pointer-events-none absolute left-4 right-4 whitespace-pre-wrap text-center text-sm font-semibold text-white drop-shadow-lg ${activeStory.textPosition==='top'?'top-5':activeStory.textPosition==='center'?'top-1/2 -translate-y-1/2':'bottom-5'}`}>{activeStory.caption}</p>}
@@ -254,11 +273,11 @@ export function InstagramApp(_props: AppComponentProps) {
     </> : tab === 'inbox' ? <>
       <header className="flex h-14 shrink-0 items-center gap-3 border-b border-white/10 px-4"><button aria-label="프로필로 돌아가기" onClick={back}><ArrowLeft size={23}/></button><strong className="min-w-0 flex-1 truncate">{INSTAGRAM_PROFILE.username}</strong><span className="text-sm text-zinc-400">메시지</span></header>
       <div className="min-h-0 flex-1 overflow-y-auto"><div className="px-4 py-3"><div className="flex items-center gap-2 rounded-xl bg-[#24242b] px-3 py-2"><Search size={18} className="text-zinc-400"/><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="검색" aria-label="DM 검색" className="min-w-0 flex-1 bg-transparent text-sm outline-none"/>{search && <button onClick={() => setSearch('')} aria-label="검색어 지우기"><X size={15}/></button>}</div></div><div className="px-4 pb-2 text-sm font-bold">메시지</div>
-      {filteredThreads.map((thread) => { const other = getAccount(thread.accountId); const all = [...thread.messages, ...(sentMessages[thread.id] || [])]; const last = all[all.length - 1]; return <button key={thread.id} onClick={() => { setThreadId(thread.id); setReadThreads(ids=>[...ids,thread.id]);setDraft('') }} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/5"><Avatar src={getAvatar(thread.accountId)} name={other?.username || '?'} size={53}/><div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{other?.username || thread.accountId}</p><p className="truncate text-xs text-zinc-400">{last?.image ? '사진' : last?.text || '메시지가 없습니다'} · {last ? readableTime(last.sentAt) : ''}</p></div>{Boolean(thread.unreadCount) && !readThreads.includes(thread.id) && <span className="rounded-full bg-sky-500 px-2 py-0.5 text-xs">{thread.unreadCount}</span>}<ChevronRight size={17} className="text-zinc-500"/></button> })}
+      {filteredThreads.map((thread) => { const other = getAccount(thread.accountId); const all = [...thread.messages,...triggeredDms.filter(m=>m.threadId===thread.id).map(({threadId,accountId,...m})=>m as InstagramDmMessage), ...(sentMessages[thread.id] || [])].sort((a,b)=>a.sentAt.localeCompare(b.sentAt)); const last = all[all.length - 1]; return <button key={thread.id} onClick={() => { setThreadId(thread.id); setReadThreads(ids=>[...ids,thread.id]);setDraft('') }} className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/5"><Avatar src={getAvatar(thread.accountId)} name={other?.username || '?'} size={53}/><div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{other?.username || thread.accountId}</p><p className="truncate text-xs text-zinc-400">{last?.image ? '사진' : last?.text || '메시지가 없습니다'} · {last ? readableTime(last.sentAt) : ''}</p></div>{Boolean(thread.unreadCount) && !readThreads.includes(thread.id) && <span className="rounded-full bg-sky-500 px-2 py-0.5 text-xs">{thread.unreadCount}</span>}<ChevronRight size={17} className="text-zinc-500"/></button> })}
       {filteredThreads.length === 0 && <p className="p-8 text-center text-sm text-zinc-500">검색 결과가 없어요.</p>}
       </div>
     </> : tab === 'home' ? <>
-      <header className="flex h-14 shrink-0 items-center justify-between border-b border-white/10 px-4"><strong className="text-xl font-semibold tracking-tight">Instagram</strong><button aria-label="DM (준비 중)" type="button" disabled className="cursor-not-allowed"><Send size={24}/></button></header>
+      <header className="flex h-14 shrink-0 items-center justify-between border-b border-white/10 px-4"><strong className="text-xl font-semibold tracking-tight">Instagram</strong><button onClick={()=>setUploadOpen(true)} className="rounded-lg border border-white/30 px-2 py-1 text-xs">+ 스토리</button><button aria-label="DM (준비 중)" type="button" disabled className="cursor-not-allowed"><Send size={24}/></button></header>
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         {storyAccounts.length > 0 && <div className="flex gap-3 overflow-x-auto border-b border-white/10 px-4 py-3">{storyAccounts.map(id=>{const stories=accountStories(id);const story=stories.find(st=>!readStories.includes(st.id))||stories[0];const seen=stories.every(st=>readStories.includes(st.id));return <button key={id} onClick={()=>story&&openStory(story.id)} className="flex shrink-0 flex-col items-center gap-1"><div className={`rounded-full p-[2px] ${seen?'bg-zinc-500':'bg-gradient-to-tr from-fuchsia-600 via-pink-500 to-amber-400'}`}><div className="rounded-full border-2 border-[#101014]"><Avatar src={ownerAvatar(id)} name={ownerName(id)} size={54}/></div></div><span className="max-w-16 truncate text-[10px]">{isOwner(id)?'내 스토리':ownerName(id)}</span></button>})}</div>}
         {visiblePosts.map(post=><article key={post.id} className="border-b border-white/10 pb-4"><button onClick={()=>openAccount(postOwner(post))} className="flex w-full items-center gap-2 px-4 py-3 text-left"><Avatar src={ownerAvatar(postOwner(post))} name={ownerName(postOwner(post))} size={34}/><strong className="text-sm">{ownerName(postOwner(post))}</strong><span className="ml-auto text-xs text-zinc-500">{readableTime(post.postedAt)}</span></button><button className="block w-full bg-zinc-900" onClick={()=>openPost(post)} aria-label="게시물 열기"><Photo src={post.images[0]||''} alt={post.caption} className="aspect-square w-full"/></button><div className="flex items-center gap-4 px-4 pt-3"><button aria-label="좋아요" onClick={()=>setLikedPosts(prev=>prev.includes(post.id)?prev.filter(id=>id!==post.id):[...prev,post.id])}><Heart size={23} fill={likedPosts.includes(post.id)?'#fb7185':'none'}/></button><button onClick={()=>{setHomeCommentsPostId(prev=>prev===post.id?null:post.id);setCommentDraft('')}} aria-label={homeCommentsPostId===post.id?'댓글 입력 닫기':'댓글 입력 열기'} aria-expanded={homeCommentsPostId===post.id}><MessageCircle size={23}/></button><button type="button" disabled aria-label="공유 (준비 중)" className="cursor-not-allowed"><Send size={23}/></button></div><p className="px-4 pt-2 text-sm"><button onClick={()=>openAccount(postOwner(post))} className="font-semibold">{ownerName(postOwner(post))}</button> {post.caption}</p>{<div className="mt-3 border-t border-white/10 px-4 py-3"><div className="mb-2 text-sm font-semibold">댓글 {post.comments.length+(localComments[post.id]?.length||0)}개</div>{[...post.comments,...(localComments[post.id]||[])].map(comment=><div key={comment.id} className="flex items-start gap-2 py-2 text-sm"><Avatar src={ownerAvatar(comment.accountId)} name={ownerName(comment.accountId)} size={28}/><div className="min-w-0 flex-1"><p><strong>{ownerName(comment.accountId)}</strong> {comment.text}</p><span className="text-[10px] text-zinc-500">{readableTime(comment.commentedAt)}</span></div><button type="button" onClick={()=>toggleCommentLike(comment.id)} aria-label="댓글 좋아요" className="flex items-center gap-1 text-xs text-zinc-400"><Heart size={15} fill={likedComments.includes(comment.id)?'#fb7185':'none'} color={likedComments.includes(comment.id)?'#fb7185':'currentColor'}/>{(comment.likes||0)+Number(likedComments.includes(comment.id))}</button></div>)}{homeCommentsPostId===post.id && <form onSubmit={e=>{e.preventDefault();addComment(post.id)}} className="mt-3 flex gap-2"><input aria-label="댓글 입력" value={commentDraft} onChange={e=>setCommentDraft(e.target.value)} placeholder="댓글 달기..." className="min-w-0 flex-1 rounded-xl bg-zinc-800 px-3 py-2 text-sm"/><button type="submit" disabled={!commentDraft.trim()} className="text-sky-400 disabled:opacity-40">게시</button></form>}</div>}</article>)}
@@ -277,6 +296,7 @@ export function InstagramApp(_props: AppComponentProps) {
       {canViewPosts ? <><div className="flex justify-center border-t border-white/10 py-3"><Grid3X3 size={21}/></div>{<div className="grid grid-cols-3 gap-[2px]">{INSTAGRAM_POSTS.filter(post=>isOwner(viewAccountId)?isOwner(postOwner(post)):postOwner(post)===viewAccountId).map((post) => <button key={post.id} onClick={() => openPost(post)} className="aspect-square overflow-hidden bg-zinc-800" aria-label={`게시물 열기: ${post.caption}`}><Photo src={post.images[0]} alt={post.caption} className="h-full w-full"/></button>)}</div>}</> : <div className="border-t border-white/10 p-8 text-center text-sm text-zinc-400"><p className="mb-2 text-xl">🔒</p>비공개 계정입니다.</div>}
       </div>
     </>}
+    {uploadOpen && <div className="absolute inset-0 z-[65] flex flex-col bg-[#101014] p-5 text-white"><div className="mb-6 flex items-center justify-between"><strong>스토리 업로드</strong><button onClick={()=>setUploadOpen(false)} aria-label="닫기"><X/></button></div><label className="mb-2 text-sm">이미지 경로</label><input className="mb-4 rounded-lg bg-zinc-800 p-3 text-sm" placeholder="/sunjay-phone/images/..." value={storyImageDraft} onChange={e=>setStoryImageDraft(e.target.value)}/><label className="mb-2 text-sm">스토리 문구</label><input className="mb-4 rounded-lg bg-zinc-800 p-3 text-sm" placeholder="선우반응테스트" value={storyCaptionDraft} onChange={e=>setStoryCaptionDraft(e.target.value)}/><button onClick={uploadStory} disabled={!storyImageDraft.trim()} className="rounded-lg bg-[#6642d5] p-3 text-sm disabled:opacity-40">내 스토리에 올리기</button></div>}
     {imagePreview && <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/95 p-3" role="dialog" aria-label="DM 사진 확대"><button onClick={()=>setImagePreview(null)} className="absolute right-4 top-4 rounded-full bg-white/20 p-2" aria-label="닫기"><X/></button><Photo src={imagePreview} alt="확대된 DM 사진" className="max-h-[85%] w-full object-contain"/></div>}
     {!selectedThread && !selectedPost && !storyId && !highlightId && !relationshipMode && <nav aria-label="인스타그램 메뉴" className="flex h-12 shrink-0 items-center justify-around border-t border-white/10"><button aria-label="홈 피드" onClick={goHome} className={tab==='home'?'text-white':'text-zinc-500'}><Home size={23}/></button><button aria-label="검색" onClick={()=>setTab('search')} className={tab==='search'?'text-white':'text-zinc-500'}><Search size={23}/></button><button aria-label="DM (준비 중)" type="button" disabled className="cursor-not-allowed text-zinc-500"><Send size={23}/></button><button aria-label="내 프로필" onClick={goProfile}><Avatar src={INSTAGRAM_PROFILE.avatar} name={INSTAGRAM_PROFILE.username} size={27}/></button></nav>}
   </div>
