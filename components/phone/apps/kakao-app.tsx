@@ -153,9 +153,8 @@ function RoomView({ room }: { room: KakaoRoom }) {
     action.type === 'kakao.reply' && action.roomId === room.id && (replyDeliveryIds.includes(`${execution.id}:${index}`) || (deliveredIds.includes(execution.id) && !execution.actions.some((a,i)=>a.type==='kakao.reply' && replyDeliveryIds.includes(`${execution.id}:${i}`))))
       ? [{ id: `event-reply:${execution.id}:${index}`, from: action.from, text: action.text || '', ...('image' in action && typeof action.image === 'string' ? {image:action.image} : {}), sentAt: execution.executedAt } as KakaoMessage]
       : []))
-  // Merge by timestamp, keeping each event reply immediately after its triggering
-  // outgoing message when timestamps are identical. Previously replies were always
-  // appended after every reader message, regardless of when they were sent.
+  // Story messages retain their original chronology. Reader messages and their
+  // triggered replies form a separate, append-only sequence in send order.
   const sentPositions = new Map(sent.map((message, index) => [message.id, index]))
   const replyPositions = new Map<string, number>()
   for (const execution of eventExecutions) {
@@ -167,12 +166,16 @@ function RoomView({ room }: { room: KakaoRoom }) {
       }
     })
   }
-  const allMessages = [...room.messages, ...sent, ...triggeredReplies].sort((a, b) => {
-    const timeOrder = a.sentAt.localeCompare(b.sentAt)
-    if (timeOrder !== 0) return timeOrder
-    const position = (message: KakaoMessage) => sentPositions.get(message.id) ?? replyPositions.get(message.id) ?? -1
-    return position(a) - position(b)
-  })
+  const readerIds = new Set(sent.map(message => message.id))
+  const readerReplyIds = new Set(replyPositions.keys())
+  const readerMessages = [...sent, ...triggeredReplies.filter(message => readerReplyIds.has(message.id))]
+    .sort((a, b) => {
+      const position = (message: KakaoMessage) => sentPositions.get(message.id) ?? replyPositions.get(message.id) ?? 0
+      return position(a) - position(b)
+    })
+  const storyMessages = [...room.messages, ...triggeredReplies.filter(message => !readerReplyIds.has(message.id))]
+    .sort((a, b) => a.sentAt.localeCompare(b.sentAt))
+  const allMessages = [...storyMessages, ...readerMessages]
   const replyInfo = (msg: KakaoMessage) => {
     const reply = msg as KakaoMessage & { replyTo?: { id: string; from: string; text: string }; replyToId?: string }
     if (reply.replyTo) return reply.replyTo
@@ -185,7 +188,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
       text: original.text || (messageImages(original).length ? '사진' : original.emoticon || '메시지'),
     }
   }
-  const messageDates = [...new Set(allMessages.map(m => seoulParts(m.sentAt)?.day ?? m.sentAt.slice(0, 10)).filter(Boolean))].sort()
+  const messageDates = [...new Set(storyMessages.map(m => seoulParts(m.sentAt)?.day ?? m.sentAt.slice(0, 10)).filter(Boolean))].sort()
   const media = allMessages.flatMap((message, messageIndex) => messageImages(message).map((src, imageIndex) => ({ src, messageIndex, imageIndex, date: seoulParts(message.sentAt)?.day ?? message.sentAt.slice(0, 10) })))
   const goToMessage = (index: number) => {
     const container = scrollRef.current
@@ -194,7 +197,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
     container.scrollTop += target.getBoundingClientRect().top - container.getBoundingClientRect().top - 12
   }
   const goToDate = (date: string) => {
-    const index = allMessages.findIndex(m => (seoulParts(m.sentAt)?.day ?? m.sentAt.slice(0, 10)) === date)
+    const index = storyMessages.findIndex(m => (seoulParts(m.sentAt)?.day ?? m.sentAt.slice(0, 10)) === date)
     if (index < 0) { setNavigationNotice('해당 날짜에는 메시지가 없습니다.'); return }
     setNavigationNotice('')
     setDatePickerOpen(false)
@@ -263,6 +266,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
         const mine = msg.from === 'me'
         const showSender = !mine && (index === 0 || !sameMinuteRun(allMessages[index - 1], msg))
         return <div key={`${room.id}-${msg.id}-${index}`} ref={node => { messageRefs.current[index] = node }}>
+          {readerIds.has(msg.id) && <div className="mb-4 flex items-center gap-2" aria-label="여기까지 읽었습니다"><div className="h-px flex-1 bg-[#879bac]/60"/><span className="shrink-0 text-[11px] text-[#536574]">여기까지 읽었습니다</span><div className="h-px flex-1 bg-[#879bac]/60"/></div>}
           {showDate && <div className="mx-auto mb-4 w-fit rounded-full bg-[#879bac]/65 px-3 py-1 text-center text-[11px] text-white">{dateLabel(msg.sentAt)}</div>}
           <div className={`flex items-start gap-2 ${mine ? 'justify-end' : 'justify-start'}`}>
             {!mine && <div className="w-[34px] shrink-0">{showSender && <button aria-label={`${contactName(msg.from, content.contacts)} 프로필 보기`} onClick={() => pushRoute(`profile:${msg.from}`)}><Avatar id={msg.from} size={34}/></button>}</div>}
