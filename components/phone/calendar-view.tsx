@@ -1,14 +1,15 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ChevronLeft,ChevronRight,Plus,X,Pencil,Trash2,CalendarDays } from 'lucide-react'
 import { CalendarEvent,categoryColors,dateKey,monthCells,useCalendarData } from './calendar-data'
 import { useEpisode } from './episode-provider'
 const weekdays=['일','월','화','수','목','금','토']
 const blank=(date:string):CalendarEvent=>({id:'local-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),title:'',date,start:'09:00',end:'10:00',location:'',memo:'',category:'personal'})
 export function CalendarView({compact=false,onOpen,onClose}:{compact?:boolean;onOpen?:()=>void;onClose?:()=>void}){
- const {episode}=useEpisode();const initial=episode.id==='ep01'?'2026-04-30':'2026-05-01'
+ const {episode}=useEpisode();const initial=episode.dateTime.slice(0,10)
  const [month,setMonth]=useState(()=>new Date(initial+'T12:00:00'))
  const [selected,setSelected]=useState(initial)
+ useEffect(()=>{setMonth(new Date(initial+'T12:00:00'));setSelected(initial);setDayOpen(false);setDetail(null);setEditing(null)},[initial])
  const [dayOpen,setDayOpen]=useState(false)
  const [detail,setDetail]=useState<CalendarEvent|null>(null)
  const [editing,setEditing]=useState<CalendarEvent|null>(null)

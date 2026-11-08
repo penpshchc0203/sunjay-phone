@@ -3,7 +3,7 @@ import type { Contact } from '@/lib/phone/content-types'
 export const contacts: Contact[] = [
   {
     id: 'sunwoo',
-    name: '선우',
+    name: '선우♡',
     phoneNumber: '010-000-0624',
     relation: '귀염둥이',
     avatar: CHARACTER.user.avatar,
@@ -13,7 +13,7 @@ export const contacts: Contact[] = [
     id: 'sunghoon',
     name: '박성훈',
     phoneNumber: '010-XXX-1208',
-    relation: '대학 동기',
+    relation: '고등학교 친구',
     favorite: false,
   },
   {
@@ -35,6 +35,7 @@ export const contacts: Contact[] = [
     name: '심재윤',
     phoneNumber: '010-XXX-1115',
     relation: '고등학교 친구',
+    favorite: false,
   },
   {
     id: 'jihu',
@@ -148,8 +149,8 @@ export const contactsEp02: Contact[] = [
   {
     id: 'sunghoon',
     name: '박성훈',
-    phoneNumber: '010-5512-3307',
-    relation: '대학 동기',
+    phoneNumber: '010-XXX-1208',
+    relation: '고등학교 친구',
     favorite: false,
   },
   {
@@ -162,8 +163,9 @@ export const contactsEp02: Contact[] = [
   {
     id: 'jake',
     name: '심재윤',
-    phoneNumber: '010-7734-9021',
+    phoneNumber: '010-XXX-1115',
     relation: '고등학교 친구',
+    favorite: false,
   },
   {
     id: 'jihu',
@@ -187,9 +189,9 @@ export const contactsEp03: Contact[] = [
   {
     id: 'sunghoon',
     name: '박성훈',
-    phoneNumber: '010-5512-3307',
-    relation: '대학 동기',
-    favorite: true,
+    phoneNumber: '010-XXX-1208',
+    relation: '고등학교 친구',
+    favorite: false,
   },
   {
     id: 'mom',
@@ -201,8 +203,9 @@ export const contactsEp03: Contact[] = [
   {
     id: 'jake',
     name: '심재윤',
-    phoneNumber: '010-7734-9021',
+    phoneNumber: '010-XXX-1115',
     relation: '고등학교 친구',
+    favorite: false,
   },
   {
     id: 'jihu',

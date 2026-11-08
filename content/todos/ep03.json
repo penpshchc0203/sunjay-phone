@@ -1,3 +1,149 @@
+
 {
-  "todos": []
+  "todos": [
+    {
+      "id": "t-ep03-001",
+      "title": "월요일 주간 업무 일정 확인",
+      "category": "업무",
+      "dueDate": "2026-05-11",
+      "completed": true,
+      "memo": "이번 주 처리할 업무 정리"
+    },
+    {
+      "id": "t-ep03-002",
+      "title": "지난주 데이터 취합",
+      "category": "업무",
+      "dueDate": "2026-05-11",
+      "completed": true,
+      "memo": "누락된 항목 확인"
+    },
+    {
+      "id": "t-ep03-003",
+      "title": "팀 회의 자료 수정",
+      "category": "업무",
+      "dueDate": "2026-05-12",
+      "completed": true,
+      "memo": "수정 요청 사항 반영"
+    },
+    {
+      "id": "t-ep03-004",
+      "title": "데이터 검증 결과 정리",
+      "category": "업무",
+      "dueDate": "2026-05-13",
+      "completed": true,
+      "memo": "검증 결과 및 특이사항 정리"
+    },
+    {
+      "id": "t-ep03-005",
+      "title": "목요일까지 요청 자료 전달",
+      "category": "업무",
+      "dueDate": "2026-05-14",
+      "completed": true,
+      "memo": "요청받은 자료 최종 확인"
+    },
+    {
+      "id": "t-ep03-006",
+      "title": "회의 자료 팀 채팅방에 공유",
+      "category": "업무",
+      "dueDate": "2026-05-15",
+      "completed": true,
+      "memo": "데이터분석1팀 공유"
+    },
+    {
+      "id": "t-ep03-007",
+      "title": "지후님 요청 자료 송부",
+      "category": "업무",
+      "dueDate": "2026-05-18",
+      "completed": false,
+      "memo": "월요일에 보내드리기로 함"
+    },
+    {
+      "id": "t-ep03-008",
+      "title": "주간 업무 보고서 작성",
+      "category": "업무",
+      "dueDate": "2026-05-18",
+      "completed": false,
+      "memo": "지난주 진행 내용 정리"
+    },
+    {
+      "id": "t-ep03-009",
+      "title": "제주도 항공권 및 탑승 시간 확인",
+      "category": "개인",
+      "dueDate": "2026-05-14",
+      "completed": true,
+      "memo": "5월 15일 오전 8시 30분 비행기"
+    },
+    {
+      "id": "t-ep03-010",
+      "title": "렌터카 예약 확인서 저장",
+      "category": "개인",
+      "dueDate": "2026-05-14",
+      "completed": true,
+      "memo": "렌터카 예약 정보 확인"
+    },
+    {
+      "id": "t-ep03-011",
+      "title": "제주도 여행 짐 챙기기",
+      "category": "개인",
+      "dueDate": "2026-05-14",
+      "completed": true,
+      "memo": "옷, 세면도구, 충전기, 신분증"
+    },
+    {
+      "id": "t-ep03-012",
+      "title": "카메라 배터리 충전",
+      "category": "개인",
+      "dueDate": "2026-05-14",
+      "completed": true,
+      "memo": "여분 배터리도 챙기기"
+    },
+    {
+      "id": "t-ep03-014",
+      "title": "렌터카 인수하기",
+      "category": "개인",
+      "dueDate": "2026-05-15",
+      "completed": true,
+      "memo": "셔틀 타고 렌터카 업체 이동"
+    },
+    {
+      "id": "t-ep03-015",
+      "title": "제주도 사진 단톡방에 보내기",
+      "category": "개인",
+      "dueDate": "2026-05-18",
+      "completed": false,
+      "memo": "재윤이가 사진 올려달라고 함. 몰아서 보내기"
+    },
+    {
+      "id": "t-ep03-016",
+      "title": "렌터카 반납하기",
+      "category": "개인",
+      "dueDate": "2026-05-17",
+      "completed": true,
+      "memo": "귀국 비행기 타기 전에 반납"
+    },
+    {
+      "id": "t-ep03-017",
+      "title": "제주도 사진 백업",
+      "category": "개인",
+      "dueDate": "2026-05-18",
+      "completed": false,
+      "memo": "카메라 사진 정리하고 백업"
+    },
+    {
+      "id": "t-ep03-018",
+      "title": "엄마한테 보내드릴 것 챙기기",
+      "category": "개인",
+      "dueDate": "2026-05-19",
+      "completed": false,
+      "memo": "화요일에 맞춰 보내기로 함"
+    },
+    {
+      "id": "t-ep03-019",
+      "title": "선우랑 약속 다시",
+      "category": "약속",
+      "dueDate": "2026-05-12",
+      "completed": false,
+      "memo": "캔슬"
+    }
+  ]
 }

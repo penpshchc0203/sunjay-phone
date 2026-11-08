@@ -9,7 +9,7 @@ export const EPISODE_PICKER: Record<string, {
 }> = {
   ep01: { enabled: true, dateLabel: '2026.04.30까지', description: '첫 만남과 연락', thumbnailColor: 'bg-[#b6d9ec]' },
   ep02: { enabled: true, dateLabel: '2026.05.01부터', description: '썸', thumbnailColor: 'bg-[#79b7cf]' },
-  ep03: { enabled: false, dateLabel: '다음 이야기', description: '준비 중', thumbnailColor: 'bg-[#777e9e]' },
+  ep03: { enabled: true, dateLabel: '2026.05.17까지', description: '첫 갈등', thumbnailColor: 'bg-[#777e9e]' },
 }
 
 /** 미등록 에피소드도 표시되며, 공개 여부는 명시적으로 설정해야 합니다. */

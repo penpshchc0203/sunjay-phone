@@ -1,3 +1,164 @@
 {
-  "photos": []
+  "photos": [
+    {
+      "id": "photo-ep03-87eu65lo",
+      "src": "/sunjay-phone/images/photos/photo-ep03-87eu65lo.jpg",
+      "alt": "회사 근처에서 혼자 먹은 점심",
+      "takenAt": "2026-05-11T12:24",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-7rr8rlmj",
+      "src": "/sunjay-phone/images/photos/photo-ep03-7rr8rlmj.jpg",
+      "alt": "재윤 성훈과 만난 술집 테이블과 맥주잔",
+      "takenAt": "2026-05-12T18:21",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-ocl1xmuk",
+      "src": "/sunjay-phone/images/photos/photo-ep03-ocl1xmuk.jpg",
+      "alt": "김포공항 출발층과 여행 가방",
+      "takenAt": "2026-05-15T07:34",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-vsepc3uo",
+      "src": "/sunjay-phone/images/photos/photo-ep03-vsepc3uo.jpg",
+      "alt": "제주행 비행기 창밖 구름",
+      "takenAt": "2026-05-15T08:12",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-ae4oiq49",
+      "src": "/sunjay-phone/images/photos/photo-ep03-ae4oiq49.jpg",
+      "alt": "제주 렌터카 운전석에서 본 도로 풍경",
+      "takenAt": "2026-05-15T10:42",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-78ul3brm",
+      "src": "/sunjay-phone/images/photos/photo-ep03-78ul3brm.jpg",
+      "alt": "제주 식당에서 먹은 고기국수",
+      "takenAt": "2026-05-15T12:28",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-me1mgbgh",
+      "src": "/sunjay-phone/images/photos/photo-ep03-me1mgbgh.jpg",
+      "alt": "제주 해안도로와 푸른 바다",
+      "takenAt": "2026-05-15T14:37",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-kr0agz9g",
+      "src": "/sunjay-phone/images/photos/photo-ep03-kr0agz9g.jpg",
+      "alt": "제주 흑돼지 구이와 반찬",
+      "takenAt": "2026-05-15T18:36",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-rscmcnj4",
+      "src": "/sunjay-phone/images/photos/photo-ep03-rscmcnj4.jpg",
+      "alt": "숙소 테이블 위 과자와 음료",
+      "takenAt": "2026-05-15T21:48",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-wldanuex",
+      "src": "/sunjay-phone/images/photos/photo-ep03-wldanuex.jpg",
+      "alt": "제주 숙소 창밖 아침 풍경",
+      "takenAt": "2026-05-16T09:26",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-pb12h6an",
+      "src": "/sunjay-phone/images/photos/photo-ep03-pb12h6an.jpg",
+      "alt": "제주 돌담길과 초록 풍경",
+      "takenAt": "2026-05-16T10:58",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-yorvgckm",
+      "src": "/sunjay-phone/images/photos/photo-ep03-yorvgckm.jpg",
+      "alt": "제주 식당에서 먹은 해물라면",
+      "takenAt": "2026-05-16T12:44",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-kpnunn58",
+      "src": "/sunjay-phone/images/photos/photo-ep03-kpnunn58.jpg",
+      "alt": "제주 카페 창가의 커피 세 잔",
+      "takenAt": "2026-05-16T14:17",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-jmrlicdf",
+      "src": "/sunjay-phone/images/photos/photo-ep03-jmrlicdf.jpg",
+      "alt": "바닷가에 세워 둔 렌터카와 풍경",
+      "takenAt": "2026-05-16T16:51",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-f2uiaid1",
+      "src": "/sunjay-phone/images/photos/photo-ep03-f2uiaid1.jpg",
+      "alt": "해 질 무렵 제주 바다 풍경",
+      "takenAt": "2026-05-16T18:22",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-ba4092me",
+      "src": "/sunjay-phone/images/photos/photo-ep03-ba4092me.jpg",
+      "alt": "숙소에서 먹는 야식",
+      "takenAt": "2026-05-16T20:06",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-t0jnwmn2",
+      "src": "/sunjay-phone/images/photos/photo-ep03-t0jnwmn2.jpg",
+      "alt": "제주 마지막 날 먹은 점심",
+      "takenAt": "2026-05-17T11:24",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-7xfsr5s2",
+      "src": "/sunjay-phone/images/photos/photo-ep03-7xfsr5s2.jpg",
+      "alt": "제주 기념품 가게 진열대",
+      "takenAt": "2026-05-17T13:42",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-2f15s0tf",
+      "src": "/sunjay-phone/images/photos/photo-ep03-2f15s0tf.jpg",
+      "alt": "렌터카 반납 전 제주 도로 풍경",
+      "takenAt": "2026-05-17T16:18",
+      "album": "카메라",
+      "favorite": false
+    },
+    {
+      "id": "photo-ep03-nqqzfy8e",
+      "src": "/sunjay-phone/images/photos/photo-ep03-nqqzfy8e.jpg",
+      "alt": "선우와 다시 만나 주문한 카페 음료 두 잔",
+      "takenAt": "2026-05-17T22:14",
+      "album": "카메라",
+      "favorite": true
+    }
+  ]
 }

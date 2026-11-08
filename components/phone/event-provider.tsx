@@ -286,7 +286,7 @@ export function EventProvider({children}:{children:ReactNode}) {
     records.current=[...records.current,call];seen.current.add(id);setExecutions(records.current);persist();setBanner(call)
   },[episode.id,banner,key])
   const startOutgoingCall=useCallback(()=>{
-    if(episode.id!=='ep02'||activeRef.current||banner)return
+    if(!['ep02','ep03'].includes(episode.id)||activeRef.current||banner)return
     const dialogues=getCallDialogues(episode.id)
     const dialogue=dialogues.find(d=>d.id===OUTGOING_ID)
     if(!dialogue)return

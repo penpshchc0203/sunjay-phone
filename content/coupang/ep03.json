@@ -1,3 +1,69 @@
 {
-  "orders": []
+  "orders": [
+    {
+      "id": "order-20260511-001",
+      "orderNumber": "202605110001",
+      "orderedAt": "2026-05-11T19:24:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep03-003",
+          "name": "[던롭 기타 컨디셔닝 세트] 폴리쉬&클리너 레몬오일 딥 컨디셔너",
+          "image": "/images/coupang/cou_guitar_cleaner.jpg",
+          "price": 35900,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 35900
+    },
+    {
+      "id": "order-20260512-001",
+      "orderNumber": "202605120001",
+      "orderedAt": "2026-05-12T22:37:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep03-004",
+          "name": "히어랜딩 여행용 압축파우치 캐리어 정리 파우치 의류 정리 파우치 6종 세트",
+          "image": "/images/coupang/cou_travel_pouch.jpg",
+          "price": 20500,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep03-005",
+          "name": "루시아이 진공펌프 여행용 공병 세트 수영 목욕 샴푸 화장품 소분, 1개, 펌프형 30ml 세트",
+          "image": "/images/coupang/cou_travel_bottles.jpg",
+          "price": 12770,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 33270
+    },
+    {
+      "id": "order-20260513-001",
+      "orderNumber": "202605130001",
+      "orderedAt": "2026-05-13T21:46:00",
+      "status": "delivered",
+      "items": [
+        {
+          "id": "item-ep03-008",
+          "name": "K2 safety 엑스벤더 심리스 쿨토시 2개SET",
+          "image": "/images/coupang/cou_cool_sleeves.jpg",
+          "price": 13030,
+          "quantity": 1
+        },
+        {
+          "id": "item-ep03-009",
+          "name": "벨리안 여행용 방수 파우치 방수팩 비치백 2종 세트",
+          "image": "/images/coupang/cou_waterproof_pouch.jpg",
+          "price": 4680,
+          "quantity": 1
+        }
+      ],
+      "shippingFee": 0,
+      "totalPrice": 17710
+    }
+  ]
 }

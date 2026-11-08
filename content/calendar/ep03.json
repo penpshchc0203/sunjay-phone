@@ -1,1 +1,53 @@
-[]
+
+[
+  {
+    "id": "cal-ep03-work-0511",
+    "title": "주간 업무 일정 확인",
+    "date": "2026-05-11",
+    "start": "09:00",
+    "end": "10:00",
+    "location": "회사",
+    "memo": "이번 주 업무 일정 및 데이터 요청 건 확인",
+    "category": "work"
+  },
+  {
+    "id": "cal-ep03-work-0512",
+    "title": "팀 회의",
+    "date": "2026-05-12",
+    "start": "10:00",
+    "end": "11:00",
+    "location": "회사",
+    "memo": "회의 자료 수정 사항 확인",
+    "category": "work"
+  },
+  {
+    "id": "cal-ep03-sunwoo-0512",
+    "title": "선우",
+    "date": "2026-05-12",
+    "start": "19:00",
+    "end": "21:00",
+    "location": "",
+    "memo": "캔슬",
+    "category": "personal"
+  },
+  {
+    "id": "cal-ep03-work-0513",
+    "title": "데이터 검증 결과 정리",
+    "date": "2026-05-13",
+    "start": "14:00",
+    "end": "17:00",
+    "location": "회사",
+    "memo": "검증 결과 및 특이사항 정리",
+    "category": "work"
+  },
+  {
+    "id": "cal-ep03-work-0514",
+    "title": "요청 자료 최종 확인",
+    "date": "2026-05-14",
+    "start": "15:00",
+    "end": "17:00",
+    "location": "회사",
+    "memo": "지후님 요청 자료는 월요일에 송부 예정",
+    "category": "work"
+  }
+]

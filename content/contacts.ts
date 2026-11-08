@@ -11,7 +11,7 @@ export const USER_CONTACT_ID = 'user'
 export const CONTACTS: Contact[] = [
   {
     id: 'sunwoo',
-    name: '선우씨',
+    name: '선우♡',
     phoneNumber: CHARACTER.user.phoneNumber,
     relation: '귀여워',
     avatar: CHARACTER.user.avatar,
@@ -20,8 +20,8 @@ export const CONTACTS: Contact[] = [
   {
     id: 'sunghoon',
     name: '박성훈',
-    phoneNumber: '010-2002-1208',
-    relation: '대학 동기',
+    phoneNumber: '010-XXX-1208',
+    relation: '고등학교 친구',
     favorite: false,
   },
   {
@@ -41,8 +41,9 @@ export const CONTACTS: Contact[] = [
   {
     id: 'jake',
     name: '심재윤',
-    phoneNumber: '010-2002-1115',
+    phoneNumber: '010-XXX-1115',
     relation: '고등학교 친구',
+    favorite: false,
   },
   {
     id: 'jihu',

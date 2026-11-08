@@ -105,7 +105,7 @@ export function InstagramApp(_props: AppComponentProps) {
     catch { setReadStories([]) }
   }, [readKey])
   const allStories = [...INSTAGRAM_STORIES,...uploadedStories]
-  const visibleStories = allStories.filter(st => isOwner(st.accountId) || isFollowing(st.accountId) || Boolean(getAccount(st.accountId))).sort((a,b)=>a.postedAt.localeCompare(b.postedAt))
+  const visibleStories = allStories.filter(st => isOwner(st.accountId) || isFollowing(st.accountId) || Boolean(getAccount(st.accountId))).sort((a,b)=>(typeof a.postedAt === 'string' ? a.postedAt : '').localeCompare(typeof b.postedAt === 'string' ? b.postedAt : ''))
   const storyLikes=executions.filter(e=>deliveredIds.includes(e.id)).flatMap(e=>e.actions.filter(a=>a.type==='instagram.story.like').map(a=>({storyId:a.storyId==='$trigger'?e.triggerId:a.storyId,accountId:a.accountId})))
   const storyAccounts = [...new Set(visibleStories.map(st => st.accountId))].sort((a,b)=>{ const rank=(id:string)=>isOwner(id)?0:isFollowing(id)?1:2; return rank(a)-rank(b) })
   const activeStory = allStories.find(st=>st.id===storyId)

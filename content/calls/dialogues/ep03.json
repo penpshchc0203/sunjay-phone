@@ -1,0 +1,748 @@
+{
+  "dialogues": [
+    {
+      "id": "demo-incoming-sunwoo",
+      "eventId": "test-phone",
+      "contactId": "sunwoo",
+      "title": "선우에게 걸려온 전화",
+      "lines": [
+        {
+          "from": "me",
+          "text": "여보세요?"
+        },
+        {
+          "from": "other",
+          "text": "응 형! 전화해 달라며? 무슨 일 있어?"
+        },
+        {
+          "from": "me",
+          "text": "어, 선우. 진짜 바로 전화했네."
+        },
+        {
+          "from": "other",
+          "text": "마침 폰 보구 있었어! 왜?"
+        },
+        {
+          "from": "me",
+          "text": "아니, 그냥 목소리 듣고 싶어서."
+        },
+        {
+          "from": "other",
+          "text": "아 뭐야! 무슨 일 생긴줄 알고 깜짝 놀랬네!"
+        },
+        {
+          "from": "me",
+          "text": "미안미안. 뭐 하고 있었어?"
+        },
+        {
+          "from": "other",
+          "text": "과제하다가 잠깐 쉬구 있어. 형은?"
+        },
+        {
+          "from": "me",
+          "text": "나도 좀 쉬는 중. 짬나서 전화 했어. 잠깐 통화해도 돼?"
+        },
+        {
+          "from": "other",
+          "text": "웅! 되지."
+        }
+      ]
+    },
+    {
+      "id": "outgoing-call-sunwoo",
+      "contactId": "sunwoo",
+      "title": "종성이가 선우에게 건 전화",
+      "lines": [
+        {
+          "from": "other",
+          "text": "여보세요? 응!"
+        },
+        {
+          "from": "me",
+          "text": "어, 선우. 통화 괜찮아?"
+        },
+        {
+          "from": "other",
+          "text": "응. 형은?"
+        },
+        {
+          "from": "me",
+          "text": "나야 괜찮지. 그냥 생각나서."
+        },
+        {
+          "from": "other",
+          "text": "(웃음) 나도 형 생각했는데."
+        },
+        {
+          "from": "me",
+          "text": "그래?"
+        },
+        {
+          "from": "other",
+          "text": "근데 형 우리 언제 봐?"
+        },
+        {
+          "from": "me",
+          "text": "너 요즘 바쁘잖아. 너가 시간을 내야지."
+        },
+        {
+          "from": "other",
+          "text": "나 안 바쁘면 언제든 되는 거야?"
+        },
+        {
+          "from": "me",
+          "text": "어?"
+        },
+        {
+          "from": "other",
+          "text": "왜 대답 안 해 (웃음)"
+        },
+        {
+          "from": "me",
+          "text": "응. 너 시간 되면 난 언제든 좋지."
+        },
+        {
+          "from": "other",
+          "text": "진짜? 그럼 나 시간 낼 건데?"
+        },
+        {
+          "from": "me",
+          "text": "그럼 내가 데리러 갈게."
+        },
+        {
+          "from": "other",
+          "text": "(웃음) 약속했다!"
+        },
+        {
+          "from": "me",
+          "text": "그래. 일정 보고 언제 괜찮은지 알려 주면 나도 시간 낼게."
+        },
+        {
+          "from": "other",
+          "text": "아싸~ 신난다!"
+        },
+        {
+          "from": "me",
+          "text": "나 이제 회사 다시 들어가봐야겠다. 카톡해!"
+        },
+        {
+          "from": "other",
+          "text": "응 형, 이따 연락해!"
+        }
+      ],
+      "timeRanges": {
+        "morning": {
+          "start": "08:00",
+          "end": "11:59"
+        },
+        "lunch": {
+          "start": "12:00",
+          "end": "13:59"
+        },
+        "afternoon": {
+          "start": "14:00",
+          "end": "17:59"
+        },
+        "evening": {
+          "start": "18:00",
+          "end": "19:59"
+        },
+        "night": {
+          "start": "20:00",
+          "end": "23:59"
+        }
+      }
+    },
+    {
+      "id": "outgoing-call-sunwoo:morning",
+      "contactId": "sunwoo",
+      "title": "월요일 오전",
+      "lines": [
+        {
+          "from": "other",
+          "text": "어어? 형! 이 시간에 웬일?"
+        },
+        {
+          "from": "me",
+          "text": "아 잠깐 시간 나서. 학교 가는 중이야?"
+        },
+        {
+          "from": "other",
+          "text": "웅. 아직 버스야. 주변 시끄럽지 않아? 엄청 졸렸는데 목소리 들으니까 잠깬다 (웃음)"
+        },
+        {
+          "from": "me",
+          "text": "내 목소리가 뭐 알람이야?"
+        },
+        {
+          "from": "other",
+          "text": "에이~ 좋다는 거지."
+        },
+        {
+          "from": "me",
+          "text": "진짜 좋다는 거 맞나?"
+        },
+        {
+          "from": "other",
+          "text": "응 당연~ 믿어믿어."
+        },
+        {
+          "from": "me",
+          "text": "그래그래~"
+        },
+        {
+          "from": "other",
+          "text": "아 맞다. 형 우리 언제 봐?"
+        },
+        {
+          "from": "me",
+          "text": "우리? 음.. 너 수업도 있고 과제도 많잖아."
+        },
+        {
+          "from": "other",
+          "text": "나 다 끝내면?"
+        },
+        {
+          "from": "me",
+          "text": "응. 너만 시간 되면 되지."
+        },
+        {
+          "from": "other",
+          "text": "진짜? 나 그 말 기억한다?"
+        },
+        {
+          "from": "me",
+          "text": "어엉~ 기억해 기억해. 나 약속은 잘 지킨다."
+        },
+        {
+          "from": "other",
+          "text": "(웃음) 알겠어. 나 이제 버스 내려!"
+        },
+        {
+          "from": "me",
+          "text": "응, 수업 잘 듣고. 점심 꼭 챙겨 먹고. 바쁘다고 대충 먹지 말고."
+        },
+        {
+          "from": "other",
+          "text": "웅! 형도 일 잘하고. 이따 카톡해!"
+        },
+        {
+          "from": "me",
+          "text": "어잉~"
+        }
+      ]
+    },
+    {
+      "id": "outgoing-call-sunwoo:lunch",
+      "contactId": "sunwoo",
+      "title": "월요일 점심",
+      "lines": [
+        {
+          "from": "other",
+          "text": "여보세요? 형!"
+        },
+        {
+          "from": "me",
+          "text": "선우! 점심 먹었어?"
+        },
+        {
+          "from": "other",
+          "text": "웅! 학식 먹었어. 형은?"
+        },
+        {
+          "from": "me",
+          "text": "나도 먹었지. 지금 회사로 걸어가는 중~"
+        },
+        {
+          "from": "other",
+          "text": "오늘 날씨 되게 좋다. 그치?"
+        },
+        {
+          "from": "me",
+          "text": "응. 산책하기 딱 좋은 날씨네."
+        },
+        {
+          "from": "other",
+          "text": "그러게~~ 우리 언제 만나지?"
+        },
+        {
+          "from": "me",
+          "text": "요즘 바쁜거 아니야?"
+        },
+        {
+          "from": "other",
+          "text": "음~~ 그렇긴 한데. 형 금요일에 시간 돼?"
+        },
+        {
+          "from": "me",
+          "text": "금요일?"
+        },
+        {
+          "from": "other",
+          "text": "응! 퇴근하구!"
+        },
+        {
+          "from": "me",
+          "text": "어, 별 일정 없긴 해."
+        },
+        {
+          "from": "other",
+          "text": "그럼 그때 만날까?"
+        },
+        {
+          "from": "me",
+          "text": "나는 선우 괜찮으면 언제든."
+        },
+        {
+          "from": "other",
+          "text": "그래! 금요일 저녁에 보자."
+        },
+        {
+          "from": "me",
+          "text": "오케이! 나 회사 도착했어."
+        },
+        {
+          "from": "other",
+          "text": "웅! 이따 연락해!"
+        },
+        {
+          "from": "me",
+          "text": "알겠어~"
+        }
+      ]
+    },
+    {
+      "id": "outgoing-call-sunwoo:afternoon",
+      "contactId": "sunwoo",
+      "title": "월요일 오후",
+      "lines": [
+        {
+          "from": "other",
+          "text": "형? 모야? (웃음)"
+        },
+        {
+          "from": "me",
+          "text": "회의 끝나서 잠깐. 수업 끝났어?"
+        },
+        {
+          "from": "other",
+          "text": "웅. 이제 과제하러 가야 돼."
+        },
+        {
+          "from": "me",
+          "text": "오늘도 바쁘네. 힘들겠다."
+        },
+        {
+          "from": "other",
+          "text": "맨날 반복인데 뭐! 괜찮아!"
+        },
+        {
+          "from": "me",
+          "text": "그래도 힘든 건 힘든 거지. 뭐 치킨이라도 먹을래?"
+        },
+        {
+          "from": "other",
+          "text": "응? 갑자기 무슨 치킨? 아니야! 완전 괜찮아!"
+        },
+        {
+          "from": "me",
+          "text": "먹고 싶으면 말해."
+        },
+        {
+          "from": "other",
+          "text": "그냥 같이 먹으러 가줘~~~"
+        },
+        {
+          "from": "me",
+          "text": "그거야 뭐 언제든~"
+        },
+        {
+          "from": "other",
+          "text": "오늘 저녁도?"
+        },
+        {
+          "from": "me",
+          "text": "오늘도 괜찮지. 내가 갈까?"
+        },
+        {
+          "from": "other",
+          "text": "아니 (웃음) 그냥 물어본 거야. 진짜 올 것처럼 말하네."
+        },
+        {
+          "from": "me",
+          "text": "네가 보자고 하면 가야지."
+        },
+        {
+          "from": "other",
+          "text": "차암~~ 나 이제 강의 들어가!"
+        },
+        {
+          "from": "me",
+          "text": "응. 나도 다시 일하러 가야 돼."
+        },
+        {
+          "from": "other",
+          "text": "알겠어! 형 일 잘하고, 좀 있다 연락해."
+        },
+        {
+          "from": "me",
+          "text": "그래, 이따 연락할게."
+        }
+      ]
+    },
+    {
+      "id": "outgoing-call-sunwoo:evening",
+      "contactId": "sunwoo",
+      "title": "월요일 퇴근 무렵",
+      "lines": [
+        {
+          "from": "other",
+          "text": "여보세요? 형 퇴근했어?"
+        },
+        {
+          "from": "me",
+          "text": "응, 방금. 집 가는 길이야."
+        },
+        {
+          "from": "other",
+          "text": "수고했어~~ (웃음)"
+        },
+        {
+          "from": "me",
+          "text": "선우는? 뭐 해?"
+        },
+        {
+          "from": "other",
+          "text": "나 집에서 과제 중. 형 우리 언제 봐?"
+        },
+        {
+          "from": "me",
+          "text": "너 과제 많다며. 바쁘잖아."
+        },
+        {
+          "from": "other",
+          "text": "나 안 바쁘면 언제든 되는 거야?"
+        },
+        {
+          "from": "me",
+          "text": "당연하지."
+        },
+        {
+          "from": "other",
+          "text": "퇴근하고 피곤해도?"
+        },
+        {
+          "from": "me",
+          "text": "너 만나는게 업무도 아니고 뭐. 얼마든지 괜찮지."
+        },
+        {
+          "from": "other",
+          "text": "아 뭐야~~ (웃음)"
+        },
+        {
+          "from": "me",
+          "text": "뭐가아~~~~"
+        },
+        {
+          "from": "other",
+          "text": "(웃음) 그러면 금요일에 볼까?"
+        },
+        {
+          "from": "me",
+          "text": "알았어. 어디로 가면 돼?"
+        },
+        {
+          "from": "other",
+          "text": "아직 시간도 안 정했는데 (웃음)"
+        },
+        {
+          "from": "me",
+          "text": "정하면 바로 갈 거니까."
+        },
+        {
+          "from": "other",
+          "text": "당연히 형 퇴근하구!"
+        },
+        {
+          "from": "me",
+          "text": "알겠어. 먹고 싶은 거 뭐 없어?"
+        },
+        {
+          "from": "other",
+          "text": "음~~ 생각해 볼게!"
+        },
+        {
+          "from": "me",
+          "text": "알겠어. 저녁 챙겨 먹고."
+        },
+        {
+          "from": "other",
+          "text": "응, 형도! 이따 카톡해!"
+        },
+        {
+          "from": "me",
+          "text": "알겠어잉~~"
+        }
+      ]
+    },
+    {
+      "id": "outgoing-call-sunwoo:night",
+      "contactId": "sunwoo",
+      "title": "월요일 밤",
+      "lines": [
+        {
+          "from": "other",
+          "text": "응 형! 나 방금 누웠는데!"
+        },
+        {
+          "from": "me",
+          "text": "자던거 아니고? 안 피곤해?"
+        },
+        {
+          "from": "other",
+          "text": "괜찮아 (웃음) 형 목소리 듣고 자면 좋지~~~"
+        },
+        {
+          "from": "me",
+          "text": "그럼 통화 잠시만 하고 얼른 자."
+        },
+        {
+          "from": "other",
+          "text": "응응~~ 형. 우리 언제 봐?"
+        },
+        {
+          "from": "me",
+          "text": "너 이번 주 바쁘다고 그러지 않았어? 과제도 많고."
+        },
+        {
+          "from": "other",
+          "text": "나 안 바쁘면 언제든 되는 거야?"
+        },
+        {
+          "from": "me",
+          "text": "응. 나는 뭐, 시간이야 내면 되는 거니까."
+        },
+        {
+          "from": "other",
+          "text": "밤늦게라도?"
+        },
+        {
+          "from": "me",
+          "text": "너 보러 가는 거면 뭐, 상관 없지."
+        },
+        {
+          "from": "other",
+          "text": "진짜? (웃음) 말만 그러는 거 아니지?"
+        },
+        {
+          "from": "me",
+          "text": "내가 그런 걸로 거짓말하겠어?"
+        },
+        {
+          "from": "other",
+          "text": "(웃음) 아니. 그냥 좋아서."
+        },
+        {
+          "from": "me",
+          "text": "뭐가?"
+        },
+        {
+          "from": "other",
+          "text": "몰라~~~ 나 눈 감겨!"
+        },
+        {
+          "from": "me",
+          "text": "그래그래! 얼른 자."
+        },
+        {
+          "from": "other",
+          "text": "형도 얼른 자!"
+        },
+        {
+          "from": "me",
+          "text": "알겠어~~"
+        }
+      ]
+    },
+    {
+      "id": "demo-incoming-sunwoo:morning",
+      "eventId": "test-phone",
+      "contactId": "sunwoo",
+      "title": "선우에게 걸려온 전화 (morning)",
+      "lines": [
+        {
+          "from": "other",
+          "text": "형! 전화해 달라며?"
+        },
+        {
+          "from": "me",
+          "text": "응, 잠깐 목소리 듣고 싶어서. 지금 괜찮아?"
+        },
+        {
+          "from": "other",
+          "text": "웅. 나 학교 가는 중이야."
+        },
+        {
+          "from": "me",
+          "text": "아침은 먹었어?"
+        },
+        {
+          "from": "other",
+          "text": "응! 형은 회사야?"
+        },
+        {
+          "from": "me",
+          "text": "어, 막 출근했어. 수업 잘 듣고."
+        },
+        {
+          "from": "other",
+          "text": "형도 일 잘하고! 이따 카톡해 ㅎㅎ"
+        }
+      ]
+    },
+    {
+      "id": "demo-incoming-sunwoo:lunch",
+      "eventId": "test-phone",
+      "contactId": "sunwoo",
+      "title": "선우에게 걸려온 전화 (lunch)",
+      "lines": [
+        {
+          "from": "other",
+          "text": "여보세요? 형!"
+        },
+        {
+          "from": "me",
+          "text": "어 선우야. 점심 먹었어?"
+        },
+        {
+          "from": "other",
+          "text": "응! 학식 먹었어. 형은?"
+        },
+        {
+          "from": "me",
+          "text": "나도 먹고 잠깐 걷는 중이야."
+        },
+        {
+          "from": "other",
+          "text": "오 좋겠다. 나도 이제 수업 가야 해."
+        },
+        {
+          "from": "me",
+          "text": "그래, 수업 잘 듣고. 이따 연락할게."
+        },
+        {
+          "from": "other",
+          "text": "웅! 형도 오후에 힘내!"
+        }
+      ]
+    },
+    {
+      "id": "demo-incoming-sunwoo:afternoon",
+      "eventId": "test-phone",
+      "contactId": "sunwoo",
+      "title": "선우에게 걸려온 전화 (afternoon)",
+      "lines": [
+        {
+          "from": "other",
+          "text": "형! 전화해 달라고 했지?"
+        },
+        {
+          "from": "me",
+          "text": "어, 선우. 지금 통화 괜찮아?"
+        },
+        {
+          "from": "other",
+          "text": "응응, 방금 수업 끝났어."
+        },
+        {
+          "from": "me",
+          "text": "잘됐다. 나도 회의 끝나서 잠깐 쉬는 중."
+        },
+        {
+          "from": "other",
+          "text": "월요일부터 바쁘네 ㅠㅠ"
+        },
+        {
+          "from": "me",
+          "text": "그러게. 너는 과제 좀 해야겠다."
+        },
+        {
+          "from": "other",
+          "text": "웅! 이따 카톡하자!"
+        }
+      ]
+    },
+    {
+      "id": "demo-incoming-sunwoo:evening",
+      "eventId": "test-phone",
+      "contactId": "sunwoo",
+      "title": "선우에게 걸려온 전화 (evening)",
+      "lines": [
+        {
+          "from": "other",
+          "text": "형! 나 전화했어!"
+        },
+        {
+          "from": "me",
+          "text": "어, 선우야. 집이야?"
+        },
+        {
+          "from": "other",
+          "text": "응, 방금 왔어. 형은 퇴근했어?"
+        },
+        {
+          "from": "me",
+          "text": "응. 지하철 타러 가는 중."
+        },
+        {
+          "from": "other",
+          "text": "고생했어. 저녁은?"
+        },
+        {
+          "from": "me",
+          "text": "집 가서 먹으려고. 너도 챙겨 먹어."
+        },
+        {
+          "from": "other",
+          "text": "웅! 조심히 와. 이따 카톡해!"
+        }
+      ]
+    },
+    {
+      "id": "demo-incoming-sunwoo:night",
+      "eventId": "test-phone",
+      "contactId": "sunwoo",
+      "title": "선우에게 걸려온 전화 (night)",
+      "lines": [
+        {
+          "from": "other",
+          "text": "응 형! 전화해 달라며?"
+        },
+        {
+          "from": "me",
+          "text": "어, 그냥 목소리 듣고 싶어서."
+        },
+        {
+          "from": "other",
+          "text": "ㅎㅎ 나도. 형 뭐 하고 있었어?"
+        },
+        {
+          "from": "me",
+          "text": "씻고 누웠어. 선우는?"
+        },
+        {
+          "from": "other",
+          "text": "나도 누워서 쉬는 중."
+        },
+        {
+          "from": "me",
+          "text": "오늘 하루 고생했어. 내일도 일찍 일어나야지."
+        },
+        {
+          "from": "other",
+          "text": "웅. 형도 잘 자! 내일 연락해."
+        }
+      ]
+    }
+  ]
+}

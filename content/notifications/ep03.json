@@ -1,0 +1,24 @@
+{
+  "notifications": [
+    {
+      "id": "ep03-story-sms-sms-ep03-card-001",
+      "occurredAt": "2026-05-11T19:24",
+      "appId": "messages",
+      "title": "KB국민카드",
+      "body": "[KB국민카드] 박*성님 승인",
+      "type": "sms",
+      "targetId": "sms-card",
+      "read": false
+    },
+    {
+      "id": "ep03-story-sms-sms-ep03-card-002",
+      "occurredAt": "2026-05-12T08:34",
+      "appId": "messages",
+      "title": "KB국민카드",
+      "body": "[KB국민카드] 박*성님 승인",
+      "type": "sms",
+      "targetId": "sms-card",
+      "read": false
+    }
+  ]
+}

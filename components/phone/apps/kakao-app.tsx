@@ -64,7 +64,8 @@ const readerMessageTime = (episodeEnd: string) => {
   const part = (key:string) => now.find(p=>p.type===key)?.value ?? '00'
   return `${day}T${part('hour')}:${part('minute')}:${part('second')}`
 }
-const canOpenKakaoRoom = (room: KakaoRoom) => room.id === 'kakao-friends' || room.id === 'kakao-user'
+const SELF_ROOM_ID = 'kakao-self'
+const canOpenKakaoRoom = (room: KakaoRoom) => room.id === SELF_ROOM_ID || room.id === 'kakao-friends' || room.id === 'kakao-user'
 const sameMinuteRun = (left: KakaoMessage, right: KakaoMessage) => {
   const a = seoulParts(left.sentAt), b = seoulParts(right.sentAt)
   return Boolean(a && b && left.from === right.from && a.day === b.day && a.minute === b.minute)
@@ -134,6 +135,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
   const [replyTarget, setReplyTarget] = useState<KakaoMessage | null>(null)
   const [sent, setSent] = useState<KakaoMessage[]>([])
   const { episode } = useEpisode()
+  const isSelfRoom = room.id === SELF_ROOM_ID
   const storageKey = `virtual-phone:kakao-sent:v1:${episode.id}:${room.id}`
   const [confirmRoomClear, setConfirmRoomClear] = useState(false)
   const clearSentInRoom = () => { try { localStorage.removeItem(storageKey) } catch {} resetKakaoEvents(room.id); setSent([]); setConfirmRoomClear(false) }
@@ -141,9 +143,9 @@ function RoomView({ room }: { room: KakaoRoom }) {
   const send = () => {
     const text = draft.trim()
     if (!text) return
-    const msg: KakaoMessage = {id: `reader-${Date.now()}-${Math.random().toString(36).slice(2)}`, from: 'me', text, sentAt: readerMessageTime(episode.dateTime), ...(replyTarget ? { replyTo: {id: replyTarget.id, from: replyTarget.from, text: replyTarget.text || (messageImages(replyTarget).length ? '사진' : replyTarget.emoticon || '메시지')} } : {})} as KakaoMessage & {replyTo?: {id: string; from: string; text: string}}
+    const msg: KakaoMessage = {id: `reader-${Date.now()}-${Math.random().toString(36).slice(2)}`, from: 'me', text, sentAt: readerMessageTime(isSelfRoom ? '2026-05-17T23:59' : episode.dateTime), ...(replyTarget ? { replyTo: {id: replyTarget.id, from: replyTarget.from, text: replyTarget.text || (messageImages(replyTarget).length ? '사진' : replyTarget.emoticon || '메시지')} } : {})} as KakaoMessage & {replyTo?: {id: string; from: string; text: string}}
     setSent(old => {const next = [...old,msg]; try {localStorage.setItem(storageKey,JSON.stringify(next))} catch {} return next})
-    triggerPhoneEvent({type:'kakao.send',roomId:room.id,keyword:text,triggerId:msg.id,occurredAt:msg.sentAt})
+    if (!isSelfRoom) triggerPhoneEvent({type:'kakao.send',roomId:room.id,keyword:text,triggerId:msg.id,occurredAt:msg.sentAt})
     window.dispatchEvent(new Event('phone:kakao-sent-updated'))
     setDraft('')
     setReplyTarget(null)
@@ -252,6 +254,7 @@ function RoomView({ room }: { room: KakaoRoom }) {
       <button onClick={back} aria-label="채팅 목록으로" className="rounded-full p-2 hover:bg-black/10"><ChevronLeft size={23}/></button>
       <div className="min-w-0 flex-1"><h1 className="truncate text-base font-semibold">{roomTitle(room, content.contacts)}</h1><p className="text-[11px] text-[#526475]">{room.type === 'group' ? `${room.memberIds.length + 1}명` : '대화방'}</p></div>
       {room.muted && <BellOff size={17} className="text-[#526475]"/>}
+      {episode.id==='ep03' && room.id!==SELF_ROOM_ID && <button type="button" onClick={()=>goToDate('2026-05-11')} className="shrink-0 rounded-full bg-white/45 px-2 py-1 text-[11px] font-semibold" aria-label="5월 11일 대화로 이동">5/11</button>}
       <button type="button" onClick={() => {setSelectedDate(messageDates.at(-1) ?? '2026-05-01'); setDatePickerOpen(true); setNavigationNotice('')}} aria-label="날짜로 이동" className="rounded-full p-2 hover:bg-black/10"><span className="text-xs font-semibold">날짜</span></button>
       <button type="button" onClick={() => setMediaOpen(true)} aria-label="사진 모아보기" className="rounded-full p-2 hover:bg-black/10"><ImageIcon size={18}/></button>
       <button onClick={()=>setConfirmRoomClear(true)} aria-label="이 채팅방에서 내가 보낸 메시지 초기화" className="rounded-full p-2 hover:bg-black/10"><Trash2 size={18}/></button>
@@ -261,12 +264,13 @@ function RoomView({ room }: { room: KakaoRoom }) {
       {allMessages.map((msg, index) => {
         const date = seoulParts(msg.sentAt)?.day ?? msg.sentAt.slice(0, 10)
         const showTime = index === allMessages.length - 1 || !sameMinuteRun(msg, allMessages[index + 1])
-        const showDate = date !== lastDate
-        lastDate = date
+        const isReaderMessage = readerIds.has(msg.id) || readerReplyIds.has(msg.id)
+        const showDate = !isReaderMessage && date !== lastDate
+        if (!isReaderMessage) lastDate = date
         const mine = msg.from === 'me'
         const showSender = !mine && (index === 0 || !sameMinuteRun(allMessages[index - 1], msg))
         return <div key={`${room.id}-${msg.id}-${index}`} ref={node => { messageRefs.current[index] = node }}>
-          {readerIds.has(msg.id) && <div className="mb-4 flex items-center gap-2" aria-label="여기까지 읽었습니다"><div className="h-px flex-1 bg-[#879bac]/60"/><span className="shrink-0 text-[11px] text-[#536574]">여기까지 읽었습니다</span><div className="h-px flex-1 bg-[#879bac]/60"/></div>}
+          {!isSelfRoom && readerIds.has(msg.id) && <div className="mb-4 flex items-center gap-2" aria-label="여기까지 읽었습니다"><div className="h-px flex-1 bg-[#879bac]/60"/><span className="shrink-0 text-[11px] text-[#536574]">여기까지 읽었습니다</span><div className="h-px flex-1 bg-[#879bac]/60"/></div>}
           {showDate && <div className="mx-auto mb-4 w-fit rounded-full bg-[#879bac]/65 px-3 py-1 text-center text-[11px] text-white">{dateLabel(msg.sentAt)}</div>}
           <div className={`flex items-start gap-2 ${mine ? 'justify-end' : 'justify-start'}`}>
             {!mine && <div className="w-[34px] shrink-0">{showSender && <button aria-label={`${contactName(msg.from, content.contacts)} 프로필 보기`} onClick={() => pushRoute(`profile:${msg.from}`)}><Avatar id={msg.from} size={34}/></button>}</div>}
@@ -365,7 +369,7 @@ function RoomList() {
   },[episode.id,KAKAO_ROOMS])
   const lastForRoom=(room:KakaoRoom):KakaoMessage|undefined=>{
     const replies=listExecutions.flatMap(execution=>execution.actions.flatMap((action,index)=>action.type==='kakao.reply'&&action.roomId===room.id&&(listReplyDelivered.includes(`${execution.id}:${index}`)||listDelivered.includes(execution.id))?[{id:`event-reply:${execution.id}:${index}`,from:action.from,text:action.text||'',...('image' in action&&typeof action.image==='string'?{image:action.image}:{}),sentAt:execution.executedAt} as KakaoMessage]:[]))
-    return [...room.messages,...(readerSent[room.id]??[]),...replies].sort((a,b)=>a.sentAt.localeCompare(b.sentAt)).at(-1)
+    return room.id === SELF_ROOM_ID ? ((readerSent[room.id]??[]).at(-1) ?? room.messages.at(-1)) : [...room.messages,...(readerSent[room.id]??[]),...replies].sort((a,b)=>a.sentAt.localeCompare(b.sentAt)).at(-1)
   }
   const rooms = [...KAKAO_ROOMS].sort((a,b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || (lastForRoom(b)?.sentAt ?? '').localeCompare(lastForRoom(a)?.sentAt ?? ''))
   const filtered = rooms.filter(room => `${roomTitle(room, content.contacts)} ${room.messages.map(m=>m.text||'').join(' ')}`.toLowerCase().includes(query.toLowerCase()))
@@ -468,6 +472,7 @@ function ProfileDetail({ contactId }: { contactId: string }) {
       <button onClick={()=>avatar&&setZoom(true)} className="overflow-hidden rounded-[38%]">{isMulti ? (multi?.avatar ? <img src={multi.avatar} alt="멀티프로필 사진" className="h-24 w-24 object-cover" onError={e => { e.currentTarget.style.display='none' }}/> : <span className="flex h-24 w-24 items-center justify-center bg-[#a7d9fa]"><UserRound size={52}/></span>) : <Avatar id={contactId} size={96}/>}</button>
       <h2 className="mt-4 text-xl font-semibold">{name}</h2><p className="mt-1 min-h-5 text-center text-sm text-white/90">{status}</p>
       {isMulti&&<button onClick={()=>pushRoute('multi-profiles')} className="mt-5 w-full rounded-xl border border-white/50 bg-white/15 py-3 text-sm">친구 관리 · 멀티프로필 편집</button>}
+      {!isMulti&&contactId==='me'&&content.kakaoRooms.some(r=>r.id===SELF_ROOM_ID)&&<button type="button" onClick={()=>pushRoute(`room:${SELF_ROOM_ID}`)} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl border border-white/50 bg-white/15 py-3 text-sm font-medium"><MessageCircle size={18}/>나와의 채팅</button>}
       {!isMulti&&contactId!=='me'&&directRoom&&canOpenKakaoRoom(directRoom)&&<button onClick={()=>pushRoute(`room:${directRoom.id}`)} className="mt-5 rounded-full border border-white/50 bg-white/15 px-6 py-2 text-sm">1:1 채팅</button>}
     </div>
     {zoom&&avatar&&<div className="absolute inset-0 z-50 flex items-center justify-center bg-black/95 p-5"><button onClick={()=>setZoom(false)} className="absolute right-4 top-4"><X/></button><img src={avatar} alt="프로필 사진 확대" className="max-h-[80%] max-w-full object-contain"/></div>}

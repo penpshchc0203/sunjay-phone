@@ -1,7 +1,8 @@
 'use client'
 
-import { Lock, LockOpen } from 'lucide-react'
-import { useRef } from 'react'
+import { ChevronUp, Lock, LockOpen } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { LockNotificationHistory } from './lock-notification-history'
 import { formatDate, formatTime, useNow } from '@/hooks/use-now'
 import { APPS } from '@/lib/phone/apps'
 import { CHARACTER } from '@/config/character'
@@ -14,6 +15,8 @@ import { usePhoneEvents,eventNotifications } from './event-provider'
 
 export function LockScreen() {
   const now = useNow()
+  const [historyOpen,setHistoryOpen] = useState(false)
+  const historyGesture = useRef<{x:number;y:number}|null>(null)
   const { notifications, openNotification } = useNotifications()
   const { unlock, openApp,pushRoute } = usePhone()
   const {executions,deliveredIds,notificationReadIds,notificationDismissedIds,markEventNotificationRead}=usePhoneEvents()
@@ -26,7 +29,7 @@ export function LockScreen() {
   return (
     <section
       aria-label="잠금 화면"
-      className="flex h-full min-h-0 flex-col overflow-hidden px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+      className="relative flex h-full min-h-0 flex-col overflow-hidden px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
       style={{ color: DESIGN.lockScreen.textColor }}
     >
       <div className="flex shrink-0 flex-col items-center pt-5 sm:pt-8">
@@ -67,6 +70,15 @@ export function LockScreen() {
         ))}
       </ul>
 
+      <div className="flex shrink-0 justify-center py-2">
+        <button type="button" aria-label="알림 기록 열기" onClick={()=>setHistoryOpen(true)}
+          onTouchStart={e=>{const t=e.touches[0];if(t)historyGesture.current={x:t.clientX,y:t.clientY}}}
+          onTouchEnd={e=>{const t=e.changedTouches[0],v=historyGesture.current;historyGesture.current=null;if(t&&v&&v.y-t.clientY>35&&Math.abs(v.x-t.clientX)<90){e.stopPropagation();setHistoryOpen(true)}}}
+          onMouseDown={e=>{historyGesture.current={x:e.clientX,y:e.clientY}}}
+          onMouseUp={e=>{const v=historyGesture.current;historyGesture.current=null;if(v&&v.y-e.clientY>35&&Math.abs(v.x-e.clientX)<90)setHistoryOpen(true)}}
+          className="flex h-12 w-20 touch-none items-center justify-center rounded-3xl bg-white/20 text-white shadow-sm backdrop-blur-md"
+        ><ChevronUp size={35} strokeWidth={3}/></button>
+      </div>
       <div className="mt-auto flex shrink-0 flex-col items-center gap-2 border-t border-white/10 pt-3 pb-1"
         onTouchStart={(event) => {
           const touch = event.touches[0]
@@ -88,6 +100,7 @@ export function LockScreen() {
           잠금 해제
         </button>
       </div>
+      {historyOpen && <LockNotificationHistory onClose={()=>setHistoryOpen(false)}/>}
     </section>
   )
 }

@@ -76,7 +76,7 @@ function BrowserSession() {
 
   const history = useMemo(() => {
     const byQuery = new Map<string, BrowserSearchEntry>()
-    for (const item of [...(content.browserSearches ?? []), ...store.added]) {
+    for (const item of (content.browserSearches ?? [])) {
       if (!item?.query || store.removed.includes(item.id)) continue
       const query = item.query.trim().toLocaleLowerCase()
       const previous = byQuery.get(query)
@@ -99,7 +99,7 @@ function BrowserSession() {
   const search = (term: string) => {
     const query = term.trim()
     if (!query) return
-    setStore(prev => ({ ...prev, added: [...prev.added, { id: `reader-${Date.now()}-${Math.random().toString(36).slice(2)}`, query, searchedAt: storySearchTimestamp() }] }))
+    // Search works without storing new history; the list comes from JSON only.
     setInput(query)
     setSearchTerm(query)
     setDetail(null)

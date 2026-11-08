@@ -1,7 +1,8 @@
 import ep02 from './ep02.json'
+import ep03 from './ep03.json'
 import entryCall from './entry-call-ep02.json'
 import type { CallDialogue } from '@/components/phone/call-experience'
-const sources:Record<string,{dialogues:CallDialogue[]}>={ep02:ep02 as {dialogues:CallDialogue[]}}
+const sources:Record<string,{dialogues:CallDialogue[]}>={ep02:ep02 as {dialogues:CallDialogue[]},ep03:ep03 as {dialogues:CallDialogue[]}}
 export const getCallDialogues=(episodeId:string):CallDialogue[]=>{
  const existing=sources[episodeId]?.dialogues??[]
  if(episodeId!=='ep02')return existing

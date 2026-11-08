@@ -24,7 +24,15 @@ export function NotificationProvider({children}:{children:ReactNode}) {
   const phone = usePhone()
   const { episode, content } = useEpisode()
   const storageKey = episodeStorageKey(STORAGE, episode.id)
-  const initial = useMemo(() => getInitialNotifications(content), [content])
+  const initial = useMemo(() => {
+    const items = getInitialNotifications(content)
+    // The initial notification generator may still report a historical missed
+    // call even when its source record has already been checked.
+    const hasUncheckedMissedCall = content.calls.some(call => call.type === 'missed' && call.checked === false)
+    return items.filter(item =>
+      !(item.appId === 'phone' && /부재중/.test(`${item.title} ${item.body}`) && !hasUncheckedMissedCall)
+    )
+  }, [content])
   const [saved,setSaved] = useState<Saved>({readIds:[],dismissedIds:[]})
   const [ready,setReady] = useState(false)
   const [open,setOpen] = useState(false)

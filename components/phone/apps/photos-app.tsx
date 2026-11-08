@@ -3,11 +3,18 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { ArrowLeft, ChevronLeft, ChevronRight, Heart, Home, ImageOff, Info, LockKeyhole, RotateCcw, Search, Trash2, X, EyeOff, FolderOpen, Images, Check, MoreHorizontal, Video, Settings2, Image as ImageIcon, Album as AlbumIcon, Menu as MenuIcon, Plus, Camera } from 'lucide-react'
 import type { Photo } from '@/lib/phone/content-types'
+import photoDetailsEp02 from '@/content/photos/details-ep02.json'
+import photoDetailsEp03 from '@/content/photos/details-ep03.json'
 import { useEpisodeProgress } from '../use-episode-progress'
 import { useEpisode, episodeStorageKey } from '../episode-provider'
 import { usePhone } from '../phone-provider'
 
 const STORE_KEY = 'virtual-phone:photos:v1'
+type PhotoDetail = { fileName?:string; fileSize?:string; resolution?:string; device?:string; lens?:string; cameraSettings?:string; storagePath?:string; locationName?:string; address?:string; mapImage?:string }
+const photoDetails = (photoId:string, episodeId:string): PhotoDetail => {
+  const details = {...(photoDetailsEp02 as Record<string,PhotoDetail>), ...(episodeId === 'ep03' ? photoDetailsEp03 as Record<string,PhotoDetail> : {})}
+  return episodeId === 'ep01' ? {} : details[photoId] ?? {}
+}
 type Saved = { favorites: Record<string,boolean>; hidden: Record<string,boolean>; deleted: string[]; purged: string[] }
 const emptySaved = (): Saved => ({favorites:{},hidden:{},deleted:[],purged:[]})
 type Section = 'library' | 'albums' | 'favorites' | 'hidden' | 'deleted' | 'album'
@@ -41,6 +48,8 @@ export function PhotosApp() {
   const [passwordInput,setPasswordInput] = useState('')
   const [passwordError,setPasswordError] = useState(false)
   const touchX = useRef<number|null>(null)
+  const touchY = useRef<number|null>(null)
+  const detailsTouch = useRef(false)
   useEffect(()=>{setReady(false);setSaved(emptySaved());setPassword('');try { const data=localStorage.getItem(store_key); if(data) {const parsed=JSON.parse(data);setSaved({...emptySaved(),...parsed})} const pass=localStorage.getItem(`${store_key}:password`);if(pass)setPassword(pass)}catch{} setReady(true)},[store_key])
   useEffect(()=>{if(ready)try{localStorage.setItem(store_key,JSON.stringify(saved))}catch{}},[saved,ready])
   const update = (fn:(v:Saved)=>Saved) => setSaved(fn)
@@ -55,6 +64,7 @@ export function PhotosApp() {
   const candidate = section==='deleted' ? photos.filter(p=>isDeleted(p.id)&&!isPurged(p.id)) : section==='hidden' ? active.filter(isHidden) : section==='favorites' ? visible.filter(isFavorite) : section==='album' ? visible.filter(p=>albumsOf(p).includes(album)) : visible
   const shown = candidate.filter(p=>`${p.alt} ${p.description||''} ${p.location||''}`.toLowerCase().includes(search.toLowerCase()))
   const current = photos.find(p=>p.id===selected)
+  const currentDetail = current ? photoDetails(current.id,episode.id) : {}
   const selectedIndex = shown.findIndex(p=>p.id===selected)
   const move = (delta:number)=>{if(selectedIndex<0||!shown.length)return;setSelected(shown[(selectedIndex+delta+shown.length)%shown.length].id);setShowInfo(false)}
   const goBack = () => {if(selected){setSelected(null);setShowInfo(false)}else if(section==='album'){setSection('albums');setSearch('')}else if(section!=='library'){setSection('library');setSearch('')}else back()}
@@ -95,10 +105,26 @@ export function PhotosApp() {
       <GalleryTab icon={<MenuIcon size={26} strokeWidth={2.1}/>} label="메뉴" active={menuOpen||['favorites','hidden','deleted'].includes(section)} onClick={()=>setMenuOpen(v=>!v)}/>
     </nav>
     {menuOpen&&<div className="absolute bottom-24 left-4 right-4 z-30 grid grid-cols-3 gap-3 rounded-[30px] bg-white/95 p-5 shadow-xl">{([{id:"favorites",label:"즐겨찾기",icon:<Heart/>},{id:"hidden",label:"비공개 앨범",icon:<LockKeyhole/>},{id:"deleted",label:"휴지통",icon:<Trash2/>}] as const).map(item=><button key={item.id} onClick={()=>{setSectionTo(item.id);setMenuOpen(false)}} className="flex flex-col items-center gap-3 text-xs"><span className="rounded-full bg-zinc-100 p-4">{item.icon}</span>{item.label}</button>)}</div>}
-    {current&&<div role="dialog" aria-modal="true" aria-label="사진 상세" className="absolute inset-0 z-50 flex flex-col bg-black text-white" onTouchStart={e=>{touchX.current=e.touches[0]?.clientX??null}} onTouchEnd={e=>{if(touchX.current===null)return;const dx=(e.changedTouches[0]?.clientX??touchX.current)-touchX.current;if(Math.abs(dx)>45)move(dx<0?1:-1);touchX.current=null}}>
+    {current&&<div role="dialog" aria-modal="true" aria-label="사진 상세" className="absolute inset-0 z-50 flex flex-col bg-black text-white" onTouchStart={e=>{touchX.current=e.touches[0]?.clientX??null;touchY.current=e.touches[0]?.clientY??null;detailsTouch.current=Boolean((e.target as HTMLElement).closest('[data-photo-details]'))}} onTouchEnd={e=>{if(touchX.current===null||touchY.current===null)return;const dx=(e.changedTouches[0]?.clientX??touchX.current)-touchX.current;const dy=(e.changedTouches[0]?.clientY??touchY.current)-touchY.current;if(!detailsTouch.current&&Math.abs(dy)>65&&Math.abs(dy)>Math.abs(dx)*1.25){setShowInfo(dy<0)}else if(!showInfo&&!detailsTouch.current&&Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.25){move(dx<0?1:-1)}touchX.current=null;touchY.current=null;detailsTouch.current=false}}>
       <header className="flex h-14 shrink-0 items-center gap-2 px-3"><button aria-label="사진 닫기" onClick={()=>{setSelected(null);setShowInfo(false)}} className="rounded-full p-2"><X/></button><div className="min-w-0 flex-1"><p className="text-sm">{dateName(current.takenAt)}</p><p className="text-xs text-white/60">{current.takenAt.split('T')[1]||''}</p></div><button aria-label="사진 정보" onClick={()=>setShowInfo(v=>!v)} className="p-2"><Info/></button></header>
-      <div className="relative flex min-h-0 flex-1 items-center justify-center"><PhotoViewer photo={current}/>{shown.length>1&&<><button onClick={()=>move(-1)} aria-label="이전 사진" className="absolute left-1 top-1/2 rounded-full bg-black/50 p-2"><ChevronLeft/></button><button onClick={()=>move(1)} aria-label="다음 사진" className="absolute right-1 top-1/2 rounded-full bg-black/50 p-2"><ChevronRight/></button></>}</div>
-      {showInfo&&<div className="max-h-40 overflow-y-auto bg-zinc-900 px-4 py-3 text-xs leading-6"><p>{current.alt||'사진'}</p>{current.description&&<p>{current.description}</p>}<p>촬영: {current.takenAt.replace('T',' ')}</p>{current.location&&<p>위치: {current.location}</p>}{albumsOf(current).length>0&&<p>앨범: {albumsOf(current).join(', ')}</p>}</div>}
+      <div className="relative flex min-h-0 flex-1 items-center justify-center"><PhotoViewer photo={current}/>{!showInfo&&<button type="button" onClick={()=>setShowInfo(true)} className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-3 py-1 text-[11px] text-white/90">위로 밀어 상세 정보</button>}{shown.length>1&&<><button onClick={()=>move(-1)} aria-label="이전 사진" className="absolute left-1 top-1/2 rounded-full bg-black/50 p-2"><ChevronLeft/></button><button onClick={()=>move(1)} aria-label="다음 사진" className="absolute right-1 top-1/2 rounded-full bg-black/50 p-2"><ChevronRight/></button></>}</div>
+      {showInfo&&<div data-photo-details className="max-h-[62%] shrink-0 overflow-y-auto overscroll-contain rounded-t-[22px] bg-[#fafafa] px-4 pb-5 pt-3 text-zinc-900 shadow-[0_-8px_24px_rgba(0,0,0,0.2)]">
+        <button type="button" onClick={()=>setShowInfo(false)} aria-label="사진 정보 닫기" className="mx-auto mb-4 block h-1 w-11 rounded-full bg-zinc-300"/>
+        <p className="text-[15px] font-semibold">{current.takenAt.slice(0,10).replace(/-/g,'. ')} · {current.takenAt.slice(11,16)}</p>
+        <p className="mt-2 break-all text-[13px] text-zinc-500">{currentDetail.fileName || current.src.split('/').pop()}</p>
+        {currentDetail.storagePath&&<p className="mt-1 break-all text-[12px] text-zinc-500">{currentDetail.storagePath}</p>}
+        {(currentDetail.device||currentDetail.lens||currentDetail.fileSize||currentDetail.resolution||currentDetail.cameraSettings)&&<div className="mt-5 space-y-1 text-[13px]">
+          {currentDetail.device&&<p className="font-semibold">{currentDetail.device}</p>}
+          {currentDetail.lens&&<p className="text-zinc-500">{currentDetail.lens}</p>}
+          {(currentDetail.fileSize||currentDetail.resolution)&&<p className="text-zinc-500">{[currentDetail.fileSize,currentDetail.resolution].filter(Boolean).join('  |  ')}</p>}
+          {currentDetail.cameraSettings&&<p className="text-zinc-500">{currentDetail.cameraSettings}</p>}
+        </div>}
+        {(currentDetail.mapImage||currentDetail.locationName||currentDetail.address||current.location)&&<div className="mt-5 overflow-hidden rounded-xl bg-zinc-100">
+          {currentDetail.mapImage&&<img src={currentDetail.mapImage} alt="사진에 지정된 위치 지도" className="w-full object-cover"/>}
+          <p className="px-3 py-2 text-[13px]">{currentDetail.address||currentDetail.locationName||current.location}</p>
+        </div>}
+        {albumsOf(current).length>0&&<p className="mt-4 text-[12px] text-zinc-500">앨범: {albumsOf(current).join(', ')}</p>}
+      </div>}
       <footer className="flex shrink-0 justify-around border-t border-white/15 bg-zinc-950 px-2 py-3">
         {section==='deleted' ? <><Action icon={<RotateCcw/>} label="복원" onClick={()=>restore(current.id)}/><Action icon={<Trash2/>} label="완전 삭제" onClick={()=>purge(current.id)}/></> : <><Action icon={<Heart fill={isFavorite(current)?'#f43f5e':'none'} color={isFavorite(current)?'#f43f5e':'white'}/>} label="즐겨찾기" onClick={()=>toggleFavorite(current)}/><Action icon={isHidden(current)?<Check/>:<EyeOff/>} label={isHidden(current)?'숨김 해제':'숨기기'} onClick={()=>toggleHidden(current)}/><Action icon={<Trash2/>} label="삭제" onClick={()=>deletePhoto(current.id)}/></>}
       </footer>

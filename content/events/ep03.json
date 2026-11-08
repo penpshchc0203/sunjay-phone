@@ -1,3 +1,333 @@
 {
-  "events": []
+  "events": [
+    {
+      "id": "auto-selfie",
+      "enabled": true,
+      "repeat": "always",
+      "trigger": {
+        "type": "kakao.send",
+        "roomId": "kakao-user",
+        "keyword": "셀카보내줘",
+        "keywords": [
+          "사진보내줘",
+          "얼굴보여줘",
+          "셀카좀",
+          "셀카줘",
+          "얼굴 보고싶다",
+          "얼굴 보고 싶다",
+          "얼굴 보고싶어",
+          "얼굴 보고 싶어",
+          "얼굴 보여줘",
+          "셀카보내줘",
+          "셀카 보내줘",
+          "셀카 좀 보내줘",
+          "사진 보내줘",
+          "사진 좀 보내줘",
+          "사진 보여줘",
+          "얼굴 좀 보여줘",
+          "셀카 찍어줘",
+          "너 보고싶어",
+          "너 보고 싶어",
+          "선우 보고싶어",
+          "선우 보고 싶어"
+        ]
+      },
+      "actions": [
+        {
+          "type": "kakao.reply",
+          "roomId": "kakao-user",
+          "from": "user",
+          "text": "",
+          "image": "/sunjay-phone/images/kakao/ep03/sw_selfie_default.jpg"
+        },
+        {
+          "type": "kakao.reply",
+          "roomId": "kakao-user",
+          "from": "user",
+          "text": "웅 요기! ㅎㅎ"
+        },
+        {
+          "type": "notification",
+          "appId": "kakao",
+          "title": "선우♡",
+          "body": "웅 요기! ㅎㅎ",
+          "targetId": "kakao-user"
+        }
+      ],
+      "timeRanges": {
+        "morning": {
+          "start": "08:00",
+          "end": "11:59"
+        },
+        "lunch": {
+          "start": "12:00",
+          "end": "13:59"
+        },
+        "afternoon": {
+          "start": "14:00",
+          "end": "17:59"
+        },
+        "evening": {
+          "start": "18:00",
+          "end": "18:59"
+        },
+        "night": {
+          "start": "19:00",
+          "end": "23:59"
+        }
+      },
+      "timeResponses": {
+        "morning": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "아침부터 무슨 사진 ~~~ㅎㅎ"
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "ㅎ 이번만 준다",
+            "delayMs": 700
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "",
+            "image": "/sunjay-phone/images/kakao/ep03/sw_selfie_morning.jpg",
+            "delayMs": 900
+          }
+        ],
+        "lunch": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "ㅋㅋㅋ 알겠오 잠시만"
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "",
+            "image": "/sunjay-phone/images/kakao/ep03/sw_selfie_lunch.jpg",
+            "delayMs": 900
+          }
+        ],
+        "afternoon": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "",
+            "image": "/sunjay-phone/images/kakao/ep03/sw_selfie_afternoon.jpg"
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "형도 보내줘 ㅎ",
+            "delayMs": 900
+          }
+        ],
+        "evening": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "시룬데~~~"
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "ㅎㅎ 기다려바",
+            "delayMs": 900
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "",
+            "image": "/sunjay-phone/images/kakao/ep03/sw_selfie_evening.jpg",
+            "delayMs": 900
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "집가는중 ㅎ",
+            "delayMs": 900
+          }
+        ],
+        "night": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "",
+            "image": "/sunjay-phone/images/kakao/ep03/sw_selfie_night.jpg",
+            "delayMs": 900
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "ㅎ 아까랑 비슷한거같지?",
+            "delayMs": 900
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "정답 ~~ㅎㅎ",
+            "delayMs": 1200
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "지금 모델링팩 하는중이라",
+            "delayMs": 2000
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "슈렉이야 ㅠㅎ",
+            "delayMs": 1200
+          }
+        ]
+      }
+    },
+    {
+      "id": "auto-what",
+      "enabled": true,
+      "repeat": "always",
+      "trigger": {
+        "type": "kakao.send",
+        "roomId": "kakao-user",
+        "keyword": "뭐해",
+        "keywords": [
+          "머해", "뭐하고있어", "머하고있어", "뭐하나", "머하나", "뭐할려나", "뭐하고있어", "머하고있어"
+        ]
+      },
+      "actions": [
+        {
+          "type": "kakao.reply",
+          "roomId": "kakao-user",
+          "from": "user",
+          "text": "형이 나 언제만나주나~~ 생각중 ㅎ"
+        },
+        {
+          "type": "notification",
+          "appId": "kakao",
+          "title": "선우♡",
+          "body": "형이 나 언제만나주나~~ 생각중 ㅎ",
+          "targetId": "kakao-user"
+        }
+      ],
+      "timeRanges": {
+        "morning": {
+          "start": "08:00",
+          "end": "11:59"
+        },
+        "lunch": {
+          "start": "12:00",
+          "end": "13:59"
+        },
+        "afternoon": {
+          "start": "14:00",
+          "end": "17:59"
+        },
+        "evening": {
+          "start": "18:00",
+          "end": "18:59"
+        },
+        "night": {
+          "start": "19:00",
+          "end": "23:59"
+        }
+      },
+      "timeResponses": {
+        "morning": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "나 이제 일어났어 ㅠ"
+          },
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "피곤하당",
+            "delayMs": 700
+          }
+        ],
+        "lunch": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "이제 점심 먹을라구 ㅎ"
+          }
+        ],
+        "afternoon": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "형 생각중 ㅎㅎ"
+          }
+        ],
+        "evening": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "형이 나 언제만나주나~~ 생각중 ㅎ"
+          }
+        ],
+        "night": [
+          {
+            "type": "kakao.reply",
+            "roomId": "kakao-user",
+            "from": "user",
+            "text": "누워있오! ㅎ 형은?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "auto-miss",
+      "enabled": true,
+      "repeat": "always",
+      "trigger": {
+        "type": "kakao.send",
+        "roomId": "kakao-user",
+        "keyword": "보고싶다",
+        "keywords": [
+          "보고싶다", "보고싶네", "보고 싶다", "보고 싶네"
+        ]
+      },
+      "actions": [
+        {
+          "type": "kakao.reply",
+          "roomId": "kakao-user",
+          "from": "user",
+          "text": "나두나두 ㅠㅠ"
+        },
+        {
+          "type": "notification",
+          "appId": "kakao",
+          "title": "선우♡",
+          "body": "나두나두 ㅠㅠ",
+          "targetId": "kakao-user"
+        }
+      ]
+    }
+  ]
 }

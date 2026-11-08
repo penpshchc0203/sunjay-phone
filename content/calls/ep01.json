@@ -175,7 +175,8 @@
       "id": "call-14",
       "unknownNumber": "070-XXXX-4507",
       "type": "missed",
-      "calledAt": "2026-04-17T13:02"
+      "calledAt": "2026-04-17T13:02",
+      "checked": true
     },
     {
       "id": "call-15",

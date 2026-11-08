@@ -1,5 +1,1463 @@
 {
-  "kakaoRooms": [],
+  "kakaoRooms": [
+    {
+      "id": "kakao-self",
+      "type": "direct",
+      "title": "박종성",
+      "memberIds": [
+        "me"
+      ],
+      "pinned": false,
+      "messages": [
+        {
+          "id": "self-ep03-0511",
+          "from": "me",
+          "sentAt": "2026-05-11T23:15",
+          "text": "선우 어디 아픈건 아니지?\n좀 오바인가 싶긴 한데 연락 안되니까 걱정되는건 어쩔 수가 없네..\n부재중 여러개 찍혀있어서 놀래는건 아닌가 모르겠다\n걱정되서 그랬어ㅜ 괜찮으면 톡 하나만 남겨줘"
+        },
+        {
+          "id": "self-ep03-0511f",
+          "from": "me",
+          "sentAt": "2026-05-11T23:18",
+          "text": "선우 어디 아픈건 아니지?\n좀 과한가 싶긴 한데 연락 안되니까 걱정되는건 어쩔 수가 없네..\n부재중 여러개 찍혀있어서 놀래는건 아닌가 모르겠다\n걱정되서 그랬어 미안해\n괜찮으면 톡 하나만 남겨줘"
+        },
+        {
+          "id": "self-ep03-0512",
+          "from": "me",
+          "sentAt": "2026-05-12T22:46",
+          "text": "바빴다니까 이해는 하는데\n약속도 취소하고 왜 그런지는 설명을 안해주니까 조금 서운하긴 해\n아직 사귀는 사이도 아닌데 이러는게 부담스러울려나\n"
+        },
+        {
+          "id": "self-ep03-0512f",
+          "from": "me",
+          "sentAt": "2026-05-12T22:50",
+          "text": "바빴다니까 당연히 이해는 하는데\n약속도 취소하고 이유에 대해선 말을 안해주니까 조금 서운하긴 해\n아직 사귀는 사이도 아닌데 이러는게 부담스러울려나..\n연락 기다릴게"
+        },
+        {
+          "id": "self-ep03-0513ff",
+          "from": "me",
+          "sentAt": "2026-05-13T22:59",
+          "text": "선우야 혹시 내가 싫어진거야?\n혼자 기다리자니 별 생각을 다 하게되네"
+        },
+        {
+          "id": "self-ep03-0513",
+          "from": "me",
+          "sentAt": "2026-05-13T23:07",
+          "text": "선우야 혹시 내가 싫어진거면 그냥 말해줘도 돼\n혼자 기다리자니 별 생각을 다 하게돼...\n나는 너랑 계속 알아가고 싶은데 너 마음이 그렇다면 어쩌겠어 그냥 솔직히 말해줘도 돼"
+        },
+        {
+          "id": "self-ep03-0513f",
+          "from": "me",
+          "sentAt": "2026-05-13T23:15",
+          "text": "선우야 혹시 나한테 마음이 식은거면 그냥 말해줘도 돼 나는 괜찮아\n나는 너랑 계속 알아가고 싶은데 너 마음이 그렇다면 어쩌겠어 그냥 솔직히 말해줘도 돼 진짜 괜찮으니까"
+        },
+        {
+          "id": "self-ep03-0514-a",
+          "from": "me",
+          "sentAt": "2026-05-14T20:50",
+          "text": "선우야 혹시 내가 너한테 뭔가 잘못한게 있어? 대화로 풀 수 있는 거라면 풀고싶은데\n그냥 나를 피하는 것 같아\n뭐라도 말을 해주면 좋겠는데 마음이 정말 답답하네...내가 어떻게 하면 좋을지 잘 모르겠어"
+        },
+        {
+          "id": "self-ep03-0514-b",
+          "from": "me",
+          "sentAt": "2026-05-14T20:57",
+          "text": "선우야 혹시 뭔가 나한테 섭섭한게 있어? 마음이 식은게 아니라면 대화로 풀고 싶은데\n그냥 너랑 대화를 하고싶어"
+        }
+      ]
+    },
+    {
+      "id": "kakao-user",
+      "messages": [
+        {
+          "id": "ep03-sw-11-001",
+          "from": "me",
+          "text": "선우야 잘 잤어?",
+          "sentAt": "2026-05-11T08:12"
+        },
+        {
+          "id": "ep03-sw-11-002",
+          "from": "me",
+          "text": "오늘 수업 있어?",
+          "sentAt": "2026-05-11T09:46"
+        },
+        {
+          "id": "ep03-sw-11-003",
+          "from": "me",
+          "text": "밥은 먹었어?",
+          "sentAt": "2026-05-11T12:38"
+        },
+        {
+          "id": "ep03-sw-11-004",
+          "from": "me",
+          "text": "선우야",
+          "sentAt": "2026-05-11T15:27"
+        },
+        {
+          "id": "ep03-sw-11-005",
+          "from": "me",
+          "text": "바쁜가 보네",
+          "sentAt": "2026-05-11T15:29"
+        },
+        {
+          "id": "ep03-sw-11-006",
+          "from": "me",
+          "text": "전화했는데 안 받길래",
+          "sentAt": "2026-05-11T18:41"
+        },
+        {
+          "id": "ep03-sw-11-007",
+          "from": "me",
+          "text": "무슨 일 있는 건 아니지?",
+          "sentAt": "2026-05-11T18:42"
+        },
+        {
+          "id": "ep03-sw-11-008",
+          "from": "me",
+          "text": "연락 좀 줘 걱정돼",
+          "sentAt": "2026-05-11T21:13"
+        },
+        {
+          "id": "ep03-sw-11-009",
+          "from": "me",
+          "text": "늦었는데 괜찮은 거 맞지?",
+          "sentAt": "2026-05-11T23:06"
+        },
+        {
+          "id": "ep03-sw-12-010",
+          "from": "user",
+          "text": "형",
+          "sentAt": "2026-05-12T08:36"
+        },
+        {
+          "id": "ep03-sw-12-011",
+          "from": "user",
+          "text": "어제 연락 못 해서 미안해 ㅠㅠ",
+          "sentAt": "2026-05-12T08:36"
+        },
+        {
+          "id": "ep03-sw-12-012",
+          "from": "user",
+          "text": "정신이 하나도 없었어",
+          "sentAt": "2026-05-12T08:37"
+        },
+        {
+          "id": "ep03-sw-12-013",
+          "from": "me",
+          "text": "선우야 괜찮아?",
+          "sentAt": "2026-05-12T08:42"
+        },
+        {
+          "id": "ep03-sw-12-014",
+          "from": "me",
+          "text": "어디 아픈 줄 알았어",
+          "sentAt": "2026-05-12T08:42"
+        },
+        {
+          "id": "ep03-sw-12-015",
+          "from": "user",
+          "text": "아픈 건 아니야",
+          "sentAt": "2026-05-12T08:44"
+        },
+        {
+          "id": "ep03-sw-12-016",
+          "from": "user",
+          "text": "진짜 미안해 걱정했지",
+          "sentAt": "2026-05-12T08:44"
+        },
+        {
+          "id": "ep03-sw-12-017",
+          "from": "me",
+          "text": "응 좀 많이",
+          "sentAt": "2026-05-12T08:46"
+        },
+        {
+          "id": "ep03-sw-12-018",
+          "from": "me",
+          "text": "무슨 일 있었어?",
+          "sentAt": "2026-05-12T08:47"
+        },
+        {
+          "id": "ep03-sw-12-019",
+          "from": "user",
+          "text": "그냥 일이 좀 있었어",
+          "sentAt": "2026-05-12T08:51"
+        },
+        {
+          "id": "ep03-sw-12-020",
+          "from": "user",
+          "text": "아직은 말하기가 좀 그래",
+          "sentAt": "2026-05-12T08:51"
+        },
+        {
+          "id": "ep03-sw-12-021",
+          "from": "me",
+          "text": "알겠어",
+          "sentAt": "2026-05-12T08:55"
+        },
+        {
+          "id": "ep03-sw-12-022",
+          "from": "me",
+          "text": "괜찮으면 됐어",
+          "sentAt": "2026-05-12T08:56"
+        },
+        {
+          "id": "ep03-sw-12-023",
+          "from": "user",
+          "text": "형 근데 우리 오늘 만나기로 한 거",
+          "sentAt": "2026-05-12T12:18"
+        },
+        {
+          "id": "ep03-sw-12-024",
+          "from": "user",
+          "text": "오늘은 못 만날 것 같아 ㅠㅠ",
+          "sentAt": "2026-05-12T12:19"
+        },
+        {
+          "id": "ep03-sw-12-025",
+          "from": "me",
+          "text": "왜?",
+          "sentAt": "2026-05-12T12:22"
+        },
+        {
+          "id": "ep03-sw-12-026",
+          "from": "user",
+          "text": "미안해 진짜",
+          "sentAt": "2026-05-12T12:24"
+        },
+        {
+          "id": "ep03-sw-12-027",
+          "from": "user",
+          "text": "다음에 꼭 보자",
+          "sentAt": "2026-05-12T12:25"
+        },
+        {
+          "id": "ep03-sw-12-028",
+          "from": "me",
+          "text": "응 알겠어",
+          "sentAt": "2026-05-12T12:29"
+        },
+        {
+          "id": "ep03-sw-12-029",
+          "from": "me",
+          "text": "무리하지 말고",
+          "sentAt": "2026-05-12T12:30"
+        },
+        {
+          "id": "ep03-sw-12-030",
+          "from": "user",
+          "text": "형 화났어?",
+          "sentAt": "2026-05-12T12:32"
+        },
+        {
+          "id": "ep03-sw-12-031",
+          "from": "me",
+          "text": "아니 안 났어",
+          "sentAt": "2026-05-12T12:35"
+        },
+        {
+          "id": "ep03-sw-12-032",
+          "from": "me",
+          "text": "그냥 걱정돼서 그래",
+          "sentAt": "2026-05-12T12:36"
+        },
+        {
+          "id": "ep03-sw-13-033",
+          "from": "me",
+          "text": "오늘은 좀 괜찮아?",
+          "sentAt": "2026-05-13T09:17"
+        },
+        {
+          "id": "ep03-sw-13-034",
+          "from": "user",
+          "text": "웅 괜찮아",
+          "sentAt": "2026-05-13T13:48"
+        },
+        {
+          "id": "ep03-sw-13-035",
+          "from": "user",
+          "text": "형은 밥 먹었어?",
+          "sentAt": "2026-05-13T13:49"
+        },
+        {
+          "id": "ep03-sw-13-036",
+          "from": "me",
+          "text": "응 먹었어",
+          "sentAt": "2026-05-13T14:02"
+        },
+        {
+          "id": "ep03-sw-13-037",
+          "from": "me",
+          "text": "너도 챙겨 먹어",
+          "sentAt": "2026-05-13T14:03"
+        },
+        {
+          "id": "ep03-sw-13-038",
+          "from": "user",
+          "text": "웅 ㅎㅎ",
+          "sentAt": "2026-05-13T14:26"
+        },
+        {
+          "id": "ep03-sw-13-039",
+          "from": "me",
+          "text": "잘 자",
+          "sentAt": "2026-05-13T20:34"
+        },
+        {
+          "id": "ep03-sw-14-040",
+          "from": "user",
+          "text": "형 뭐해",
+          "sentAt": "2026-05-14T11:12"
+        },
+        {
+          "id": "ep03-sw-14-041",
+          "from": "me",
+          "text": "일하는 중",
+          "sentAt": "2026-05-14T12:01"
+        },
+        {
+          "id": "ep03-sw-14-042",
+          "from": "user",
+          "text": "아아",
+          "sentAt": "2026-05-14T12:06"
+        },
+        {
+          "id": "ep03-sw-14-043",
+          "from": "user",
+          "text": "밥 챙겨 먹어 ㅎㅎ",
+          "sentAt": "2026-05-14T12:06"
+        },
+        {
+          "id": "ep03-sw-14-044",
+          "from": "me",
+          "text": "너도",
+          "sentAt": "2026-05-14T12:19"
+        },
+        {
+          "id": "ep03-sw-14-045",
+          "from": "me",
+          "text": "선우야",
+          "sentAt": "2026-05-14T20:58"
+        },
+        {
+          "id": "ep03-sw-14-046",
+          "from": "user",
+          "text": "웅 형",
+          "sentAt": "2026-05-14T21:02"
+        },
+        {
+          "id": "ep03-sw-14-047",
+          "from": "me",
+          "text": "나 하나만 물어봐도 돼?",
+          "sentAt": "2026-05-14T21:04"
+        },
+        {
+          "id": "ep03-sw-14-048",
+          "from": "user",
+          "text": "응",
+          "sentAt": "2026-05-14T21:05"
+        },
+        {
+          "id": "ep03-sw-14-049",
+          "from": "me",
+          "text": "나랑 연락 그만하고 싶어?",
+          "sentAt": "2026-05-14T21:07"
+        },
+        {
+          "id": "ep03-sw-14-050",
+          "from": "user",
+          "text": "뭐? 아니",
+          "sentAt": "2026-05-14T21:10"
+        },
+        {
+          "id": "ep03-sw-14-051",
+          "from": "me",
+          "text": "그럼 왜 자꾸 피해",
+          "sentAt": "2026-05-14T21:11"
+        },
+        {
+          "id": "ep03-sw-14-052",
+          "from": "me",
+          "text": "싫어졌으면 싫어졌다고 말 해주면 좋겠어",
+          "sentAt": "2026-05-14T21:12"
+        },
+        {
+          "id": "ep03-sw-14-053",
+          "from": "me",
+          "text": "연락도 안 되고 약속도 취소하고 이유도 안 알려주고",
+          "sentAt": "2026-05-14T21:13"
+        },
+        {
+          "id": "ep03-sw-14-054",
+          "from": "me",
+          "text": "내가 어떻게 생각해야 되는건지 잘 모르겠어",
+          "sentAt": "2026-05-14T21:14"
+        },
+        {
+          "id": "ep03-sw-14-055",
+          "from": "user",
+          "text": "형 미안해 진짜",
+          "sentAt": "2026-05-14T21:18"
+        },
+        {
+          "id": "ep03-sw-14-056",
+          "from": "user",
+          "text": "형 피하려고 그런 거 아니야",
+          "sentAt": "2026-05-14T21:19"
+        },
+        {
+          "id": "ep03-sw-14-057",
+          "from": "user",
+          "text": "집에 일이 좀 생겼어",
+          "sentAt": "2026-05-14T21:21"
+        },
+        {
+          "id": "ep03-sw-14-058",
+          "from": "user",
+          "text": "내가 해결해야 하는 일이 있어서 정신이 없었어",
+          "sentAt": "2026-05-14T21:22"
+        },
+        {
+          "id": "ep03-sw-14-059",
+          "from": "user",
+          "text": "형 괜히 걱정할까봐",
+          "sentAt": "2026-05-14T21:23"
+        },
+        {
+          "id": "ep03-sw-14-059f",
+          "from": "user",
+          "text": "말 못했는데",
+          "sentAt": "2026-05-14T21:23"
+        },
+        {
+          "id": "ep03-sw-14-060",
+          "from": "user",
+          "text": "그러다가 연락을 더 못 하게 됐어",
+          "sentAt": "2026-05-14T21:24"
+        },
+        {
+          "id": "ep03-sw-14-061",
+          "from": "user",
+          "text": "이렇게 될 줄 몰랐어 미안해",
+          "sentAt": "2026-05-14T21:25"
+        },
+        {
+          "id": "ep03-sw-14-062",
+          "from": "me",
+          "text": "그럼 자세힌 아니라도",
+          "sentAt": "2026-05-14T21:29"
+        },
+        {
+          "id": "ep03-sw-14-062f",
+          "from": "me",
+          "text": "말을 해주지..",
+          "sentAt": "2026-05-14T21:29"
+        },
+        {
+          "id": "ep03-sw-14-064",
+          "from": "me",
+          "text": "내가 뭘 잘못했나 계속 생각했어",
+          "sentAt": "2026-05-14T21:31"
+        },
+        {
+          "id": "ep03-sw-14-065",
+          "from": "user",
+          "text": "알아 ㅠㅠ",
+          "sentAt": "2026-05-14T21:34"
+        },
+        {
+          "id": "ep03-sw-14-066",
+          "from": "user",
+          "text": "내가 잘못했어",
+          "sentAt": "2026-05-14T21:34"
+        },
+        {
+          "id": "ep03-sw-14-067",
+          "from": "user",
+          "text": "형 싫어진 거 절대 아니야",
+          "sentAt": "2026-05-14T21:35"
+        },
+        {
+          "id": "ep03-sw-14-068",
+          "from": "me",
+          "text": "알겠어",
+          "sentAt": "2026-05-14T21:38"
+        },
+        {
+          "id": "ep03-sw-14-069",
+          "from": "me",
+          "text": "못되게 말해서 미안해..",
+          "sentAt": "2026-05-14T21:39"
+        },
+        {
+          "id": "ep03-sw-14-070",
+          "from": "user",
+          "text": "아냐 형",
+          "sentAt": "2026-05-14T21:41"
+        },
+        {
+          "id": "ep03-sw-14-070f",
+          "from": "user",
+          "text": "형 입장에선 그럴수있지 나두이해해",
+          "sentAt": "2026-05-14T21:41"
+        },
+        {
+          "id": "ep03-sw-14-071",
+          "from": "user",
+          "text": "여행 내일 가지?",
+          "sentAt": "2026-05-14T21:42"
+        },
+        {
+          "id": "ep03-sw-14-072",
+          "from": "me",
+          "text": "응",
+          "sentAt": "2026-05-14T21:44"
+        },
+        {
+          "id": "ep03-sw-14-073",
+          "from": "user",
+          "text": "조심히 다녀와",
+          "sentAt": "2026-05-14T21:45"
+        },
+        {
+          "id": "ep03-sw-14-074",
+          "from": "me",
+          "text": "응 너도 잘 쉬어",
+          "sentAt": "2026-05-14T21:48"
+        },
+        {
+          "id": "ep03-sw-15-075",
+          "from": "user",
+          "text": "형 출발했어?",
+          "sentAt": "2026-05-15T09:12"
+        },
+        {
+          "id": "ep03-sw-15-076",
+          "from": "user",
+          "text": "어제는 진짜 미안...",
+          "sentAt": "2026-05-15T09:20"
+        },
+        {
+          "id": "ep03-sw-15-077",
+          "from": "user",
+          "text": "여행 즐겁게했음 좋겠다",
+          "sentAt": "2026-05-15T09:20"
+        },
+        {
+          "id": "ep03-sw-15-078",
+          "from": "user",
+          "text": "형 도착했어?",
+          "sentAt": "2026-05-15T12:48"
+        },
+        {
+          "id": "ep03-sw-15-079",
+          "from": "user",
+          "text": "전화했는데 못 받았네 ㅠ",
+          "sentAt": "2026-05-15T15:16"
+        },
+        {
+          "id": "ep03-sw-15-082",
+          "from": "user",
+          "text": "형이랑 얘기하구싶다....ㅠ",
+          "sentAt": "2026-05-15T18:40"
+        },
+        {
+          "id": "ep03-sw-15-083",
+          "from": "me",
+          "text": "지금 봤어",
+          "sentAt": "2026-05-15T22:11"
+        },
+        {
+          "id": "ep03-sw-15-084",
+          "from": "me",
+          "text": "오늘 계속 운전하고 돌아다니느라 정신이 없네",
+          "sentAt": "2026-05-15T22:12"
+        },
+        {
+          "id": "ep03-sw-15-085",
+          "from": "me",
+          "text": "나중에 얘기하자",
+          "sentAt": "2026-05-15T22:13"
+        },
+        {
+          "id": "ep03-sw-15-086",
+          "from": "user",
+          "text": "웅 알겠어",
+          "sentAt": "2026-05-15T22:16"
+        },
+        {
+          "id": "ep03-sw-15-087",
+          "from": "user",
+          "text": "푹 쉬어 형",
+          "sentAt": "2026-05-15T22:17"
+        },
+        {
+          "id": "ep03-sw-16-088",
+          "from": "user",
+          "text": "형 여행 잘하고 있어?",
+          "sentAt": "2026-05-16T09:43"
+        },
+        {
+          "id": "ep03-sw-16-089",
+          "from": "user",
+          "text": "제주도 날씨 좋아?",
+          "sentAt": "2026-05-16T09:44"
+        },
+        {
+          "id": "ep03-sw-16-090",
+          "from": "user",
+          "text": "맛있는 거 먹었어?",
+          "sentAt": "2026-05-16T12:27"
+        },
+        {
+          "id": "ep03-sw-16-091",
+          "from": "user",
+          "text": "형 보고 싶다",
+          "sentAt": "2026-05-16T15:09"
+        },
+        {
+          "id": "ep03-sw-16-092",
+          "from": "me",
+          "text": "응 잘 다니고 있어",
+          "sentAt": "2026-05-16T18:56"
+        },
+        {
+          "id": "ep03-sw-16-093",
+          "from": "me",
+          "text": "밥도 먹었어",
+          "sentAt": "2026-05-16T18:57"
+        },
+        {
+          "id": "ep03-sw-16-094",
+          "from": "user",
+          "text": "ㅎㅎ 다행이다",
+          "sentAt": "2026-05-16T19:04"
+        },
+        {
+          "id": "ep03-sw-16-095",
+          "from": "user",
+          "text": "많이 피곤해?",
+          "sentAt": "2026-05-16T19:05"
+        },
+        {
+          "id": "ep03-sw-16-096",
+          "from": "user",
+          "text": "형",
+          "sentAt": "2026-05-16T21:48"
+        },
+        {
+          "id": "ep03-sw-16-097",
+          "from": "user",
+          "text": "통화 하구싶은데....",
+          "sentAt": "2026-05-16T21:49"
+        },
+        {
+          "id": "ep03-sw-16-098",
+          "from": "user",
+          "text": "목소리 듣구싶다ㅠ",
+          "sentAt": "2026-05-16T21:50"
+        },
+        {
+          "id": "ep03-sw-16-099",
+          "from": "me",
+          "text": "지금 숙소야",
+          "sentAt": "2026-05-16T22:02"
+        },
+        {
+          "id": "ep03-sw-16-100",
+          "from": "me",
+          "text": "전화해",
+          "sentAt": "2026-05-16T22:03"
+        },
+        {
+          "id": "ep03-sw-16-101",
+          "from": "user",
+          "text": "형 고마워",
+          "sentAt": "2026-05-16T23:07"
+        },
+        {
+          "id": "ep03-sw-16-102",
+          "from": "user",
+          "text": "얘기 들어줘서",
+          "sentAt": "2026-05-16T23:08"
+        },
+        {
+          "id": "ep03-sw-16-103",
+          "from": "me",
+          "text": "나도 고마워",
+          "sentAt": "2026-05-16T23:10"
+        },
+        {
+          "id": "ep03-sw-16-104",
+          "from": "me",
+          "text": "잘 자 선우야",
+          "sentAt": "2026-05-16T23:11"
+        },
+        {
+          "id": "ep03-sw-16-105",
+          "from": "user",
+          "text": "웅 형두 잘 자 ㅎㅎ",
+          "sentAt": "2026-05-16T23:12"
+        },
+        {
+          "id": "ep03-sw-17-106",
+          "from": "user",
+          "text": "형 오늘 오지",
+          "sentAt": "2026-05-17T09:27"
+        },
+        {
+          "id": "ep03-sw-17-107",
+          "from": "user",
+          "text": "보고 싶어 ㅎㅎ",
+          "sentAt": "2026-05-17T09:28"
+        },
+        {
+          "id": "ep03-sw-17-108",
+          "from": "me",
+          "text": "나도",
+          "sentAt": "2026-05-17T09:46"
+        },
+        {
+          "id": "ep03-sw-17-109",
+          "from": "me",
+          "text": "저녁 비행기야",
+          "sentAt": "2026-05-17T09:47"
+        },
+        {
+          "id": "ep03-sw-17-110",
+          "from": "user",
+          "text": "조심히 와",
+          "sentAt": "2026-05-17T09:49"
+        },
+        {
+          "id": "ep03-sw-17-111",
+          "from": "user",
+          "text": "도착하면 연락해줘!",
+          "sentAt": "2026-05-17T09:49"
+        },
+        {
+          "id": "ep03-sw-17-112",
+          "from": "user",
+          "text": "형 공항이야?",
+          "sentAt": "2026-05-17T18:21"
+        },
+        {
+          "id": "ep03-sw-17-113",
+          "from": "me",
+          "text": "응 지금 공항",
+          "sentAt": "2026-05-17T18:32"
+        },
+        {
+          "id": "ep03-sw-17-114",
+          "from": "me",
+          "text": "이따 연락할게",
+          "sentAt": "2026-05-17T18:33"
+        },
+        {
+          "id": "ep03-sw-17-115",
+          "from": "user",
+          "text": "웅 기다릴게",
+          "sentAt": "2026-05-17T18:35"
+        },
+        {
+          "id": "ep03-sw-17-116",
+          "from": "me",
+          "text": "김포 도착했어",
+          "sentAt": "2026-05-17T20:46"
+        },
+        {
+          "id": "ep03-sw-17-117",
+          "from": "user",
+          "text": "고생했어 형 ㅠㅠ",
+          "sentAt": "2026-05-17T20:48"
+        },
+        {
+          "id": "ep03-sw-17-118",
+          "from": "user",
+          "text": "전화해도 돼?",
+          "sentAt": "2026-05-17T20:49"
+        },
+        {
+          "id": "ep03-sw-17-119",
+          "from": "me",
+          "text": "응",
+          "sentAt": "2026-05-17T20:51"
+        },
+        {
+          "id": "ep03-sw-17-120",
+          "from": "user",
+          "text": "형 아까 말한 거 진짜야 ㅎㅎ",
+          "sentAt": "2026-05-17T21:18"
+        },
+        {
+          "id": "ep03-sw-17-121",
+          "from": "user",
+          "text": "나갈 준비할게",
+          "sentAt": "2026-05-17T21:19"
+        },
+        {
+          "id": "ep03-sw-17-122",
+          "from": "me",
+          "text": "천천히 나와",
+          "sentAt": "2026-05-17T21:20"
+        },
+        {
+          "id": "ep03-sw-17-123",
+          "from": "me",
+          "text": "내가 갈게",
+          "sentAt": "2026-05-17T21:20"
+        },
+        {
+          "id": "ep03-sw-17-124",
+          "from": "user",
+          "text": "웅 ㅎㅎ",
+          "sentAt": "2026-05-17T21:21"
+        },
+        {
+          "id": "ep03-sw-17-125",
+          "from": "me",
+          "text": "나 앞에 도착했어",
+          "sentAt": "2026-05-17T22:17"
+        },
+        {
+          "id": "ep03-sw-17-126",
+          "from": "user",
+          "text": "헉 나갈게!",
+          "sentAt": "2026-05-17T22:18"
+        }
+      ]
+    },
+    {
+      "id": "kakao-friends",
+      "messages": [
+        {
+          "id": "ep03-bbs-11-001",
+          "from": "me",
+          "text": "야 너네 자냐?",
+          "sentAt": "2026-05-11T21:47"
+        },
+        {
+          "id": "ep03-bbs-11-002",
+          "from": "jake",
+          "text": "왜",
+          "sentAt": "2026-05-11T21:48"
+        },
+        {
+          "id": "ep03-bbs-11-003",
+          "from": "me",
+          "text": "오늘 선우",
+          "sentAt": "2026-05-11T21:49"
+        },
+        {
+          "id": "ep03-bbs-11-004",
+          "from": "me",
+          "text": "하루종일 연락안됨",
+          "sentAt": "2026-05-11T21:49"
+        },
+        {
+          "id": "ep03-bbs-11-005",
+          "from": "me",
+          "text": "카톡도 안보고",
+          "sentAt": "2026-05-11T21:49"
+        },
+        {
+          "id": "ep03-bbs-11-005f",
+          "from": "me",
+          "text": "전화도 안받고",
+          "sentAt": "2026-05-11T21:49"
+        },
+        {
+          "id": "ep03-bbs-11-006",
+          "from": "jake",
+          "text": "아예?",
+          "sentAt": "2026-05-11T21:50"
+        },
+        {
+          "id": "ep03-bbs-11-007",
+          "from": "me",
+          "text": "ㅇㅇ 아침부터",
+          "sentAt": "2026-05-11T21:50"
+        },
+        {
+          "id": "ep03-bbs-11-008",
+          "from": "sunghoon",
+          "text": "무슨 일 생긴 거 아냐?",
+          "sentAt": "2026-05-11T21:51"
+        },
+        {
+          "id": "ep03-bbs-11-008f",
+          "from": "me",
+          "text": "그러게",
+          "sentAt": "2026-05-11T21:51"
+        },
+        {
+          "id": "ep03-bbs-11-009",
+          "from": "me",
+          "text": "미치겠음",
+          "sentAt": "2026-05-11T21:51"
+        },
+        {
+          "id": "ep03-bbs-11-010",
+          "from": "jake",
+          "text": "문자는 해봣어?",
+          "sentAt": "2026-05-11T21:52"
+        },
+        {
+          "id": "ep03-bbs-11-011",
+          "from": "me",
+          "text": "응 보내봄",
+          "sentAt": "2026-05-11T21:52"
+        },
+        {
+          "id": "ep03-bbs-11-012",
+          "from": "sunghoon",
+          "text": "일단 기다려봐",
+          "sentAt": "2026-05-11T21:53"
+        },
+        {
+          "id": "ep03-bbs-11-013",
+          "from": "me",
+          "text": "그래야겠지",
+          "sentAt": "2026-05-11T21:54"
+        },
+        {
+          "id": "ep03-bbs-11-014",
+          "from": "jake",
+          "text": "응 별수 없잖아 그거말곤",
+          "sentAt": "2026-05-11T21:55"
+        },
+        {
+          "id": "ep03-bbs-12-015",
+          "from": "me",
+          "text": "연락왔어",
+          "sentAt": "2026-05-12T13:03"
+        },
+        {
+          "id": "ep03-bbs-12-016",
+          "from": "jake",
+          "text": "오 다행이네",
+          "sentAt": "2026-05-12T13:04"
+        },
+        {
+          "id": "ep03-bbs-12-017",
+          "from": "sunghoon",
+          "text": "뭐래",
+          "sentAt": "2026-05-12T13:04"
+        },
+        {
+          "id": "ep03-bbs-12-018",
+          "from": "me",
+          "text": "바빴대",
+          "sentAt": "2026-05-12T13:05"
+        },
+        {
+          "id": "ep03-bbs-12-019",
+          "from": "me",
+          "text": "근데 무슨일인지는 말안해주고",
+          "sentAt": "2026-05-12T13:05"
+        },
+        {
+          "id": "ep03-bbs-12-020",
+          "from": "me",
+          "text": "오늘 만나기로 한것도 취소함",
+          "sentAt": "2026-05-12T13:06"
+        },
+        {
+          "id": "ep03-bbs-12-021",
+          "from": "jake",
+          "text": "왜 말안헤주지?",
+          "sentAt": "2026-05-12T13:07"
+        },
+        {
+          "id": "ep03-bbs-12-022",
+          "from": "sunghoon",
+          "text": "너 괜찮냐",
+          "sentAt": "2026-05-12T13:08"
+        },
+        {
+          "id": "ep03-bbs-12-023",
+          "from": "me",
+          "text": "괜찮다고 했는데 안괜찮음",
+          "sentAt": "2026-05-12T13:09"
+        },
+        {
+          "id": "ep03-bbs-12-024",
+          "from": "jake",
+          "text": "걱정되겠다",
+          "sentAt": "2026-05-12T13:10"
+        },
+        {
+          "id": "ep03-bbs-12-025",
+          "from": "me",
+          "text": "아니 걱정돼서 어제 잠도 못 잤는데",
+          "sentAt": "2026-05-12T13:11"
+        },
+        {
+          "id": "ep03-bbs-12-026",
+          "from": "me",
+          "text": "아무 설명도 없으니까",
+          "sentAt": "2026-05-12T13:12"
+        },
+        {
+          "id": "ep03-bbs-12-027",
+          "from": "sunghoon",
+          "text": "일단 사정 있다니까 기다려봐야지 뭐",
+          "sentAt": "2026-05-12T13:13"
+        },
+        {
+          "id": "ep03-bbs-12-028",
+          "from": "jake",
+          "text": "저녁에 술 고?",
+          "sentAt": "2026-05-12T13:14"
+        },
+        {
+          "id": "ep03-bbs-12-029",
+          "from": "me",
+          "text": "ㅇㅇ 나 좀 나가야겠어",
+          "sentAt": "2026-05-12T13:15"
+        },
+        {
+          "id": "ep03-bbs-12-030",
+          "from": "sunghoon",
+          "text": "그럼 퇴근하고 보자",
+          "sentAt": "2026-05-12T13:16"
+        },
+        {
+          "id": "ep03-bbs-12-031",
+          "from": "jake",
+          "text": "나 먼저 도착",
+          "sentAt": "2026-05-12T18:02"
+        },
+        {
+          "id": "ep03-bbs-12-032",
+          "from": "me",
+          "text": "10분만",
+          "sentAt": "2026-05-12T18:03"
+        },
+        {
+          "id": "ep03-bbs-13-033",
+          "from": "me",
+          "text": "나 이제 좀 알것같음",
+          "sentAt": "2026-05-13T20:58"
+        },
+        {
+          "id": "ep03-bbs-13-034",
+          "from": "jake",
+          "text": "뭘",
+          "sentAt": "2026-05-13T20:59"
+        },
+        {
+          "id": "ep03-bbs-13-035",
+          "from": "me",
+          "text": "선우 나 싫어진거 같아",
+          "sentAt": "2026-05-13T21:00"
+        },
+        {
+          "id": "ep03-bbs-13-036",
+          "from": "sunghoon",
+          "text": "또 왜",
+          "sentAt": "2026-05-13T21:00"
+        },
+        {
+          "id": "ep03-bbs-13-037",
+          "from": "me",
+          "text": "연락도 거의 없고",
+          "sentAt": "2026-05-13T21:01"
+        },
+        {
+          "id": "ep03-bbs-13-038",
+          "from": "me",
+          "text": "내가 물어보면 대답만 하고 끝",
+          "sentAt": "2026-05-13T21:02"
+        },
+        {
+          "id": "ep03-bbs-13-039",
+          "from": "jake",
+          "text": "어제 사정 있다고 햇다며",
+          "sentAt": "2026-05-13T21:03"
+        },
+        {
+          "id": "ep03-bbs-13-040",
+          "from": "me",
+          "text": "그렇긴한데",
+          "sentAt": "2026-05-13T21:04"
+        },
+        {
+          "id": "ep03-bbs-13-041",
+          "from": "me",
+          "text": "계속 이러니까 나혼자 매달리는것 같음",
+          "sentAt": "2026-05-13T21:04"
+        },
+        {
+          "id": "ep03-bbs-13-042",
+          "from": "sunghoon",
+          "text": "추측으로 결론 내렸다 후회하지 말고",
+          "sentAt": "2026-05-13T21:05"
+        },
+        {
+          "id": "ep03-bbs-13-043",
+          "from": "me",
+          "text": "그냥 이제 연락 먼저 안하려고",
+          "sentAt": "2026-05-13T21:06"
+        },
+        {
+          "id": "ep03-bbs-13-044",
+          "from": "jake",
+          "text": "너 그말 몇번째야 대체",
+          "sentAt": "2026-05-13T21:07"
+        },
+        {
+          "id": "ep03-bbs-13-045",
+          "from": "me",
+          "text": "이번엔 진짜임",
+          "sentAt": "2026-05-13T21:07"
+        },
+        {
+          "id": "ep03-bbs-13-046",
+          "from": "sunghoon",
+          "text": "일단 자라",
+          "sentAt": "2026-05-13T21:08"
+        },
+        {
+          "id": "ep03-bbs-14-047",
+          "from": "me",
+          "text": "나 결국 선우한테 화냈어",
+          "sentAt": "2026-05-14T22:13"
+        },
+        {
+          "id": "ep03-bbs-14-048",
+          "from": "jake",
+          "text": "머라고 햇는데?",
+          "sentAt": "2026-05-14T22:14"
+        },
+        {
+          "id": "ep03-bbs-14-049",
+          "from": "me",
+          "text": "싫어졌으면 말하라고",
+          "sentAt": "2026-05-14T22:15"
+        },
+        {
+          "id": "ep03-bbs-14-051",
+          "from": "sunghoon",
+          "text": "아이고",
+          "sentAt": "2026-05-14T22:16"
+        },
+        {
+          "id": "ep03-bbs-14-052",
+          "from": "me",
+          "text": "집에 일이 있었대",
+          "sentAt": "2026-05-14T22:17"
+        },
+        {
+          "id": "ep03-bbs-14-053",
+          "from": "me",
+          "text": "연락 못 한 이유는 설명해줬는데",
+          "sentAt": "2026-05-14T22:18"
+        },
+        {
+          "id": "ep03-bbs-14-054",
+          "from": "me",
+          "text": "너무 몰아붙였나 싶네",
+          "sentAt": "2026-05-14T22:19"
+        },
+        {
+          "id": "ep03-bbs-14-055",
+          "from": "jake",
+          "text": "너 며칠 내내 걱정했잖아",
+          "sentAt": "2026-05-14T22:20"
+        },
+        {
+          "id": "ep03-bbs-14-057",
+          "from": "sunghoon",
+          "text": "너 그 기분으로 내일 여행 제대로 하겠냐",
+          "sentAt": "2026-05-14T22:22"
+        },
+        {
+          "id": "ep03-bbs-14-058",
+          "from": "me",
+          "text": "그러게",
+          "sentAt": "2026-05-14T22:23"
+        },
+        {
+          "id": "ep03-bbs-14-059",
+          "from": "jake",
+          "text": "내일 가서 바다도보고 하면서 머리좀 식혀야지머",
+          "sentAt": "2026-05-14T22:24"
+        },
+        {
+          "id": "ep03-bbs-14-060",
+          "from": "me",
+          "text": "ㅇㅇ 미안하다 너네한테까지",
+          "sentAt": "2026-05-14T22:25"
+        },
+        {
+          "id": "ep03-bbs-14-061",
+          "from": "sunghoon",
+          "text": "됐고 짐이나 싸",
+          "sentAt": "2026-05-14T22:26"
+        },
+        {
+          "id": "ep03-bbs-14-062",
+          "from": "jake",
+          "text": "ㅋㅋㅋ 여권 챙겨라",
+          "sentAt": "2026-05-14T22:26"
+        },
+        {
+          "id": "ep03-bbs-14-063",
+          "from": "me",
+          "text": "제주도 가는데 무슨 여권이야",
+          "sentAt": "2026-05-14T22:27"
+        },
+        {
+          "id": "ep03-bbs-14-063f",
+          "from": "me",
+          "text": "어이없네",
+          "sentAt": "2026-05-14T22:27"
+        },
+        {
+          "id": "ep03-bbs-15-064",
+          "from": "jake",
+          "text": "다들 도착하면 연락",
+          "sentAt": "2026-05-15T07:10"
+        },
+        {
+          "id": "ep03-bbs-15-065",
+          "from": "me",
+          "text": "ㅇㅇ",
+          "sentAt": "2026-05-15T07:12"
+        },
+        {
+          "id": "ep03-bbs-15-065",
+          "from": "sunghoon",
+          "text": "나 도착함",
+          "sentAt": "2026-05-15T07:21"
+        },
+        {
+          "id": "ep03-bbs-16-081",
+          "from": "jake",
+          "text": "사진 단톡에 올려줘",
+          "sentAt": "2026-05-16T17:43"
+        },
+        {
+          "id": "ep03-bbs-16-082",
+          "from": "me",
+          "text": "나중에 몰아서 보내줌",
+          "sentAt": "2026-05-16T17:45"
+        },
+        {
+          "id": "ep03-bbs-17-096",
+          "from": "me",
+          "text": "너네 잘들어감?",
+          "sentAt": "2026-05-17T21:31"
+        },
+        {
+          "id": "ep03-bbs-17-097",
+          "from": "me",
+          "text": "나 오늘 선우 잠깐 보러 갈 듯",
+          "sentAt": "2026-05-17T21:32"
+        },
+        {
+          "id": "ep03-bbs-17-098",
+          "from": "sunghoon",
+          "text": "ㅋㅋㅋㅋ화해했다더니 바로",
+          "sentAt": "2026-05-17T21:33"
+        },
+        {
+          "id": "ep03-bbs-17-099",
+          "from": "jake",
+          "text": "야 그럴줄 알았다ㅎㅎ",
+          "sentAt": "2026-05-17T21:33"
+        },
+        {
+          "id": "ep03-bbs-17-100",
+          "from": "me",
+          "text": "뭘 그럴줄알아 맨날",
+          "sentAt": "2026-05-17T21:34"
+        },
+        {
+          "id": "ep03-bbs-17-101",
+          "from": "jake",
+          "text": "ㅎㅎ잘 만나고 와",
+          "sentAt": "2026-05-17T21:35"
+        }
+      ]
+    },
+    {
+      "id": "kakao-jihu",
+      "type": "direct",
+      "memberIds": [
+        "jihu"
+      ],
+      "muted": true,
+      "messages": [
+        {
+          "id": "kakao-jihu-2",
+          "from": "me",
+          "text": "네 월요일에 송부드리겠습니다",
+          "sentAt": "2026-05-14T16:44"
+        }
+      ]
+    },
+    {
+      "id": "kakao-data-team",
+      "type": "group",
+      "title": "데이터분석1팀",
+      "memberIds": [
+        "dohyunkim",
+        "jaehyunpark",
+        "seungjunlee",
+        "yoonjaechoi",
+        "jihoonseo",
+        "yujinhan"
+      ],
+      "unreadCount": 1,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-data-team-1",
+          "from": "me",
+          "text": "오늘 회의 자료 공유드립니다",
+          "sentAt": "2026-05-15T15:04"
+        }
+      ]
+    },
+    {
+      "id": "kakao-company",
+      "type": "group",
+      "title": "회사",
+      "memberIds": [
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim",
+        "hyunwoojang",
+        "subinkwon",
+        "yerinsong",
+        "dohyunkim",
+        "yerinsong",
+        "dohyunkim"
+      ],
+      "unreadCount": 5,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-company-1",
+          "from": "me",
+          "text": "확인했습니다",
+          "sentAt": "2026-05-15T17:15"
+        }
+      ]
+    },
+    {
+      "id": "kakao-coworkers",
+      "type": "group",
+      "title": "동기",
+      "memberIds": [
+        "jihoonseo",
+        "yujinhan",
+        "yoonjaechoi",
+        "taeokang"
+      ],
+      "unreadCount": 3,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-coworkers-1",
+          "from": "me",
+          "text": "아오 진짜ㅡㅡ",
+          "sentAt": "2026-05-15T15:11"
+        }
+      ]
+    },
+    {
+      "id": "kakao-family",
+      "type": "group",
+      "title": "우리가족",
+      "memberIds": [
+        "mom",
+        "dad"
+      ],
+      "unreadCount": 0,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-family-1",
+          "from": "me",
+          "text": "잘 다녀와",
+          "sentAt": "2026-05-15T10:03"
+        }
+      ]
+    },
+    {
+      "id": "kakao-mom",
+      "type": "direct",
+      "title": "엄마",
+      "memberIds": [
+        "mom"
+      ],
+      "unreadCount": 0,
+      "pinned": false,
+      "messages": [
+        {
+          "id": "kakao-family-1",
+          "from": "me",
+          "text": "화요일 맞춰 보낼게",
+          "sentAt": "2026-05-16T11:04"
+        }
+      ]
+    }
+  ],
   "kakaoProfiles": [
     {
       "contactId": "me",

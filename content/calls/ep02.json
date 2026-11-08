@@ -1,6 +1,5 @@
 {
-  "calls": 
-  [
+  "calls": [
     {
       "id": "call-54",
       "contactId": "user",
@@ -262,5 +261,5 @@
       "calledAt": "2026-05-10T18:24",
       "durationSec": 207
     }
-]
+  ]
 }

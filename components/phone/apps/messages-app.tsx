@@ -14,7 +14,7 @@ export function MessagesApp(){
  useEffect(()=>{setReady(false);try{setRead(JSON.parse(localStorage.getItem(readKey)||'[]'))}catch{setRead([])}try{const v=JSON.parse(localStorage.getItem(editKey)||'null');setExtra(v&&typeof v==='object'?{sent:v.sent||{},deleted:v.deleted||[]}:empty())}catch{setExtra(empty())}setSelected(null);setDraft('');setReady(true)},[readKey,editKey])
  useEffect(()=>{if(ready)try{localStorage.setItem(editKey,JSON.stringify(extra))}catch{}},[extra,ready,editKey])
  const threads=useMemo(()=>content.smsThreads.map(t=>({...t,messages:[...t.messages,...(extra.sent[t.id]||[])].filter(m=>!extra.deleted.includes(m.id)).sort((a,b)=>a.sentAt.localeCompare(b.sentAt))})).filter(t=>t.messages.length).sort((a,b)=>(b.messages[b.messages.length-1]?.sentAt||'').localeCompare(a.messages[a.messages.length-1]?.sentAt||'')),[content.smsThreads,extra])
- const name=(t:typeof threads[number])=>content.contacts.find(c=>c.id===t.contactId)?.name||t.unknownNumber||'알 수 없음'
+ const name=(t:typeof threads[number])=>content.contacts.find(c=>c.id===(t.contactId==='user'?'sunwoo':t.contactId))?.name||t.unknownNumber||'알 수 없음'
  const open=(id:string)=>{setSelected(id);setDraft('');const next=[...new Set([...read,id])];setRead(next);try{localStorage.setItem(readKey,JSON.stringify(next))}catch{}}
  const current=threads.find(t=>t.id===selected)
  useEffect(()=>{if(current)bottom.current?.scrollIntoView({block:'end'})},[selected,current?.messages.length])

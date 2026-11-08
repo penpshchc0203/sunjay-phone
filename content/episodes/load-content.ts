@@ -95,7 +95,7 @@ export function loadEpisodeContent(episodeId: string): EpisodeContent {
   for (const app of Object.keys(sources)) {
     const source = sources[app]
     data = mergeData(data, source.all)
-    for (let i = 1; i <= count; i++) {
+    for (let i = app === 'notes' ? count : 1; i <= count; i++) {
       const id = `ep${String(i).padStart(2, '0')}`
       if (source[id]) data = mergeData(data, source[id])
     }
@@ -109,6 +109,13 @@ export function loadEpisodeContent(episodeId: string): EpisodeContent {
   for (let i = 1; i <= count; i++) {
     const id = `ep${String(i).padStart(2, '0')}`
     if (stateSources[id]) data = mergeData(data, stateSources[id])
+  }
+  // Legacy 'user' is Sunwoo in call and SMS records. Normalize only the
+  // loaded episode snapshot, leaving every original JSON file untouched.
+  for (const key of ['calls', 'smsThreads']) {
+    if (Array.isArray(data[key])) data[key] = data[key].map((item: Row) =>
+      item.contactId === 'user' ? {...item, contactId: 'sunwoo'} : item
+    )
   }
   return normalizeAssetPaths(data) as EpisodeContent
 }
